@@ -1,0 +1,34 @@
+.operation-panel {
+	background-color: #FFFFFF;
+}
+
+.btn-group-panel {
+	padding-left: 5px
+}
+
+.btn-group-panel button {
+	outline: none;
+}
+
+.btn-default {
+	background-color: #3c8dbc;
+	border: none;
+	color: #FFF;
+	outline: none;
+	margin: 20px 10px;
+}
+
+.btn:focus,
+.btn-default:active:focus {
+	background-color: #3c8dbc;
+	color: #FFF;
+	border: none;
+	outline: none;
+}
+
+.btn:hover {
+	background-color: #44a3da;
+	color: #FFF;
+	 border: none;
+	outline: none;
+}

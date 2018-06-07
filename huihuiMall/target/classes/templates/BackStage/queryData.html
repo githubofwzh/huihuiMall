@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>查询结果</title>
+    <script src="../../static/js/jquery-1.11.3.min.js"></script>
+    <script src="../../static/js/rem.js"></script>
+    <style>
+        body,html{
+            margin: 0px;
+            padding: 0px;
+        }
+        .main-panel{
+            width:100%;
+            background-image:url("../../static/images/h5bg.jpg");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .table{
+            width:80%;
+            height:auto;
+            position: absolute;
+            top:65%;
+            left:50%;
+            transform: translate(-50%, -50%);
+
+        }
+        .table th{
+            text-align: center;
+            font-size: 15px;
+            font-family: 微软雅黑;
+            line-height: 32px;
+            width:30%;
+            font-weight: normal;
+        }
+        .table th img{
+            width:52%;
+            height:auto;
+            padding-bottom: 10px;
+        }
+        .table td{
+            text-align: left;
+            font-size: 15px;
+            font-family: 微软雅黑;
+            line-height: 32px;
+        }
+    </style>
+</head>
+<body>
+    <container>
+        <section>
+            <div class="main-panel">
+                <div class="table" style="overflow: scroll; height: 380px; width: 100%">
+                    <table class="table" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th colspan="2">
+                                    <img src="../../static/images/h5title.png" alt="" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>企业名称：</th>
+                                <td>中国医药集团总公司</td>
+                            </tr>
+                            <tr>
+                                <th>批次号码：</th>
+                                <td>XYZ20170905</td>
+                            </tr>
+                            <tr>
+                                <th>药品名称：</th>
+                                <td>果实类</td>
+                            </tr>
+                            <tr>
+                                <th>药品规格：</th>
+                                <td>200g/袋</td>
+                            </tr>
+                            <tr>
+                                <th>医院名称：</th>
+                                <td>北京中医药医院</td>
+                            </tr>
+                            <tr>
+                                <th>药材成分：</th>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid;border-left: none;border-top: none;border-right: none;text-align: center">名称</td>
+                                <td style="border:1px solid;border-left: none;border-top: none;border-right: none;text-align: center">扶贫基地名称</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">决明子</td>
+                                <td style="text-align: left; padding-left: 10px">贵州省铜仁地区沿河土家族自治县黑水乡</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">茯苓子</td>
+                                <td style="text-align: left; padding-left: 10px">贵州省铜仁地区沿河土家族自治县黑水乡</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center">茯苓子</td>
+                                <td style="text-align: left; padding-left: 10px">贵州省铜仁地区沿河土家族自治县黑水乡</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </container>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+       var screenHeight = $(window).height()+"px";
+       $(".main-panel").css("height",screenHeight);
+    });
+</script>

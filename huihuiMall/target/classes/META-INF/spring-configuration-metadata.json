@@ -1,0 +1,87 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource",
+      "type": "com.kshl.config.DbPrimaryConfig"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second",
+      "type": "com.kshl.config.DbSecondConfig"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource.driver-class-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource.initial-size",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource.max-active",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource.min-idle",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second.driver-class-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second.initial-size",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second.max-active",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second.min-idle",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second.url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.kshl.config.DbSecondConfig",
+      "name": "spring.datasource.second.username",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource.url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.kshl.config.DbPrimaryConfig",
+      "name": "spring.datasource.username",
+      "type": "java.lang.String"
+    }
+  ]
+}

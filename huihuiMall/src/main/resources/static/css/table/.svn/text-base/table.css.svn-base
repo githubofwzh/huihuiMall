@@ -1,0 +1,159 @@
+﻿body {
+    background-color: #ecf0f5;
+}
+
+.table-panel {
+    background-color: #FFFFFF;
+}
+
+/*表格样式*/
+
+table {
+    background-color: #FFFFFF;
+}
+
+thead {
+    background-color: #ecf0f5;
+}
+
+th {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+td > img {
+    width: 120px;
+    height: 90px;
+}
+
+td > label {
+    font-weight: normal;
+    vertical-align: middle !important;
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: #ecf0f5;
+}
+
+.on-off-shelf-btn {
+    margin: 0px !important;
+}
+
+/*审核状态组*/
+.unaudited {
+    color: #999999;
+}
+
+.successed {
+    color: #1fbba6;
+}
+
+.failure {
+    color: red;
+}
+
+.checking {
+    color: orange;
+}
+
+/*上下架状态组*/
+.on-shelf {
+    color: #00ba35;
+}
+
+.off-shelf {
+    color: #ff3355;
+}
+
+.un-shelf {
+    color: #999999;
+}
+
+/*启用禁用状态组*/
+.open-status {
+    color: #1fbba6;
+}
+
+.ban-status {
+    color: red;
+}
+
+/*开店关店状态组*/
+.open-shop{
+    color: #00ba35;
+}
+
+.close-shop{
+    color: red;
+}
+
+/*订单相关状态组*/
+.un-pay {
+    color: #ff5454;
+}
+
+.be-cancel {
+    color: #999999;
+}
+
+.paid {
+    color: #2bb378;
+}
+
+.allocated {
+    color: #4e68ea;
+}
+
+.out-store {
+    color: #f36b3c;
+}
+
+.arrive-shop {
+    color: #4e9bea;
+}
+
+.finished {
+    color: #30b09d;
+}
+
+/*退换货分类状态组*/
+.return-goods{
+    color: #ff5454;
+}
+
+.exchange-goods{
+    color: #4e68ea;
+}
+
+/*终端绑定状态组*/
+.bindings{
+    color: #00ba35;
+}
+
+.unbound{
+    color: #999999;
+}
+
+/*缺货、有货状态组*/
+.out-of-stock{
+    color: #ff5454;
+}
+
+.in-stock{
+    color: #00ba35;
+}
+
+/*交易记录付、退款状态组*/
+.payMoney{
+    color: #00ba35;
+}
+
+.refundMoney{
+    color: #ff5454;
+}
+

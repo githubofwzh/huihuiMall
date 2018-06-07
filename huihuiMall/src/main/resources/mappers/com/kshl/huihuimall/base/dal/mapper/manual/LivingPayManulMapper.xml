@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kshl.huihuimall.portal.dal.manualmapper.LivingPayManualMapper">
+
+  <update id="updatePayOrder" parameterType="com.kshl.huihuimall.base.dal.entity.LivingPayBill">
+    update living_pay_bill
+    set RechargeState =#{rechargestate}
+    where BillId = #{billid}
+  </update>
+
+
+  <update id="updatepay" parameterType="com.kshl.huihuimall.base.dal.entity.LivingPay">
+    update living_pay
+    set pay_status = #{payStatus},
+    pay_type=#{payType}
+    where order_number =#{orderNumber}
+  </update>
+
+  <!--  查找手机号-->
+  <select id="getLivingPayPhone" parameterType="String" resultType="com.kshl.huihuimall.base.dal.entity.LivingPay">
+      select lp.user_account as userAccount,lpb.RechargeState as payStatus ,lp.pay_type as payType,
+      lp.product_type as productType,lpb.SaleAmount as payAmount,lp.order_number as orderNumber from living_pay lp join
+      living_pay_bill lpb on lp.order_number=lpb.OuterTid
+    where lpb.BillId =#{sordernumber}
+  </select>
+
+
+  <select id="getLivingPrince" parameterType="String" resultType="com.kshl.huihuimall.base.dal.entity.KsArea">
+    select shortname from ks_area where pid=#{pid}
+  </select>
+
+
+  <select id="getLivingBill" parameterType="String" resultType="map">
+    SELECT bill.BillId,bill.PayType,bill.OuterTid,bill.OrderTime,bill.RechargeAccount,
+    bill.SaleAmount,pay.user_account,bill.RechargeState from living_pay pay
+    join living_pay_bill bill on pay.order_number=bill.OuterTid
+    where 1=1
+      <if test="paytype != null">
+        AND bill.PayType = #{paytype}
+      </if>
+      <if test="outertid != null">
+        AND bill.OuterTid like CONCAT('%','${outertid}','%')
+      </if>
+      <if test="rechargestate != null">
+        AND bill.RechargeState = #{rechargestate}
+      </if>
+      <if test="StartTime != null and startTime!=''" >
+        　　AND DATE_FORMAT(bill.OrderTime, '%Y-%m-%d')&gt;=#{StartTime}
+      </if>
+      <if test="endTime != null and endTime!=''" >
+        　　AND DATE_FORMAT(bill.OrderTime, '%Y-%m-%d')&lt;=#{endTime}
+      </if>
+
+
+    ORDER BY bill.OrderTime DESC
+  </select>
+
+  <select id="getLivingPay" parameterType="map" resultType="com.kshl.huihuimall.base.dal.entity.LivingPay">
+    SELECT id, order_number as orderNumber,pay_amount as payAmount,product_type as productType,
+    pay_type as payType,pay_status as payStatus,pay_time as payTime,user_account as userAccount from living_pay where 1=1
+    <if test="outerTid != null and outerTid!=''" >
+      　AND order_number like CONCAT('%','${outerTid}','%')
+    </if>
+    <if test="StartTime != null and StartTime!=''" >
+      　　AND DATE_FORMAT(pay_time, '%Y-%m-%d')&gt;=#{StartTime}
+    </if>
+    <if test="endTime != null and endTime!=''" >
+      　　AND DATE_FORMAT(pay_time, '%Y-%m-%d')&lt;=#{endTime}
+    </if>
+    <if test="productType != null" >
+      　　AND pay_status=#{productType}
+    </if>
+    ORDER BY pay_time DESC
+  </select>
+
+</mapper>

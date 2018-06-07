@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kshl.huihuimall.console.dal.manualmapper.FinancialReportManualMapper">
+
+
+
+    <select id="getAllBestSell" parameterType="map" resultType="map">
+        SELECT
+        od.`code`,
+        od.productname,
+        DATE_FORMAT(so.start_time,'%Y-%m-%d') as ordertime,
+        SUM(od.number) AS allNumber
+        FROM
+        order_detail od
+        LEFT JOIN store_order so ON od.order_number = so.order_number
+        WHERE so.type=2 and (so.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                <if test="endTime!=null and endTime!=''">
+                    AND so.start_time BETWEEN DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%i:%S') AND DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%i:%S')
+                </if>
+            </if>
+        GROUP BY
+        od.`code`  ORDER BY allNumber desc
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getAllBestSellCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(*) from (SELECT
+        od.`code`,
+        od.productname,
+        SUM(od.number) AS allNumber
+        FROM
+        order_detail od
+        LEFT JOIN store_order so ON od.order_number = so.order_number
+        WHERE so.type=2 and (so.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                <if test="endTime!=null and endTime!=''">
+                    AND so.start_time BETWEEN DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%i:%S') AND DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%i:%S')
+                </if>
+            </if>
+        GROUP BY
+        od.`code`
+        ) AS a
+    </select>
+
+
+    <select id="shareProfit" parameterType="map" resultType="map">
+        SELECT IFNULL( DATE_FORMAT(p.shelves_date,'%Y-%m-%d'), " ") as shelves_date ,ord.`code`,ord.productname as name,
+        ord.purchase_price, round( (ord.total/ord.number),2)as price,
+        round(( IFNULL(ord.total/ord.number, 0) - IFNULL(ord.purchase_price, 0) - IFNULL(ord.packing_price, 0)
+        - IFNULL(ord.material_price, 0) - IFNULL(ord.transport_price, 0))*7/10,2 )AS shareProfit
+        FROM order_detail ord join product p on p.`code`=ord.`code` join store_order so
+        on so.order_number=ord.order_number
+        where so.type=2 and (so.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                AND DATE_FORMAT(p.shelves_date, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND DATE_FORMAT(p.shelves_date, '%Y-%m-%d')&lt;= #{endTime}
+            </if>
+
+        ORDER BY p.shelves_date desc
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="shareProfitCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM (SELECT p.code FROM
+        order_detail ord join product p on p.`code`=ord.`code` join store_order so
+        on so.order_number=ord.order_number
+        where so.type=2 and (so.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                AND DATE_FORMAT(p.shelves_date, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND DATE_FORMAT(p.shelves_date, '%Y-%m-%d')&lt;=#{endTime}
+            </if>
+        ) AS a
+    </select>
+
+    <select id="ThisMonthDaily" parameterType="map" resultType="map">
+        select ord.*, DATE_FORMAT(sto.start_time,'%Y-%m-%d') as starttime ,round(ord.total/ord.number,2 )as price,ord.purchase_price ,
+        round((IFNULL(ord.total/ord.number, 0) - IFNULL(ord.purchase_price, 0) - IFNULL(ord.packing_price, 0)
+        - IFNULL(ord.material_price, 0) - IFNULL(ord.transport_price, 0))*7/10*ord.number ,2)AS shareProfit
+        from store_order sto join
+        order_detail ord on sto.order_number=ord.order_number
+        WHERE sto.type=2 and  (sto.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                <if test="endTime!=null and endTime!=''">
+                    AND sto.start_time BETWEEN DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%i:%S') AND DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%i:%S')
+                </if>
+            </if>
+        ORDER BY sto.start_time desc
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="ThisMonthDailyCount" parameterType="map" resultType="java.lang.Integer">
+        select count(ord.id) from store_order sto join order_detail ord on sto.order_number=ord.order_number
+        WHERE sto.type=2 and (sto.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                <if test="endTime!=null and endTime!=''">
+                    AND sto.start_time BETWEEN DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%i:%S') AND DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%i:%S')
+                </if>
+            </if>
+    </select>
+
+    <select id="MonthReport" parameterType="map" resultType="map">
+        select d.device_code ,DATE_FORMAT(d.bing_time,'%Y-%m-%d') as bing_time,s.store_name,sp.`name`,sp.phone_number ,
+        ROUND( SUM(ord.total/ord.number),2)as price,
+        ROUND(sum((IFNULL(ord.total/ord.number, 0) - IFNULL(ord.purchase_price, 0) - IFNULL(ord.packing_price, 0)
+        - IFNULL(ord.material_price, 0) - IFNULL(ord.transport_price, 0))*7/10*ord.number),2) AS shareProfit,
+        ROUND( sum((IFNULL(ord.total/ord.number, 0) - IFNULL(ord.purchase_price, 0) - IFNULL(ord.packing_price, 0)
+        - IFNULL(ord.material_price, 0) - IFNULL(ord.transport_price, 0))*3/10*ord.number),2)  AS Profit,
+        ROUND( sum((IFNULL(ord.total/ord.number, 0) - IFNULL(ord.purchase_price, 0) - IFNULL(ord.packing_price, 0)
+        - IFNULL(ord.material_price, 0) - IFNULL(ord.transport_price, 0))*21/100*ord.number),2)  AS Recome
+        from store s join device d on s.device_id=d.id JOIN store_order sto on sto.store_id=s.id
+        join order_detail ord on ord.order_number=sto.order_number join shopkeeper sp on s.id=sp.store_id
+        join product p on p.`code`=ord.`code`   WHERE sto.type=2 and (sto.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                <if test="endTime!=null and endTime!=''">
+                    AND sto.start_time BETWEEN DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%i:%S') AND DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%i:%S')
+                </if>
+            </if>
+        GROUP BY d.bing_time desc
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="MonthReportCount" parameterType="map" resultType="java.lang.Integer">
+        select COUNT(*) from(
+        select s.id from store s join device d on s.device_id=d.id JOIN store_order sto on sto.store_id=s.id
+        join order_detail ord on ord.order_number=sto.order_number join shopkeeper sp on s.id=sp.store_id
+        join product p on p.`code`=ord.`code` WHERE sto.type=2 and (sto.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                <if test="endTime!=null and endTime!=''">
+                    AND sto.start_time BETWEEN DATE_FORMAT(#{startTime}, '%Y-%m-%d %H:%i:%S') AND DATE_FORMAT(#{endTime}, '%Y-%m-%d %H:%i:%S')
+                </if>
+            </if>
+        GROUP BY s.id) as t
+    </select>
+
+
+    <select id="dayReport" parameterType="map" resultType="map">
+        select  count(ord.number) as count,COUNT(DISTINCT sto.order_number) as ordercount ,round(SUM(ord.total/ord.number),2) as price,
+        round(sum((IFNULL(ord.total/ord.number, 0) - IFNULL(ord.purchase_price, 0) - IFNULL(ord.packing_price, 0)
+        - IFNULL(ord.material_price, 0) - IFNULL(ord.transport_price, 0))*7/10*ord.number),2) AS shareProfit ,
+        round(sum((IFNULL(ord.total/ord.number, 0) - IFNULL(ord.purchase_price, 0) - IFNULL(ord.packing_price, 0)
+        - IFNULL(ord.material_price, 0) - IFNULL(ord.transport_price, 0))*ord.number) ,2)AS Profit ,
+        DATE_FORMAT(start_time,'%Y-%m-%d') as starttime from  store_order sto
+        join order_detail ord on ord.order_number=sto.order_number
+        WHERE sto.type=2 and (sto.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                AND DATE_FORMAT(sto.start_time, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND DATE_FORMAT(sto.start_time, '%Y-%m-%d')&lt;=#{endTime}
+            </if>
+
+        GROUP BY starttime ORDER BY starttime DESC
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="dayReportCount" parameterType="map" resultType="java.lang.Integer">
+        select COUNT(*) from( select  count(ord.number) as count,COUNT(DISTINCT sto.order_number) as ordercount,
+        DATE_FORMAT(start_time,'%Y-%m-%d') as starttime from  store_order sto
+        join order_detail ord on ord.order_number=sto.order_number
+        WHERE sto.type=2 and (sto.orderstatus not in(1,2))
+            <if test="startTime!=null and startTime!=''">
+                AND DATE_FORMAT(sto.start_time, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND DATE_FORMAT(sto.start_time, '%Y-%m-%d')&lt;=#{endTime}
+            </if>
+
+        GROUP BY starttime ORDER BY starttime DESC) as t
+    </select>
+
+
+
+
+    <select id="BankReconciliation" parameterType="map" resultType="map">
+        select p.* ,(IFNULL(p.Alipay, 0) + IFNULL(p.WeChat, 0) + IFNULL(p.bankcard, 0)) as sum from
+        (SELECT sum(t.Alipay) as Alipay,sum(t.WeChat) as WeChat,sum(t.bankcard) as bankcard, t.payTime  from
+        (select payType, DATE_FORMAT(payTime,'%Y-%m-%d') as payTime  ,
+        sum(CASE payType WHEN '1' THEN money ELSE 0 END) as Alipay ,
+        sum(CASE payType WHEN '2' THEN money ELSE 0 END) as WeChat,
+        sum(CASE payType WHEN '3' THEN money ELSE 0 END) as bankcard
+        from payinfo GROUP BY payTime) as t GROUP BY t.payTime ORDER BY t.payTime desc) as p
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="startTime!=null and startTime!=''">
+                AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&lt;=#{endTime}
+            </if>
+
+        </trim>
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="BankReconciliationCount" parameterType="map" resultType="java.lang.Integer">
+        select COUNT(*) from
+        (SELECT sum(t.Alipay) as Alipay,sum(t.WeChat) as WeChat,sum(t.bankcard) as bankcard, t.payTime  from
+        (select payType, DATE_FORMAT(payTime,'%Y-%m-%d') as payTime  ,
+        sum(CASE payType WHEN '1' THEN money ELSE 0 END) as Alipay ,
+        sum(CASE payType WHEN '2' THEN money ELSE 0 END) as WeChat,
+        sum(CASE payType WHEN '3' THEN money ELSE 0 END) as bankcard
+        from payinfo GROUP BY payTime) as t GROUP BY t.payTime ORDER BY t.payTime desc) as p
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="startTime!=null and startTime!=''">
+                AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime!=null and endTime!=''">
+                AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&lt;=#{endTime}
+            </if>
+
+        </trim>
+    </select>
+
+</mapper>

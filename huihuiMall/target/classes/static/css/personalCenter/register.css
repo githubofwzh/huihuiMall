@@ -1,0 +1,201 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+}
+img{
+    border: 0;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #408DDF;
+}
+.main{
+    height: 100%;
+}
+.logo{
+    width:100%;
+    height: 3.3rem;
+    text-align: center;
+}
+
+.logo span{
+    height:100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo span img{
+    height: 1.26rem;
+    vertical-align: middle;
+    margin-top: 1.02rem;
+    display: block;
+}
+
+.name{
+    width:100%;
+    text-align: center;
+    position: relative;
+    margin-top: 0.1rem;
+    line-height: 0.9rem;
+}
+
+.name input{
+    width:5.8rem;
+    height:0.9rem;
+    border-radius: 0.45rem;
+    border: 0;
+    outline: 0;
+    font-size: 0.28rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    color:#ffffff;
+    background-color: #256cb7;
+    vertical-align: middle;
+}
+
+.phone{
+    width:100%;
+    text-align: center;
+    position: relative;
+    margin-top: 0.1rem;
+    line-height: 0.9rem;
+}
+
+.phone input{
+    width:5.8rem;
+    height:0.9rem;
+    border-radius: 0.45rem;
+    border: 0;
+    outline: 0;
+    font-size: 0.28rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    color:#ffffff;
+    background-color: #256cb7;
+    vertical-align: middle;
+}
+
+
+.number{
+    width:100%;
+    position: relative;
+    text-align: center;
+    margin-top: 0.1rem;
+    line-height: 0.9rem;
+}
+
+.number input{
+    width:3.8rem;
+    height:0.9rem;
+    border-radius: 0.45rem;
+    border: 0;
+    outline: 0;
+    font-size: 0.28rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    color:#ffffff;
+    background-color: #256cb7;
+    vertical-align: middle;
+}
+
+.mainBody span{
+    position: absolute;
+    left: 1.25rem;
+}
+
+.mainBody img{
+    width:0.4rem;
+    max-height: 0.45rem;
+    vertical-align: middle;
+}
+
+.checkBtn{
+    display: inline-block;
+    width:1.8rem;
+    padding: 0.25rem 0;
+    outline: 0;
+    font-family: "microsoft yahei";
+    font-size: 0.28rem;
+    color: #408ddf;
+    background-color: #ffffff;
+    border:0;
+
+    text-decoration: none;
+
+    text-shadow: 1px 1px 1px rgba(255,255,255, .22);
+
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+    -moz-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+    box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+
+    -webkit-transition: all 0.01s ease;
+    -moz-transition: all 0.01s ease;
+    -o-transition: all 0.01s ease;
+    -ms-transition: all 0.01s ease;
+    transition: all 0.01s ease;
+}
+
+.loginBtn{
+    display: inline-block;
+    width:5.8rem;
+    padding: 0.22rem 0;
+    outline: 0;
+    font-family: "microsoft yahei";
+    font-size: 0.36rem;
+    color: #408ddf;
+    background-color: #ffffff;
+    vertical-align: middle;
+    border:0;
+
+    text-decoration: none;
+
+    text-shadow: 1px 1px 1px rgba(255,255,255, .22);
+
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+    -moz-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+    box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+
+    -webkit-transition: all 0.01s ease;
+    -moz-transition: all 0.01s ease;
+    -o-transition: all 0.01s ease;
+    -ms-transition: all 0.01s ease;
+    transition: all 0.01s ease;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #ffffff;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ffffff;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ffffff;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #ffffff;
+}
+
+.loginBtn span{
+    position:static;
+}
+
+.mui-btn .mui-spinner{
+    vertical-align: middle;
+}
+
+
+

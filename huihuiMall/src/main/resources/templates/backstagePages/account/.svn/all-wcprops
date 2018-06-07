@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9775/out_project/HuihuiMall/src/main/resources/templates/backstagePages/account
+END
+businessAccountMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/kshl/!svn/ver/9723/out_project/HuihuiMall/src/main/resources/templates/backstagePages/account/businessAccountMgmt.ftl
+END
+storeAccountMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/kshl/!svn/ver/9723/out_project/HuihuiMall/src/main/resources/templates/backstagePages/account/storeAccountMgmt.ftl
+END
+accountMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/kshl/!svn/ver/9775/out_project/HuihuiMall/src/main/resources/templates/backstagePages/account/accountMgmt.ftl
+END
+userMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/kshl/!svn/ver/9267/out_project/HuihuiMall/src/main/resources/templates/backstagePages/account/userMgmt.ftl
+END
+roleMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/kshl/!svn/ver/9431/out_project/HuihuiMall/src/main/resources/templates/backstagePages/account/roleMgmt.ftl
+END

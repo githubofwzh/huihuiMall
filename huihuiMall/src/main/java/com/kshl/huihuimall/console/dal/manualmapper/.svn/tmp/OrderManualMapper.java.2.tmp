@@ -1,0 +1,48 @@
+package com.kshl.huihuimall.console.dal.manualmapper;
+
+import com.kshl.huihuimall.base.dal.entity.OrderDetail;
+import com.kshl.huihuimall.base.dal.entity.ReturnExchangeOrder;
+import com.kshl.huihuimall.base.dal.entity.StoreOrder;
+import com.kshl.huihuimall.console.base.pojo.OrderProductPojo;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 订单
+ */
+
+public interface OrderManualMapper {
+
+    List<Map<String, Object>> getAllOrder(Map<String, Object> map);
+
+    Integer getAllOrderCount(Map<String, Object> map);
+
+    List<OrderDetail> getOrderDetail(String orderNumber);
+
+    StoreOrder getOrderByOrderNumber(String orderNumber);
+
+    //派单Count
+    int getAllsendOrder(Map<String, Object> map);
+    //派单集合
+    List<Map<String,Object>> sendOrder(Map<String, Object> map);
+    //退换货集合
+    List<Map<String,Object>> queryReturnExchangeOrder(Map<String, Object> map);
+    //退换货Count
+    int queryReturnExchangeOrderCount(Map<String, Object> map);
+    //根据退换货单号查询退换货详情
+    ReturnExchangeOrder getRExchangeOrderByOrderNumber(String orderNumber);
+
+    StoreOrder getOrderById(String id);
+
+    List<Map<String,Object>> queryOutInventory(Map<String, Object> map);
+
+    int queryOutInventoryCount(Map<String, Object> map);
+<<<<<<< .mine
+    //查查询订单关联订单详情关联product（分润用）询订单关联订单详情关联product（分润用）
+    List<OrderProductPojo> getOrderProductDetail(String orderNumber);
+=======
+
+    int updateStoreOrder(StoreOrder storeOrder);
+>>>>>>> .r8456
+}

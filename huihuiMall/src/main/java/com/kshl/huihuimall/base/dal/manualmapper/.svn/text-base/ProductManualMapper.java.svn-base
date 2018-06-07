@@ -1,0 +1,61 @@
+package com.kshl.huihuimall.base.dal.manualmapper;
+
+import com.kshl.huihuimall.base.dal.entity.Merchant;
+import com.kshl.huihuimall.base.dal.entity.Product;
+import com.kshl.huihuimall.base.dal.entity.Store;
+import com.kshl.huihuimall.console.base.dto.Stock;
+import com.kshl.huihuimall.console.base.pojo.ProductDetailPojo;
+import org.apache.ibatis.annotations.Param;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Ethan on 2018/2/7.
+ */
+public interface ProductManualMapper {
+
+    List<Map<String, Object>> getAllProduct(Map<String, Object> map);
+
+    int getAllProductCount(Map<String, Object> map);
+
+    List<Map<String, Object>> getAllProductReview(Map<String, Object> map);
+
+    int getAllProductReviewCount(Map<String, Object> map);
+
+    Product getproductbyCode(String productCode);
+
+    List<Map<String,Object>> queryShelvesReviewMg(Map<String, Object> map);
+
+    int queryShelvesReviewMgCount(Map<String, Object> map);
+
+    ProductDetailPojo getProductReviewDetail(Integer productid);
+
+    int putOnTheShelfSelf(Product product);
+
+    int putOnTheShelfThird(Product product);
+
+    int putOffTheShelf(Product product);
+
+    List<Map<String, Object>> ProductDetailById(Map<String, Object> map);
+    //根据商品编码查看商品信息
+    Product getProductByCode(String code);
+
+    int updateProductByKey(Product record);
+
+    int updateByPrimaryKeySelective(Product record);
+
+    List<Map<String, Object>> getThirdPartyProduct(Map<String, Object> map);
+
+    int getThirdPartyProductCount(Map<String, Object> map);
+
+    int selfServiceReview(Product product);
+
+    List<Map<String, Object>> getselfServiceReviewProduct(Map<String, Object> map);
+
+    int getselfServiceReviewProductCount(String name);
+
+    Product getPrductPrices(String code);
+
+}

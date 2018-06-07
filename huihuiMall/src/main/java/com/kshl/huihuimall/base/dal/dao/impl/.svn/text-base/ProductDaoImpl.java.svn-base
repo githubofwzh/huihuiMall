@@ -1,0 +1,650 @@
+package com.kshl.huihuimall.base.dal.dao.impl;
+
+import com.github.pagehelper.PageHelper;
+import com.kshl.base.common.utils.KSStringUtils;
+import com.kshl.huihuimall.base.constants.Constants;
+import com.kshl.huihuimall.base.dal.dao.ProductDao;
+import com.kshl.huihuimall.base.dal.entity.*;
+import com.kshl.huihuimall.base.dal.manualmapper.CategoryManualMapper;
+import com.kshl.huihuimall.base.dal.manualmapper.ProductManualMapper;
+import com.kshl.huihuimall.base.dal.mapper.*;
+import com.kshl.huihuimall.console.base.dto.Stock;
+import com.kshl.huihuimall.console.base.pojo.CategoryToBrandPojo;
+import com.kshl.huihuimall.console.base.pojo.ProductDetailPojo;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository
+public class ProductDaoImpl implements ProductDao {
+
+
+    @Autowired
+    private CategoryOneMapper categoryOneMapper;
+
+    @Autowired
+    private CategoryTwoMapper categoryTwoMapper;
+
+    @Autowired
+    private CategoryManualMapper categoryManualMapper;
+
+    @Autowired
+    private BrandMapper brandMapper;
+
+    @Autowired
+    private CategoryToBrandMapper categoryToBrandMapper;
+
+    @Autowired
+    private ProductManualMapper productManualMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
+    private ProductReviewMapper productReviewMapper;
+
+    @Autowired
+    private ProductMapper producAutotMapper;
+
+    @Override
+    public List<CategoryOne> getAllCategoryOne(Integer pageSize, Integer pageNum, String name) {
+        if (pageNum != null && pageSize != null){
+            PageHelper.startPage(pageNum,pageSize);
+        }
+        CategoryOneExample example = new CategoryOneExample();
+        CategoryOneExample.Criteria criteria = example.createCriteria();
+        if(!KSStringUtils.isEmpty(name)){
+            criteria.andNameLike("%" + name + "%");
+        }
+        return categoryOneMapper.selectByExample(example);
+    }
+
+ /*   @Override
+    public List<CategoryTwo> getAllCategoryTwo(Integer pageSize, Integer pageNum, String name, Integer parentId) {
+        if (pageNum != null && pageSize != null){
+            PageHelper.startPage(pageNum,pageSize);
+        }
+        CategoryTwoExample example = new CategoryTwoExample();
+        CategoryTwoExample.Criteria criteria = example.createCriteria();
+
+        if(parentId != null){
+            criteria.andParentIdEqualTo(parentId);
+        }
+
+        if(!KSStringUtils.isEmpty(name)){
+            criteria.andNameLike("%" + name + "%");
+        }
+        return categoryTwoMapper.selectByExample(example);
+    }*/
+
+
+
+    @Override
+    public List<Map<String, Object>> getAllBrand(Integer pageSize, Integer pageNum, String name, Integer parentId) {
+        Map<String, Object> map = new HashMap<>();
+        if (pageNum != null && pageSize != null) {
+            Integer startPage = (pageNum - 1) * pageSize;
+            map.put("startPage", startPage);
+            map.put("pageSize", pageSize);
+        }
+        if(parentId != null){
+            map.put("categorytwoid", parentId);
+        }
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+
+        return categoryManualMapper.getAllBrand(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllProduct(Integer pageSize, Integer pageNum, String name, Integer brandId, Integer categoryOneId, Integer categoryTwoId, Integer shelvesStatus, Integer merchantType, Integer merchantId) {
+        Map<String, Object> map = new HashMap<>();
+        if (pageNum != null && pageSize != null) {
+            Integer startPage = (pageNum - 1) * pageSize;
+            map.put("startPage", startPage);
+            map.put("pageSize", pageSize);
+        }
+
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+
+        if(brandId != null){
+            map.put("brandid", brandId);
+        }
+
+        if(categoryOneId != null){
+            map.put("categoryoneid", categoryOneId);
+        }
+
+        if(categoryTwoId != null){
+            map.put("categorytwoid", categoryTwoId);
+        }
+
+        if(shelvesStatus != null){
+            map.put("shelvesstatus", shelvesStatus);
+        }
+
+        if(merchantType != null){
+            map.put("merchanttype", merchantType);
+        }
+
+        if(merchantId != null){
+            map.put("merchantid", merchantId);
+        }
+
+        return productManualMapper.getAllProduct(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllProductReview(Integer pageSize, Integer pageNum, String name) {
+        Map<String, Object> map = new HashMap<>();
+        if (pageNum != null && pageSize != null) {
+            Integer startPage = (pageNum - 1) * pageSize;
+            map.put("startPage", startPage);
+            map.put("pageSize", pageSize);
+        }
+
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+
+        return productManualMapper.getAllProductReview(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllCategoryTwoToBrand(Integer brandId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("brandid", brandId);
+        return categoryManualMapper.getAllCategoryTwoToBrand(map);
+    }
+
+    @Override
+    public int getAllBrandCount(String name, Integer parentId) {
+        Map<String, Object> map = new HashMap<>();
+        if(parentId != null){
+            map.put("categorytwoid", parentId);
+        }
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+        return categoryManualMapper.getAllBrandCount(map);
+    }
+
+    @Override
+    public int getAllProductCount(String name, Integer brandId, Integer categoryOneId, Integer categoryTwoId, Integer shelvesStatus, Integer merchantType, Integer merchantId) {
+        Map<String, Object> map = new HashMap<>();
+
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+
+        if(brandId != null){
+            map.put("brandid", brandId);
+        }
+
+        if(categoryOneId != null){
+            map.put("categoryoneid", categoryOneId);
+        }
+
+        if(categoryTwoId != null){
+            map.put("categorytwoid", categoryTwoId);
+        }
+
+        if(shelvesStatus != null){
+            map.put("shelvesstatus", shelvesStatus);
+        }
+
+        if(merchantType != null){
+            map.put("merchanttype", merchantType);
+        }
+
+        if(merchantId != null){
+            map.put("merchantid", merchantId);
+        }
+
+        return productManualMapper.getAllProductCount(map);
+    }
+
+    @Override
+    public int getAllProductReviewCount(String name) {
+        Map<String, Object> map = new HashMap<>();
+
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+
+        return productManualMapper.getAllProductReviewCount(map);
+    }
+
+    @Override
+    public int addCategoryOne(CategoryOne record) {
+        return categoryOneMapper.insert(record);
+    }
+
+    @Override
+    public int addCategoryTwo(CategoryTwo record) {
+        return categoryTwoMapper.insertSelective(record);
+    }
+
+    /**
+     * 添加商品品牌
+     * @param brand
+     * @return
+     */
+    @Override
+    public int addBrand(Brand brand) {
+        return brandMapper.insert(brand);
+    }
+
+    @Override
+    public int addProduct(Product record) {
+        return productMapper.insert(record);
+    }
+
+    @Override
+    public int addProductReview(ProductReview record) {
+        return productReviewMapper.insert(record);
+    }
+
+    @Override
+    public int updateCategoryOne(CategoryOne record) {
+        return categoryOneMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public int updateCategoryTwo(CategoryTwo record) {
+        return categoryTwoMapper.updateByPrimaryKeySelective(record);
+    }
+
+    /**
+     * 更新品牌信息
+     * @param brand
+     * @return
+     */
+    @Override
+    public int updateBrand(Brand brand) {
+        return  brandMapper.updateByPrimaryKeySelective(brand);
+
+    }
+
+    @Override
+    public int updateProduct(Product record) {
+        return productMapper.updateByPrimaryKey(record);
+    }
+
+    /*
+    * 删除一级分类 连带删除其分类下的所有二级分类
+    */
+    @Override
+    public int deleteCategoryOne(Integer id) {
+        int delete = categoryOneMapper.deleteByPrimaryKey(id);
+        if(delete > 0){
+            CategoryTwoExample example = new CategoryTwoExample();
+            CategoryTwoExample.Criteria criteria = example.createCriteria();
+            criteria.andParentIdEqualTo(id);
+            CategoryTwo recode = new CategoryTwo();
+            recode.setParentId(-1);
+            categoryTwoMapper.updateByExample(recode,example);
+        }
+        return delete;
+    }
+
+    /*
+    * 删除二级分类 连带删除其分类下的和品牌的所有的关系数据
+    */
+    @Override
+    public int deleteCategoryTwo(Integer id) {
+        int delete = categoryTwoMapper.deleteByPrimaryKey(id);
+        if(delete > 0){
+            CategoryToBrandExample example = new CategoryToBrandExample();
+            CategoryToBrandExample.Criteria criteria = example.createCriteria();
+            criteria.andCategoryTwoIdEqualTo(id);
+            categoryToBrandMapper.deleteByExample(example);
+        }
+        return delete;
+    }
+
+    /*
+    * 删除品牌 连带删除其与二级分类的所有的关系数据
+    */
+    @Override
+    public int deleteBrand(Integer id) {
+        int delete = brandMapper.deleteByPrimaryKey(id);
+        if(delete > 0){
+            CategoryToBrandExample example = new CategoryToBrandExample();
+            CategoryToBrandExample.Criteria criteria = example.createCriteria();
+            criteria.andBrandIdEqualTo(id);
+            categoryToBrandMapper.deleteByExample(example);
+        }
+        return delete;
+    }
+
+    @Override
+    public int deleteProduct(Integer id) {
+        return productMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteProductReview(Integer id) {
+        return productReviewMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public Product getproductbyCode(String productCode) {
+        return productManualMapper.getproductbyCode(productCode);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryShelvesReviewMg(Integer pageSize, Integer pageNum, String name) {
+        Map<String,Object> map=new HashMap<>();
+        if (pageNum != null && pageSize != null) {
+            Integer startPage = (pageNum - 1) * pageSize;
+            map.put("startPage", startPage);
+            map.put("pageSize", pageSize);
+        }
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name",name);
+        }
+        map.put("auditStatus",Constants.COMPANY_AUDIT_STATUS.AUDIT_PASS);
+        map.put("shelveStatus", Constants.SHELVES_STATUS_TYPE.NOT_ON_THE_SHELF);
+        return  productManualMapper.queryShelvesReviewMg(map);
+    }
+
+    @Override
+    public int queryShelvesReviewMgCount(String name) {
+        Map<String,Object> map=new HashMap<>();
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name",name);
+        }
+        map.put("auditStatus",Constants.COMPANY_AUDIT_STATUS.AUDIT_PASS);
+        map.put("shelveStatus", Constants.SHELVES_STATUS_TYPE.NOT_ON_THE_SHELF);
+        return  productManualMapper.queryShelvesReviewMgCount(map);
+    }
+
+    @Override
+    public int productMerchantReview(Product product) {
+        return producAutotMapper.updateByPrimaryKeySelective(product);
+    }
+
+    @Override
+    public ProductDetailPojo getProductReviewDetail(Integer productid) {
+        return productManualMapper.getProductReviewDetail(productid);
+    }
+
+    /**
+     * 根据id查询一级分类详情
+     * @param id
+     * @return
+     */
+    @Override
+    public CategoryOne getCategoryOneDetail(Integer id) {
+        return categoryOneMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 查询所有一级分类（不分页）
+     * @return
+     */
+    @Override
+    public List<CategoryOne> getCategoryOneList() {
+        CategoryOneExample categoryOneExample = new CategoryOneExample();
+        return categoryOneMapper.selectByExample(categoryOneExample);
+    }
+
+    /**
+     * 查询二级分类
+     * @param pageSize
+     * @param pageNum
+     * @param name
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> getAllCategoryTwo(Integer pageSize, Integer pageNum, String name, Integer parentId) {
+        Map<String, Object> map = new HashMap<>();
+        if (pageNum != null && pageSize != null) {
+            Integer startPage = (pageNum - 1) * pageSize;
+            map.put("startPage", startPage);
+            map.put("pageSize", pageSize);
+        }
+
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+        if(parentId!=null){
+            map.put("parentId", parentId);
+        }
+
+        return categoryManualMapper.getAllCategoryTwo(map);
+    }
+
+    /**
+     * 查询二级分类数量
+     * @param name
+     * @param parentId
+     * @return
+     */
+    @Override
+    public int getAllCategoryTwoCount(String name, Integer parentId) {
+        Map<String, Object> map = new HashMap<>();
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+        if(parentId!=null){
+            map.put("parentId", parentId);
+        }
+
+        return categoryManualMapper.getAllCategoryTwoCount(map);
+    }
+
+    /**
+     * 根据二级分类信息查详情
+     * @param id
+     * @return
+     */
+    @Override
+    public CategoryTwo getCategoryTwoById(Integer id) {
+        return categoryTwoMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 查询二级分类集合
+     * @return
+     */
+    @Override
+    public List<CategoryTwo> getCategoryTwoList() {
+        CategoryTwoExample categoryTwoExample = new CategoryTwoExample();
+        return categoryTwoMapper.selectByExample(categoryTwoExample);
+    }
+
+    /**
+     * 根据parentId查询所有二级分类
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<CategoryTwo> getCategoryTwoListByPId(Integer parentId) {
+        CategoryTwoExample categoryTwoExample = new CategoryTwoExample();
+        CategoryTwoExample.Criteria criteria = categoryTwoExample.createCriteria();
+        criteria.andParentIdEqualTo(parentId);
+        return categoryTwoMapper.selectByExample(categoryTwoExample);
+    }
+
+    /**
+     * 根据品牌id查看详情
+     * @param id
+     * @return
+     */
+    @Override
+    public Brand getBrandById(Integer id) {
+        return brandMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 根据品牌id查询所有的二级分类
+     * @param id
+     * @return
+     */
+    @Override
+    public List<CategoryToBrand> getCTwoByBrandId(Integer id) {
+        CategoryToBrandExample categoryToBrandExample = new CategoryToBrandExample();
+        CategoryToBrandExample.Criteria criteria = categoryToBrandExample.createCriteria();
+        criteria.andBrandIdEqualTo(id);
+        return categoryToBrandMapper.selectByExample(categoryToBrandExample);
+    }
+
+    /**
+     * 根据品牌id删除CategoryToBrand表
+     * @param brandId
+     * @return
+     */
+    @Override
+    public int deleteCToBrandByBrandId(int brandId) {
+        return categoryManualMapper.deleteCToBrandByBrandId(brandId);
+    }
+
+    /**
+     * 保存
+     * @param categoryToBrand
+     * @return
+     */
+    @Override
+    public int addCategoryToBrand(CategoryToBrand categoryToBrand) {
+        return categoryToBrandMapper.insertSelective(categoryToBrand);
+    }
+
+    @Override
+    public int putOnTheShelfSelf(Product product){
+        return productManualMapper.putOnTheShelfSelf(product);
+    }
+
+    @Override
+    public int putOnTheShelfThird(Product product) {
+        return productManualMapper.putOnTheShelfThird(product);
+    }
+
+    @Override
+    public int putOffTheShelf(Product product){
+        return productManualMapper.putOffTheShelf(product);
+    }
+
+    @Override
+    public int productdeleteByPrimaryKey(Integer id) {
+        return producAutotMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int productinsert(Product record) {
+        return producAutotMapper.insert(record);
+    }
+
+    @Override
+    public List<Map<String, Object>> ProductDetailById(Integer id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id",id);
+        return productManualMapper.ProductDetailById(map);
+    }
+
+    @Override
+    public int productupdateByPrimaryKey(Product record) {
+        return producAutotMapper.updateByPrimaryKeySelective(record);
+    }
+
+    /**
+     * 根据二级分类id查询品牌信息
+     * @param id
+     * @return
+     */
+    @Override
+    public List<CategoryToBrandPojo> getBrandByCTId(Integer id) {
+        return categoryManualMapper.getBrandByCTId(id);
+    }
+
+    /**
+     * 根据商品编码查看商品信息
+     * @param code
+     * @return
+     */
+    @Override
+    public Product getProductByCode(String code) {
+        return productManualMapper.getProductByCode(code);
+    }
+
+    @Override
+    public List<Map<String, Object>> getThirdPartyProduct(Integer pageSize, Integer pageNum, Integer accountId,String name , Integer shelvesStatus, Integer reviewStatus) {
+        Map<String, Object> map = new HashMap<>();
+        if (pageNum != null && pageSize != null) {
+            Integer startPage = (pageNum - 1) * pageSize;
+            map.put("startPage", startPage);
+            map.put("pageSize", pageSize);
+        }
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+        if(shelvesStatus != null){
+            map.put("shelvesStatus", shelvesStatus);
+        }
+        if(reviewStatus != null){
+            map.put("reviewStatus", reviewStatus);
+        }
+        if(accountId != null){
+            map.put("accountId", accountId);
+        }
+
+        return productManualMapper.getThirdPartyProduct(map);
+    }
+
+    @Override
+    public int getThirdPartyProductCount(String name, Integer accountId, Integer shelvesStatus, Integer reviewStatus) {
+        Map<String, Object> map = new HashMap<>();
+        if(!KSStringUtils.isEmpty(name)){
+            map.put("name", name);
+        }
+        if(shelvesStatus != null){
+            map.put("shelvesStatus", shelvesStatus);
+        }
+        if(reviewStatus != null){
+            map.put("reviewStatus", reviewStatus);
+        }
+        if(accountId != null){
+            map.put("accountId", accountId);
+        }
+        return productManualMapper.getThirdPartyProductCount(map);
+    }
+
+    @Override
+    public int selfServiceReview(Product product) {
+        return productManualMapper.selfServiceReview(product);
+    }
+
+    @Override
+    public List<Map<String, Object>> getselfServiceReviewProduct(Integer pageSize, Integer pageNum, String mername) {
+        Map<String, Object> map = new HashMap<>();
+        if (pageNum != null && pageSize != null) {
+            Integer startPage = (pageNum - 1) * pageSize;
+            map.put("startPage", startPage);
+            map.put("pageSize", pageSize);
+        }
+        if(!KSStringUtils.isEmpty(mername)){
+            map.put("mername", mername);
+        }
+        return productManualMapper.getselfServiceReviewProduct(map);
+    }
+
+    @Override
+    public int getselfServiceReviewProductCount(String name) {
+        return productManualMapper.getselfServiceReviewProductCount(name);
+    }
+
+    @Override
+    public Product getPrductPrices(String code) {
+        return productManualMapper.getPrductPrices(code);
+    }
+}

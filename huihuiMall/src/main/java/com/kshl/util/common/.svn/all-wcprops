@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common
+END
+WeiXinUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/WeiXinUtil.java
+END
+MenuUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/MenuUtil.java
+END
+AccessToken.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/AccessToken.java
+END
+EnumMethod.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/EnumMethod.java
+END
+MyX509TrustManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/MyX509TrustManager.java
+END
+EnumEventType.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/EnumEventType.java
+END
+CoreService.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/CoreService.java
+END
+EnumMessageType.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/EnumMessageType.java
+END
+SNSUserInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/SNSUserInfo.java
+END
+Result.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/Result.java
+END
+BaseMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/BaseMessage.java
+END
+MessageUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/MessageUtil.java
+END
+CommonUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/CommonUtil.java
+END
+WeixinOauth2Token.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/WeixinOauth2Token.java
+END
+SignUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/kshl/!svn/ver/9391/out_project/HuihuiMall/src/main/java/com/kshl/util/common/SignUtil.java
+END

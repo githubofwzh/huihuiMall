@@ -1,0 +1,230 @@
+package com.kshl.huihuimall.portal.controller;
+
+import com.kshl.base.response.BaseResponse;
+<<<<<<< .mine
+import com.kshl.base.response.ResponseBuilder;
+=======
+import com.kshl.huihuimall.base.dal.entity.Customer;
+>>>>>>> .r8490
+import com.kshl.huihuimall.base.dal.entity.InventoryOut;
+import com.kshl.huihuimall.base.dal.entity.OrderDetail;
+import com.kshl.huihuimall.base.dal.entity.StoreOrder;
+import com.kshl.huihuimall.base.utils.DateFormatUtil;
+import com.kshl.huihuimall.console.controller.order.request.OrderRequest;
+import com.kshl.huihuimall.portal.controller.request.OrderSplit;
+<<<<<<< .mine
+import com.kshl.huihuimall.portal.controller.request.ProfitRequest;
+=======
+import com.kshl.huihuimall.portal.service.allorder.AllOrderService;
+import com.kshl.huihuimall.portal.service.customer.CustomerService;
+>>>>>>> .r8490
+import com.kshl.huihuimall.portal.service.ordersplit.PortalStroeOrderService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static com.kshl.huihuimall.console.CSErrorCode.INVALID_PARAM;
+
+@Controller
+@EnableAutoConfiguration
+@RequestMapping("/ProtalStoreOrder")
+public class ProtalOrderSplitController {
+    private static Logger logger = LoggerFactory.getLogger(AllOrderController.class);
+    @Autowired
+    private PortalStroeOrderService portalStroeOrderService;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private AllOrderService allOrderService;
+
+    @RequestMapping(value = "/OrderSplit", method = {RequestMethod.POST})
+    @ResponseBody
+    @Transactional
+    public BaseResponse OrderSplit(OrderSplit oderSplitRequest, HttpServletRequest request, HttpServletResponse response){
+        logger.debug("OrderSplit start");
+        String store=request.getParameter("StoreOder");
+        String commodity_Address=request.getParameter("commodity_Address");
+        System.out.println(commodity_Address+"4534");
+        String commodity_faceId=request.getParameter("commodity_faceId");
+        System.out.println(commodity_faceId+"23213");
+        String commodity_faceShopkeeperId=request.getParameter("commodity_faceShopkeeperId");
+        String commodity_retuserId=request.getParameter("commodity_retuserId");
+        int userid=Integer.valueOf(commodity_retuserId.toString());//用户id
+        String commodity_faceName=request.getParameter("commodity_faceName");
+        String commodity_Orderstate=request.getParameter("commodity_Orderstate");
+        String commodity_StorageRoomId=request.getParameter("commodity_StorageRoomId");
+        String commodity_RefereeId=request.getParameter("commodity_RefereeId");
+        int refereeId=Integer.valueOf(commodity_RefereeId.toString());//推荐人id
+        int faceId=Integer.valueOf(commodity_faceId.toString());//商店idcommodity_faceId
+        String PrOrder= DateFormatUtil.getOrderIdByUUId();// zong订单
+        JSONArray jsonArray = JSONArray.fromObject(store);
+        List<StoreOrder> userIdIfExist=allOrderService.userIdIfExist(userid);
+        if(userIdIfExist==null){
+            Customer customer=new Customer();
+            customer.setId(userid);
+            customer.setStoreId(faceId);
+            customer.setRecommendPersonId(refereeId);
+            customerService.updateByPrimaryKey(customer);
+        }
+
+        Object[] objs = jsonArray.toArray();
+        for (Object object : objs) {
+            JSONObject jsonObject = JSONObject.fromObject(object);
+            String orderStatus= commodity_Orderstate.toString();
+            String ordernumber= DateFormatUtil.getOrderIdByUUId();//子订单
+            if(orderStatus.equals("3")){
+                String code= DateFormatUtil.getOrderIdByUUId();//入库号
+                System.out.println("ck"+code);
+                String type=jsonObject.get("Sj_type").toString();//商家名称
+                String shopName=jsonObject.get("commodity_shopName").toString();//商家名称
+                String faceName=commodity_faceName.toString();//门店名称
+                String Address=commodity_Address.toString();//门店地址
+                String productname=jsonObject.get("commodity_name").toString();//商品名称
+                String productcode=jsonObject.get("commodity_shopCode").toString();//商品编码
+                String merId= jsonObject.get("commodity_Id").toString();//商家code
+                int money=Integer.valueOf(jsonObject.get("commodity_money").toString());//总金额
+                int productnumber=Integer.valueOf(jsonObject.get("commodity_number").toString());//商品数量;
+                int productId= Integer.valueOf(jsonObject.get("commodity_Id").toString());//商品id
+                int RoomId=Integer.valueOf(commodity_StorageRoomId.toString());//仓库id
+                int ShopkeeperId=Integer.valueOf(commodity_faceShopkeeperId.toString());//商店负责人id;
+                //int faceId=Integer.valueOf(commodity_faceId.toString());//商店idcommodity_faceId
+                //int refereeId=Integer.valueOf(commodity_RefereeId.toString());//推荐人id
+                //int userid=Integer.valueOf(commodity_retuserId.toString());//用户id
+
+                if(type.equals("1")){
+                    //出库表
+                    InventoryOut inventoryOut=new InventoryOut();
+                    inventoryOut.setCode("ck"+code);
+                    inventoryOut.setOrderNumber(ordernumber);
+                    inventoryOut.setStorehouseId(RoomId);
+                    inventoryOut.setStatus(1);
+                    portalStroeOrderService.insert(inventoryOut);
+
+                    StoreOrder record=new StoreOrder ();
+                    record.setOrderNumber(ordernumber);
+                    record.setStartTime(new Date());
+                    //record.setEndTime();
+                    record.setType(type);
+                    record.setOrderstatus(orderStatus);
+                    record.setStorename(faceName);
+                    record.setMerchantname(shopName);
+                    record.setStoreaddress(Address);
+                    record.setParentId(PrOrder);
+                    record.setStoreId(faceId);
+                    record.setRecomStoreId(refereeId);
+                    record.setStorehouseId(RoomId);
+                    record.setShopkeeperId(ShopkeeperId);
+                    record.setUserId(userid);
+                    record.setEntCode(merId);
+                    portalStroeOrderService.insertStore(record);
+                    //订单详情
+                    OrderDetail Detail=new OrderDetail ();
+                    Detail.setOrderNumber(ordernumber);
+                    Detail.setNumber(productnumber);
+                    Detail.setCode(productcode);
+                    Detail.setProductname(productname);
+                    Detail.setTotal(BigDecimal.valueOf(money));
+                    portalStroeOrderService.insertDetail(Detail);
+                }else if(type.equals("2")){
+                    //出库表
+                    InventoryOut inventoryOut=new InventoryOut();
+                    inventoryOut.setCode("ck"+code);
+                    inventoryOut.setOrderNumber(ordernumber);
+                    inventoryOut.setStorehouseId(RoomId);
+                    inventoryOut.setStatus(1);
+                    portalStroeOrderService.insert(inventoryOut);
+
+                    StoreOrder record=new StoreOrder ();
+                    record.setOrderNumber(ordernumber);
+                    record.setStartTime(new Date());
+                    //record.setEndTime();
+                    record.setType(type);
+                    record.setOrderstatus(orderStatus);
+                    record.setStorename(faceName);
+                    record.setMerchantname(shopName);
+                    record.setStoreaddress(Address);
+                    record.setParentId(PrOrder);
+                    record.setRecomStoreId(refereeId);
+                    record.setStorehouseId(RoomId);
+                    record.setStoreId(faceId);
+                    record.setShopkeeperId(ShopkeeperId);
+                    record.setUserId(userid);
+                    record.setEntCode(merId);
+                    portalStroeOrderService.insertStore(record);
+                    //订单详情
+                    OrderDetail Detail=new OrderDetail ();
+                    Detail.setOrderNumber(ordernumber);
+                    Detail.setNumber(productnumber);
+                    Detail.setProductname(productname);
+                    Detail.setTotal(BigDecimal.valueOf(money));
+                    Detail.setCode(productcode);
+                    portalStroeOrderService.insertDetail(Detail);
+
+                }else {
+                    System.out.println("出现了新的商家");
+                }
+
+            }
+
+        }
+        BaseResponse baseResponse=new BaseResponse();
+        baseResponse.setRetCode((long) 1);
+        return baseResponse;
+    }
+
+    /**
+     * 分润记录用
+     * @param profitRequest
+     * @return
+     */
+    @RequestMapping(value = "/getOrderProfit", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getOrderProfit(ProfitRequest profitRequest) {
+        logger.debug("getOrderProfit start");
+        BaseResponse response;
+        if (profitRequest.getStoreId() == null) {
+            logger.warn("[ProfitRequest] param error storeId can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = portalStroeOrderService.getOrderProfit(profitRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 门店总利润
+     * @param profitRequest
+     * @return
+     */
+    @RequestMapping(value = "/getTotalOrderProfit", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getTotalOrderProfit(ProfitRequest profitRequest) {
+        logger.debug("getTotalOrderProfit start");
+        BaseResponse response;
+        if (profitRequest.getStoreId() == null) {
+            logger.warn("[ProfitRequest] param error storeId can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = portalStroeOrderService.getTotalOrderProfit(profitRequest);
+        }
+        return response;
+    }
+
+}
+
+
+

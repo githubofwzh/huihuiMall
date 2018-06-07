@@ -1,0 +1,82 @@
+.aLink
+{
+    color: #00b38b;
+    text-decoration: none;
+}
+.aLink:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #00b38b;
+}
+.aLink:active, .aLink:focus
+{
+    text-decoration: none;
+    color: #00b38b;
+    outline: none;
+}
+
+/* 设置节点属性 */
+.tree_content
+{
+    margin-top:10px;
+    height:250px;
+    overflow-y:auto;
+}
+.div_inline
+{
+    display: inline-block;
+    vertical-align: top;
+}
+.tree_node
+{
+    margin-bottom:0;
+    background: url(../../images/parentTreeLine.gif) 0 0 repeat-y;
+}
+
+.tree_node_toggle_button{
+    display: inline-block;
+    line-height: 0;
+    margin: 0;
+    width: 18px;
+    height: 16px;
+    vertical-align: middle;
+    background: url(../../images/treeLine.png) 0 0 repeat-y;
+    background-position: -110px -25px;
+}
+
+.childrenLine{
+    background-image: url(../../images/treeLine.png);
+    background-position: -56px -23px;
+    display: inline-block;
+    width: 16px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.tree_node_child_checkbox{
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.tree_node_child_checkbox span{
+    height: 16px;
+    line-height: 16px;
+}
+
+.tree_node_parent
+{
+    margin-left:10px;
+}
+.tree_node_parent input
+{
+    margin-right:6px;
+    vertical-align: middle;
+}
+.tree_node_child
+{
+    padding-left: 20px;
+    /*margin-left: 25px;*/
+    line-height: 16px;
+    background: url(../../images/parentTreeLine.gif) 0 0 repeat-y;
+}

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/kshl/!svn/ver/10047/out_project/HuihuiMall/src/main/resources/templates/backstagePages/goods
+END
+brandMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/kshl/!svn/ver/8407/out_project/HuihuiMall/src/main/resources/templates/backstagePages/goods/brandMgmt.ftl
+END
+businessGoodsMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/kshl/!svn/ver/10047/out_project/HuihuiMall/src/main/resources/templates/backstagePages/goods/businessGoodsMgmt.ftl
+END
+secondClassificationMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/kshl/!svn/ver/9769/out_project/HuihuiMall/src/main/resources/templates/backstagePages/goods/secondClassificationMgmt.ftl
+END
+firstClassificationMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/kshl/!svn/ver/8557/out_project/HuihuiMall/src/main/resources/templates/backstagePages/goods/firstClassificationMgmt.ftl
+END
+selfGoodsMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/kshl/!svn/ver/10047/out_project/HuihuiMall/src/main/resources/templates/backstagePages/goods/selfGoodsMgmt.ftl
+END

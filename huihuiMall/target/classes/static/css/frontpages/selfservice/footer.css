@@ -1,0 +1,54 @@
+.footer{
+    height: 90px;
+    position: fixed;
+    bottom: 0;
+}
+.padding_zero{
+    padding: 0;
+}
+.footer_main{
+    padding: 16px 20px;
+    background-color: #fcf9f4;
+    border-top: 1px solid #eeeeee;
+}
+.footer button{
+    width: 180px;
+    line-height: 33px;
+    border: 0;
+    background-color: #c57030;
+    color: #FFFFFF;
+    font-size: 32px;
+    border-radius: 8px;
+}
+.footer_main button{
+    height: 60px;
+    font-size: 28px;
+    color: #ffffff;
+    background-color: #c57030;
+    border: 0;
+    border-radius: 4px;
+}
+.img_one{
+    width: 30px;
+    margin-top: -3px;
+    margin-right: 5px;
+}
+.img_two{
+    width: 28px;
+    margin-top: -3px;
+    margin-right: 5px;
+}
+.footer_main>span{
+    text-align: center;
+    font-size: 25px;
+    line-height: 70px;
+}
+
+.goTop{
+    position: fixed;
+    right: 30px;
+    bottom: 100px;
+}
+.goTop i{
+    font-size: 50px;
+}

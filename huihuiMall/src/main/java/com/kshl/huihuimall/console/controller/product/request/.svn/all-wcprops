@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/kshl/!svn/ver/9032/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request
+END
+BrandRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/kshl/!svn/ver/8300/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/BrandRequest.java
+END
+CategoryTwoRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/kshl/!svn/ver/8271/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/CategoryTwoRequest.java
+END
+CategoryToBrandRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/kshl/!svn/ver/8300/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/CategoryToBrandRequest.java
+END
+newProductRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/kshl/!svn/ver/9027/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/newProductRequest.java
+END
+CategoryOneRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/kshl/!svn/ver/8301/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/CategoryOneRequest.java
+END
+ProductRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/kshl/!svn/ver/9032/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/ProductRequest.java
+END
+ProductReviewRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/7560/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/ProductReviewRequest.java
+END
+CategoryThreeRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/7618/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/product/request/CategoryThreeRequest.java
+END

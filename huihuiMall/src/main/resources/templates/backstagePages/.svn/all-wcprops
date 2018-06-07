@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/kshl/!svn/ver/10047/out_project/HuihuiMall/src/main/resources/templates/backstagePages
+END
+welcome.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/kshl/!svn/ver/7610/out_project/HuihuiMall/src/main/resources/templates/backstagePages/welcome.ftl
+END
+index.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/kshl/!svn/ver/7906/out_project/HuihuiMall/src/main/resources/templates/backstagePages/index.ftl
+END
+login.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/kshl/!svn/ver/9018/out_project/HuihuiMall/src/main/resources/templates/backstagePages/login.ftl
+END

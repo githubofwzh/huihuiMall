@@ -1,0 +1,146 @@
+package com.kshl.huihuimall.base.utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
+
+/**
+ * Created by Administrator on 2017/5/25.
+ */
+public class DateFormatUtil {
+    public static String getNextDay(String startDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = sdf.parse(startDate);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH,1);
+            date = calendar.getTime();
+            return sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getSevenDay(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            calendar.add(Calendar.DAY_OF_MONTH,-6);
+            Date date = calendar.getTime();
+            return sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public static int getDays(String startDate,String endDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        int days = 0;
+        try {
+            days = (int)(sdf.parse(DateFormatUtil.getNextDay(endDate)).getTime()-sdf.parse(startDate).getTime())/(1000*3600*24);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return days;
+    }
+
+    /**
+     * 获取当前毫秒值，用于订单号。
+     * @return
+     */
+    public static String getHaoMiao(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String timeNumber =  sdf.format( new Date());
+        return timeNumber;
+    }
+
+    /**
+     * String类型转换date类型（格式 ：yyyy-MM-dd HH:mm:ss）
+     * @param str
+     * @return
+     */
+   public static Date getDate(String str)  {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+   //自增生成订单号
+    public static String getOrderIdByUUId() {
+        int machineId = 1;//最大支持1-9个集群机器部署
+        int hashCodeV = UUID.randomUUID().toString().hashCode();
+        if(hashCodeV < 0) {//有可能是负数
+            hashCodeV = - hashCodeV;
+        }
+        // 0 代表前面补充0
+        // 4 代表长度为4
+        // d 代表参数为正数型
+        return machineId + String.format("%015d", hashCodeV);
+    }
+
+
+    /**
+     * 获取某月第一天，最后一天
+     * @param date
+     * @return
+     * @throws ParseException
+     */
+        public static String getTime(String date) throws ParseException {
+            //数据 2018 1
+            String[] str1 = date.split("-");
+            String year = str1[0];
+            String mounth = str1[1];
+            int parmounth = Integer.parseInt(mounth);
+            int parYear = Integer.parseInt(year);
+            // 某年某月第一天
+            String firstYearOfMounth;
+            // 2018-01-01
+            if(parmounth>0 && parmounth<10){
+                firstYearOfMounth = parYear + "-0" + parmounth  + "-01";
+            }else{
+                firstYearOfMounth = parYear + parmounth  + "-01";
+            }
+            // 某年某月最后一天
+            String lastYearOfMounth = getLastDayOfMonth(parYear,parmounth);
+            String firstLast = firstYearOfMounth + "," + lastYearOfMounth;
+            return  firstLast;
+        }
+
+     public  static String getLastDayOfMonth(int year,int month)
+        {
+            Calendar cal = Calendar.getInstance();
+            //设置年份
+            cal.set(Calendar.YEAR,year);
+            //设置月份
+            cal.set(Calendar.MONTH, month-1);
+            //获取某月最大天数
+            int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+            //设置日历中月份的最大天数
+            cal.set(Calendar.DAY_OF_MONTH, lastDay);
+            //格式化日期
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String lastDayOfMonth = sdf.format(cal.getTime());
+
+            return lastDayOfMonth;
+        }
+
+    public static String entCode() {
+        String uuid = java.util.UUID.randomUUID().toString().replaceAll("-", "");
+        String entCode= uuid.substring(0, 6);
+        return entCode;
+    }
+
+
+
+}

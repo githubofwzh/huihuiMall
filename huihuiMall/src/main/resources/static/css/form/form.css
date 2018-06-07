@@ -1,0 +1,65 @@
+﻿body {
+	background-color: #ecf0f5;
+}
+
+.modal-title {
+	text-align: center;
+}
+
+.close {
+	outline: none;
+}
+
+.title {
+	padding: 0px;
+	text-align: right;
+	line-height: 34px;
+	margin-bottom: 0px;
+}
+
+.title label {
+	font-weight: normal;
+}
+
+.input-box {
+	padding-right: 0px;
+}
+
+.input-form {
+	padding-left: 0px;
+	margin-bottom: 10px;
+	/* margin-top:10px;*/
+}
+
+
+/*带滚动条的弹窗*/
+/*员工账号页面modal*/
+#staffModal .modal-dialog {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#staffModal .modal-content {
+	/*overflow-y: scroll;*/
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+#staffModal .modal-body { 
+    overflow-y: scroll; 
+    position: absolute; 
+    top: 55px; 
+    bottom: 103px; 
+    width: 100%; 
+} 
+
+#staffModal .modal-footer {
+    position: absolute; 
+    width: 100%; 
+    bottom: 0; 
+}

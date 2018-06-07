@@ -1,0 +1,59 @@
+html{
+	background-color: #f0f0f0 !important;
+}
+
+input{
+	outline: none;	
+}
+
+/*修改输入框placeholder样式*/
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+	padding-left: 5px;
+} 
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+	padding-left: 5px;
+} 
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+	padding-left: 5px;
+} 
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+	padding-left: 5px; 
+} 
+
+.btn-operation-panel, .table-operation-panel{
+	background-color: #f0f0f0 !important;
+}
+
+.table-row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.table-scroll-div{
+	width: 100%; 
+	overflow-x: scroll;
+	margin-bottom: 15px;
+}
+
+.time-span, .shift-span, 
+.section-span, .andon-type-span, 
+.tps-span, .station-span, 
+.status-span, .body-number-span, .date-span{
+	padding-left: 15px;
+}
+
+.week-shift-panel{
+	margin:15px 15px 15px 0px;
+}
+
+.hour-span, .minute-span{
+	padding: 0px 15px;
+}
+
+.btn-default.disabled:hover,
+.btn-default.disabled:active,
+.btn-default.disabled:focus
+{
+	background-color: #3c8dbc;
+}
+

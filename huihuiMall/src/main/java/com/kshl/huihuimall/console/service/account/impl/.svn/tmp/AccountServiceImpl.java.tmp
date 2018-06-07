@@ -1,0 +1,263 @@
+package com.kshl.huihuimall.console.service.account.impl;
+
+import com.kshl.base.common.utils.KSStringUtils;
+import com.kshl.base.response.BasePageResponse;
+import com.kshl.base.response.BaseResponse;
+import com.kshl.base.response.ResponseBuilder;
+import com.kshl.huihuimall.base.constants.Constants;
+import com.kshl.huihuimall.base.dal.dao.Account.AccountDao;
+import com.kshl.huihuimall.base.dal.entity.KsAccount;
+import com.kshl.huihuimall.base.dal.entity.KsAccountToRole;
+import com.kshl.huihuimall.base.dal.entity.extendsEntity.KsAccountAndRole;
+import com.kshl.huihuimall.base.request.AccountMgmtRequest;
+import com.kshl.huihuimall.console.service.account.AccountService;
+import com.kshl.huihuimall.console.service.account.enums.AccountTypeEnum;
+import com.kshl.huihuimall.console.service.account.model.AccountServiceModel;
+import com.kshl.security.authentication.KSPasswordEncoder;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import static com.kshl.huihuimall.console.CSErrorCode.*;
+
+/**
+ * Created by xufengfeng on 2017/5/4.
+ */
+@Service
+public class AccountServiceImpl implements AccountService {
+
+
+    /**
+     * 企业代码长度 5，大写字母+数字
+     */
+    private static final Integer entCodeLength = 5;
+
+    /**
+     * 生成企业代码，最大重复次数
+     */
+    private static int maxTryCount = 999;
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
+
+    @Autowired
+    private AccountDao accountDao;
+
+    @Autowired
+    private KSPasswordEncoder passwordEncoder;
+
+    @Override
+    public AccountServiceModel login(String userName, String password)
+            throws IllegalArgumentException {
+
+
+
+        logger.info("[login] login userName = {}, password = {}", userName, password);
+        if (KSStringUtils.isEmpty(userName) ||
+                KSStringUtils.isEmpty(password)){
+            throw new IllegalArgumentException(" userName or password is empty");
+        }
+
+        KsAccount account = accountDao.queryAccountByUserName(userName);
+        logger.info("[login] account  {}", account.toString());
+
+        AccountServiceModel accountModel = null;
+        if (account != null){
+
+            if (passwordEncoder.matches(password, account.getLoginPassword())) {
+                accountModel = new AccountServiceModel();
+                BeanUtils.copyProperties(account, accountModel);
+
+                accountModel.setType(AccountTypeEnum.getEnum(account.getType()));
+                accountModel.setUserName(account.getLoginAccount());
+            }
+        }
+
+        return accountModel;
+    }
+
+   /* @Override
+    public List<KsAccountAndRole> getAllAccounts(Integer pageNum, Integer pageSize, String entCode, String account, String name, String phone) {
+        return accountDao.getAllAccounts(pageNum, pageSize, entCode, name, account, phone);
+    }*/
+
+    /**
+     * 分页查询ks账户列表
+     * @param request
+     * @return
+     */
+    @Override
+    public BasePageResponse queryAccounts(AccountMgmtRequest request) {
+        List<Map<String, Object>> result = accountDao.queryAccounts(request.getPageSize(), request.getPageNum(),request.getName(),request.getPhone(),request.getEnable(),request.getIsDeleted(),request.getType());
+        int total = accountDao.queryAccountsCount(request.getName(),request.getPhone(),request.getEnable(),request.getIsDeleted(),request.getType());
+        BasePageResponse<List<Map<String, Object>>> pageResponse = ResponseBuilder.buildBasePageResponse(SUCCESS);
+        pageResponse.setData(result);
+        pageResponse.setTotal(total);
+        if (request.getPageNum() > 1) {
+            pageResponse.setHasPreviousPage(true);
+        }
+        if (request.getPageSize() * request.getPageNum() >= total) {
+            pageResponse.setHasNextPage(false);
+        } else {
+            pageResponse.setHasNextPage(true);
+        }
+        int count = total / request.getPageSize();
+        pageResponse.setPages(total % request.getPageSize() == 0 ? count : count + 1);
+        return pageResponse;
+    }
+
+    /*@Override
+    public int addAcount(KsAccount account) {
+        String passwordMD5 = passwordEncoder.encode (account.getLoginPassword());
+        account.setLoginPassword(passwordMD5);
+        account.setType(Constants.ACCOUNT_TYPE.GENERAL_ACCOUNT);
+        return accountDao.addAcount(account);
+    }
+*/
+
+    /**
+     * 添加一条账户信息(控制事物)
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional
+    public BaseResponse addKsAccount(AccountMgmtRequest request) {
+        BaseResponse response;
+        KsAccount ksAccount = new KsAccount();
+        Date date = new Date();
+        request.setCreateTime(date);
+        BeanUtils.copyProperties(request, ksAccount);
+        //返回主键ID,添加账户信息
+        int ksId = accountDao.addKsAccount(ksAccount);
+        //添加角色信息
+        KsAccountToRole ksAccountToRole = new KsAccountToRole();
+        ksAccountToRole.setAccountId(ksId);
+        ksAccountToRole.setRoleId(request.getRoleId());
+        ksAccountToRole.setRoleName(request.getRoleName());
+        ksAccountToRole.setRemark(request.getRemark());
+        int insert = accountDao.addKsAccountToRole(ksAccountToRole);
+        if (ksId >0 &&insert > 0) {
+            response = ResponseBuilder.buildBaseResponse(SUCCESS);
+        } else {
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        }
+        return response;
+
+    }
+    public String addAcount(String username,String password) {
+        String entCode = generateMerchantCode();
+        KsAccount accountExits = accountDao.queryAccountByUserName(username);
+        if(accountExits == null){
+            String passwordMD5 = passwordEncoder.encode (password);
+            KsAccount account = new KsAccount();
+            account.setLoginPassword(passwordMD5);
+            account.setLoginAccount(username);
+            account.setType(Constants.ACCOUNT_TYPE.BUSINESS_ACCOUNT);
+            account.setEnable(Constants.ACCOUNT_STATUS.ACCOUNT_ENABLE);
+            account.setMerchantCode(entCode);
+            accountDao.addAcount(account);
+            return entCode ;
+        }
+        return null;
+    }
+
+  /*  @Override
+    public int updateAccount(KsAccount account) {
+        if(!KSStringUtils.isEmpty(account.getLoginPassword())) {
+            String passwordMD5 = passwordEncoder.encode (account.getLoginPassword());
+            account.setLoginPassword(passwordMD5);
+        }
+        return accountDao.updateAcount(account);
+    }*/
+
+    /**
+     * 修改一条账户信息
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional
+    public BaseResponse updateKsAccount(AccountMgmtRequest request) {
+        BaseResponse response;
+        KsAccount ksAccount = new KsAccount();
+        Date date = new Date();
+        request.setCreateTime(date);
+        BeanUtils.copyProperties(request, ksAccount);
+        //修改账户信息
+        int ksupdate = accountDao.updateKsAccount(ksAccount);
+        //修改角色信息
+        KsAccountToRole ksAccountToRole = new KsAccountToRole();
+        ksAccountToRole.setRoleId(request.getRoleId());
+        ksAccountToRole.setRoleName(request.getRoleName());
+        ksAccountToRole.setAccountId(request.getId());
+        ksAccountToRole.setRemark(request.getRemark());
+        int roleupdate = accountDao.updateKsAccountToRole(ksAccountToRole);
+        if (ksupdate > 0&&roleupdate>0) {
+            response = ResponseBuilder.buildBaseResponse(SUCCESS);
+        } else {
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        }
+        return response;
+    }
+
+    @Override
+    public KsAccountAndRole getById(int id) {
+        return accountDao.queryAccountByID(id);
+    }
+
+    @Override
+    public List<KsAccount> getByAccount(String account) {
+        return accountDao.getByAccount(account);
+    }
+
+    @Override
+    public boolean checkAccount(String account) {
+        return accountDao.checkAccount(account);
+    }
+
+ /*   @Override
+    public BaseResponse updateAccountPassword(String loginAccount, String entCode, String oldPassword, String newPassword) {
+        KsAccount account = accountDao.getByAccount(loginAccount,entCode).get(0);
+        boolean flag = passwordEncoder.matches (oldPassword,account.getLoginPassword());
+        BaseResponse response = null;
+        if (!flag){
+            response = ResponseBuilder.buildBaseResponse(LOGIN_FAILED_WRONG_PASSWORD);
+        }else {
+            account.setLoginPassword(passwordEncoder.encode (newPassword));
+            int count = accountDao.updateAcount(account);
+            response = ResponseBuilder.buildBaseResponse(count > 0 ?SUCCESS:INVALID_PARAM);
+        }
+        return response;
+    }*/
+
+    /**
+     * 产生企业代码，代码长度为5 大写字母+数字
+     * @return
+     */
+    private String generateMerchantCode() {
+        for (int tryCount = 0; tryCount < maxTryCount; tryCount ++) {
+            String entCode = RandomStringUtils.randomAlphanumeric(entCodeLength).toUpperCase();
+            logger.info("generateMerchantCode entCode = {}, entCode, tryCount = {}, maxTryCount = {}", entCode, tryCount, maxTryCount);
+            return entCode;
+        }
+        return null;
+    }
+
+    /**
+     * 根据登录名查询账号信息
+     * @param username
+     * @return
+     */
+    @Override
+    public KsAccount getAccountByUsername(String username) {
+        return accountDao.queryAccountByUserName(username);
+    }
+}

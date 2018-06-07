@@ -1,0 +1,836 @@
+package com.kshl.huihuimall.console.controller.product;
+
+import com.kshl.base.common.utils.KSStringUtils;
+import com.kshl.base.response.BasePageResponse;
+import com.kshl.base.response.BaseResponse;
+import com.kshl.base.response.ResponseBuilder;
+import com.kshl.huihuimall.base.dal.entity.Brand;
+import com.kshl.huihuimall.base.dal.entity.KsAccount;
+import com.kshl.huihuimall.base.dal.entity.Merchant;
+import com.kshl.huihuimall.base.dal.entity.Product;
+import com.kshl.huihuimall.base.service.product.ProductService;
+import com.kshl.huihuimall.base.utils.DateFormatUtil;
+import com.kshl.huihuimall.console.base.pojo.ProductDetailPojo;
+import com.kshl.huihuimall.console.controller.product.request.*;
+import com.kshl.huihuimall.console.service.merchant.MerchantService;
+import com.kshl.huihuimall.portal.controller.request.CategoryRequest;
+import com.kshl.huihuimall.portal.service.categoryone.CategoryOneService;
+import net.sf.json.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import java.sql.Timestamp;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import static com.kshl.huihuimall.console.CSErrorCode.INVALID_PARAM;
+
+@Controller
+@EnableAutoConfiguration
+@RequestMapping("/productMgmt")
+public class ProductMgmtController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductMgmtController.class);
+
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private CategoryOneService categoryOneService;
+    @Autowired
+    private MerchantService merchantService;
+
+    /**
+     * 商品一级分类查询
+     */
+    @RequestMapping(value = "/queryAllCategoryOne", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse queryAllCategoryOne(CategoryOneRequest categoryOneRequest) {
+        logger.debug("queryAllCategoryOne start");
+        return productService.getAllCategoryOne(categoryOneRequest);
+    }
+
+    /**
+     * 商品二级分类查询
+     */
+    @RequestMapping(value = "/queryAllCategoryTwo", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse queryAllCategoryTwo(CategoryTwoRequest categoryTwoRequest) {
+        logger.debug("queryAllCategoryTwo start");
+        return productService.getAllCategoryTwo(categoryTwoRequest);
+    }
+
+    /**
+     * 商品品牌查询
+     */
+    @RequestMapping(value = "/queryAllBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse queryAllBrand(BrandRequest brandRequest) {
+        logger.debug("queryAllBrand start");
+        return productService.getAllBrand(brandRequest);
+    }
+
+    /**
+     * 商品品牌所属二级分类查询
+     */
+    @RequestMapping(value = "/queryAllCategoryTwoToBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse queryAllCategoryTwoToBrand(Integer brandid, HttpSession session) {
+        logger.debug("queryAllCategoryTwoToBrand start");
+        BasePageResponse response;
+        if (brandid != null) {
+            response = ResponseBuilder.buildBasePageResponse(INVALID_PARAM);
+        } else {
+            response = productService.getAllCategoryTwoToBrand(brandid, session);
+        }
+        return response;
+    }
+
+
+    /**
+     * 商品信息查询
+     * 筛选参数 name brandId categorytwoId categoryoneId 上架状态
+     */
+    @RequestMapping(value = "/queryAllProduct", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse queryAllProduct(ProductRequest productRequest) {
+        logger.debug("queryAllProduct start");
+        return productService.getAllProduct(productRequest);
+    }
+
+    /**
+     * 商品审核信息查询
+     * 筛选参数 name
+     */
+    @RequestMapping(value = "/queryAllProductReview", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse queryAllProductReview(ProductReviewRequest productReviewRequest) {
+        logger.debug("queryAllProductReview start");
+        return productService.getAllProductReview(productReviewRequest);
+    }
+
+    /**
+     * 商品审核通过
+     */
+    @RequestMapping(value = "/passProductReview", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse passProductReview(@Valid ProductReviewRequest productReviewRequest,
+                                          BindingResult bindingResult) {
+        logger.debug("passProductReview start");
+        BaseResponse response;
+        if (bindingResult.hasErrors()) {
+            logger.warn("[ProductReviewRequest] param error = {}", bindingResult.getAllErrors());
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.passProductReview(productReviewRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 商品审核不通过
+     */
+    @RequestMapping(value = "/unPassProductReview", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse unPassProductReview(@Valid ProductReviewRequest productReviewRequest,
+                                            BindingResult bindingResult) {
+        logger.debug("unPassProductReview start");
+        BaseResponse response;
+        if (bindingResult.hasErrors()) {
+            logger.warn("[ProductReviewRequest] param error = {}", bindingResult.getAllErrors());
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.unPassProductReview(productReviewRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 自营商品上架
+     */
+    @RequestMapping(value = "/putOnTheShelfSelf", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse putOnTheShelfSelf(ProductRequest pr) {
+        logger.debug("putOnTheShelfSelf start");
+        BaseResponse response=new BaseResponse();
+        if (pr.getId() == null) {
+            logger.warn("[ProductRequest] param id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            Product product=new Product();
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            product.setShelvesDate(timestamp);
+            product.setId(pr.getId());
+             productService.putOnTheShelfSelf(product);
+            response.setRetCode((long) 0);
+        }
+        return response;
+    }
+
+    /**
+     * 第三方商品上架
+     */
+    @RequestMapping(value = "/putOnTheShelfThird", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse putOnTheShelfThird(ProductRequest pr) {
+        logger.debug("putOnTheShelfThird start");
+        BaseResponse response=new BaseResponse();
+        if (pr.getId() == null) {
+            logger.warn("[ProductRequest] param id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            Product product=new Product();
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            product.setShelvesDate(timestamp);
+            product.setId(pr.getId());
+            product.setShelvesStatus(pr.getShelvesStatus());
+            productService.putOnTheShelfThird(product);
+            response.setRetCode((long) 0);
+        }
+        return response;
+    }
+
+    /**
+     * 商品下架(包括自营和第三方)
+     */
+    @RequestMapping(value = "/putOffTheShelf", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse putOffTheShelf(Product pr) {
+        logger.debug("putOffTheShelf start");
+        BaseResponse response=new BaseResponse();
+        if (pr.getId() == null) {
+            logger.warn("[ProductRequest] param id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            Product product=new Product();
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            product.setOffshelvesDate(timestamp);
+            product.setId(pr.getId());
+            productService.putOffTheShelf(product);
+            response.setRetCode((long) 0);
+        }
+        return response;
+    }
+
+    /**
+     * 添加品牌的二级分类
+     */
+    @RequestMapping(value = "/addCategoryTwoToBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse addCategoryTwoToBrand(String categorytwoname, Integer categorytwoid, HttpSession session) {
+        logger.debug("addCategoryTwoToBrand start");
+        BaseResponse response;
+        if (KSStringUtils.isEmpty(categorytwoname) || categorytwoid == null) {
+            response = ResponseBuilder.buildBasePageResponse(INVALID_PARAM);
+        } else {
+            response = productService.addCategoryTwoToBrand(categorytwoname, categorytwoid, session);
+        }
+        return response;
+    }
+
+    /**
+     * 添加商品一级分类
+     */
+    @RequestMapping(value = "/addCategoryOne", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse addCategoryOne(CategoryOneRequest categoryOneRequest) {
+        logger.debug("addCategoryOne start");
+        BaseResponse response;
+        if (categoryOneRequest.getName() == null) {
+            logger.warn("[CategoryOneRequest] param error name can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.addCategoryOne(categoryOneRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 添加商品二级分类
+     */
+    @RequestMapping(value = "/addCategoryTwo", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse addCategoryTwo(CategoryTwoRequest categoryTwoRequest) {
+        logger.debug("addCategoryTwo start");
+        BaseResponse response;
+        if (categoryTwoRequest.getName() == null || categoryTwoRequest.getParentId() == null) {
+            logger.warn("[CategoryTwoRequest] param error name and parentId can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.addCategoryTwo(categoryTwoRequest);
+        }
+        return response;
+    }
+
+
+    /**
+     * 添加商品品牌
+     *
+     * @param brandRequest
+     * @return
+     */
+    @RequestMapping(value = "/addBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse addBrand(BrandRequest brandRequest) {
+        logger.debug("addBrand start");
+        BaseResponse response;
+        if (brandRequest.getName() == null) {
+            logger.warn("[BrandRequest] param error name can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.addBrand(brandRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 添加商品信息
+     */
+    @RequestMapping(value = "/addProduct", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse addProduct(@Valid ProductRequest productRequest,
+                                   BindingResult bindingResult) {
+        logger.debug("addProduct start");
+        BaseResponse response;
+        if (bindingResult.hasErrors()) {
+            logger.warn("[ProductRequest] param error = {}", bindingResult.getAllErrors());
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.addProduct(productRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 更新商品一级分类信息
+     */
+    @RequestMapping(value = "/updateCategoryOne", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse updateCategoryOne(CategoryOneRequest categoryOneRequest) {
+        logger.debug("updateCategoryOne start");
+        BaseResponse response;
+        if (categoryOneRequest.getName() == null || categoryOneRequest.getId() == null) {
+            logger.warn("[CategoryOneRequest] param error name and id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.updateCategoryOne(categoryOneRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 更新商品二级分类信息
+     */
+    @RequestMapping(value = "/updateCategoryTwo", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse updateCategoryTwo(CategoryTwoRequest categoryTwoRequest) {
+        logger.debug("updateCategoryTwo start");
+        BaseResponse response;
+        if (categoryTwoRequest.getName() == null || categoryTwoRequest.getId() == null || categoryTwoRequest.getParentId() == null) {
+            logger.warn("[CategoryTwoRequest] param error name , parentId and id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.updateCategoryTwo(categoryTwoRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 更新商品品牌
+     *
+     * @param brandRequest
+     * @return
+     */
+    @RequestMapping(value = "/updateBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse updateBrand(BrandRequest brandRequest) {
+        logger.debug("updateBrand start");
+        BaseResponse response;
+        if (brandRequest.getName() == null || brandRequest.getId() == null) {
+            logger.warn("[BrandRequest] param error name, id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.updateBrand(brandRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 更新商品信息
+     */
+    @RequestMapping(value = "/updateProduct", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse updateProduct(ProductRequest productRequest) {
+        logger.debug("updateProduct start");
+        BaseResponse response;
+        if (productRequest.getId() == null) {
+            logger.warn("[ProductRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.updateProduct(productRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 删除品牌所属二级分类
+     */
+    @RequestMapping(value = "/deleteCategoryTwoToBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse deleteCategoryTwoToBrand(String categorytwoname, Integer categorytwoid, HttpSession session) {
+        logger.debug("deleteCategoryTwoToBrand start");
+        BaseResponse response;
+        if (KSStringUtils.isEmpty(categorytwoname) || categorytwoid == null) {
+            response = ResponseBuilder.buildBasePageResponse(INVALID_PARAM);
+        } else {
+            response = productService.deleteCategoryTwoToBrand(categorytwoname, categorytwoid, session);
+        }
+        return response;
+    }
+
+    /**
+     * 删除一级分类信息
+     */
+    @RequestMapping(value = "/deleteCategoryOne", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse deleteCategoryOne(CategoryOneRequest categoryOneRequest) {
+        logger.debug("deleteCategoryOne start");
+        BaseResponse response;
+        if (categoryOneRequest.getId() == null) {
+            logger.warn("[CategoryOneRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.deleteCategoryOne(categoryOneRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 删除二级分类信息
+     */
+    @RequestMapping(value = "/deleteCategoryTwo", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse deleteCategoryTwo(CategoryTwoRequest categoryTwoRequest) {
+        logger.debug("deleteCategoryTwo start");
+        BaseResponse response;
+        if (categoryTwoRequest.getId() == null) {
+            logger.warn("[CategoryTwoRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.deleteCategoryTwo(categoryTwoRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 删除品牌信息
+     */
+    @RequestMapping(value = "/deleteBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse deleteBrand(BrandRequest brandRequest) {
+        logger.debug("deleteBrand start");
+        BaseResponse response;
+        if (brandRequest.getId() == null) {
+            logger.warn("[BrandRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.deleteBrand(brandRequest);
+        }
+        return response;
+    }
+
+    /**
+     * 删除商品信息
+     */
+    @RequestMapping(value = "/deleteProduct", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse deleteProduct(ProductRequest productRequest) {
+        logger.debug("deleteProduct start");
+        BaseResponse response;
+        if (productRequest.getId() == null) {
+            logger.warn("[ProductRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.deleteProduct(productRequest);
+        }
+        return response;
+    }
+
+
+    /**
+     * 根据id查询一级分类详情
+     *
+     * @param categoryOneRequest
+     * @return
+     */
+    @RequestMapping(value = "/getCategoryOneDetail", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getCategoryOneDetail(CategoryOneRequest categoryOneRequest) {
+        logger.debug("getCategoryOneDetail start");
+        BaseResponse response;
+        if (categoryOneRequest.getId() == null) {
+            logger.warn("[CategoryOneRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.getCategoryOneDetail(categoryOneRequest.getId());
+        }
+        return response;
+    }
+
+    /**
+     * 查询所有一级分类（不加分页）
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getCategoryOneList", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getCategoryOneList() {
+        logger.debug("getCategoryOneList start");
+        BaseResponse response;
+        response = productService.getCategoryOneList();
+        return response;
+    }
+
+    /**
+     * 根据二级分类Id查询一级二级分类信息
+     *
+     * @param categoryTwoRequest
+     * @return
+     */
+    @RequestMapping(value = "/getCategoryDetailById", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getCategoryDetailById(CategoryTwoRequest categoryTwoRequest) {
+        logger.debug("getCategoryDetailById start");
+        BaseResponse response;
+        if (categoryTwoRequest.getId() == null) {
+            logger.warn("[categoryTwoRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.getCategoryDetailById(categoryTwoRequest.getId());
+        }
+
+        return response;
+    }
+
+    /**
+     * 查询所有二级分类（不加分页）
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getCategoryTwoList", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getCategoryTwoList() {
+        logger.debug("getCategoryTwoList start");
+        BaseResponse response;
+        response = productService.getCategoryTwoList();
+        return response;
+    }
+
+    /**
+     * 根据parentId查询所有二级分类
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getCategoryTwoListByPId", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getCategoryTwoListByPId(Integer parentId) {
+        logger.debug("getCategoryTwoListByPId start");
+        BaseResponse response;
+        response = productService.getCategoryTwoListByPId(parentId);
+        return response;
+    }
+
+    /**
+     * 根据品牌id查询详情
+     *
+     * @param brandRequest
+     * @return
+     */
+    @RequestMapping(value = "/getBrandById", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getBrandById(BrandRequest brandRequest) {
+        logger.debug("getBrandById start");
+        BaseResponse response;
+        if (brandRequest.getId() == null) {
+            logger.warn("[BrandRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.getBrandById(brandRequest.getId());
+        }
+        return response;
+    }
+
+
+    /**
+     * 根据品牌id查询所有的二级分类
+     *
+     * @param brandRequest
+     * @return
+     */
+    @RequestMapping(value = "/getCTwoByBrandId", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getCTwoByBrandId(BrandRequest brandRequest) {
+        logger.debug("getCTwoByBrandId start");
+        BaseResponse response;
+        if (brandRequest.getId() == null) {
+            logger.warn("[BrandRequest] param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.getCTwoByBrandId(brandRequest.getId());
+        }
+        return response;
+    }
+
+    /**
+     * 保存
+     *
+     * @param id
+     * @param data
+     * @return
+     */
+    @RequestMapping(value = "/addCategoryToBrand", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse addCategoryToBrand(String id, String data) {
+        logger.debug("addCategoryToBrand start");
+        BaseResponse response;
+        //json对象转换成数组
+        JSONArray jsonArray = JSONArray.fromObject(data);
+        Object[] objs = jsonArray.toArray();
+        if (objs == null || objs.length == 0) {
+            logger.warn("[pids] param error pids can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            //传过去一个id，一个String类型的数组
+            response = productService.addCategoryToBrand(id, objs);
+        }
+        return response;
+    }
+
+
+
+
+//查找商品
+    @RequestMapping(value = "/selectProductbyid", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse selectProductbyid(Integer id) {
+        logger.debug("selectProductbyid start");
+        BaseResponse response=new BaseResponse();
+        List<Map<String, Object>> product = productService.ProductDetailById(id);
+        response.setData(product);
+        response.setRetCode(Long.valueOf(0));
+        return response;
+    }
+
+//根据id判断添加修改商品
+    @RequestMapping(value = "/ProductInsert", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse ProductInsert(newProductRequest record, HttpServletRequest request) {
+        logger.debug("ProductInsert start");
+        BaseResponse response=new BaseResponse();
+        String DateManufacture=  request.getParameter("DateManufacture");
+        String ExpirationDate=  request.getParameter("ExpirationDate");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        ParsePosition pos = new ParsePosition(0);
+        System.out.println(DateManufacture+"====="+ExpirationDate);
+        ParsePosition pos1 = new ParsePosition(0);
+        Date DateManu = formatter.parse(DateManufacture, pos1);
+        Timestamp timestamp = new Timestamp(DateManu.getTime());
+        Date Expiration = formatter.parse(ExpirationDate, pos);
+        Timestamp timestamp1 = new Timestamp(Expiration.getTime());
+        if (record.getId() == null) {
+            Product product=new Product();
+            product.setName(record.getName());
+            product.setBrandId(record.getBrandId());
+            product.setShelvesStatus(0);
+            if(record.getMerchantType().equals(1)){
+                KsAccount ksAccount=merchantService.getAccountCode(record.getAccountId());
+                if(ksAccount!=null) {
+                    Merchant mercha = merchantService.queryMerchantIdByentCode(ksAccount.getMerchantCode());
+                    product.setMerchantId(mercha.getId());//第三方商家
+                }
+                product.setReviewStatus(0);//第三方审核状态
+            }
+            product.setCategoryoneId(record.getCategoryoneId());
+            product.setCategorytwoId(record.getCategorytwoId());
+            product.setCode("sp"+DateFormatUtil.getOrderIdByUUId());
+            product.setDateManufacture(timestamp);
+            product.setDetailImagePath(record.getDetailImagePath());
+            product.setExpirationDate(timestamp1);
+            product.setGuaranteeDate(record.getGuaranteeDate());
+            product.setMainImagePath(record.getMainImagePath());
+            product.setMaterialPrice(record.getMaterialPrice());
+            product.setMeasurementUnit(record.getMeasurementUnit());
+            product.setPacking(record.getPacking());
+            product.setMerchantType(record.getMerchantType());
+            product.setPlaceOfOrigin(record.getPlaceOfOrigin());
+            product.setPrice(record.getPrice());
+            product.setTransportPrice(record.getTransportPrice());
+            product.setPackingPrice(record.getPackingPrice());
+            product.setRemarks(record.getRemarks());
+            product.setPurchasePrice(record.getPurchasePrice());
+            product.setShelvesDate(record.getShelvesDate());
+            product.setStockLocation(record.getStockLocation());
+            product.setTradePrice(record.getTradePrice());
+            product.setSpecifications(record.getSpecifications());
+            product.setWeight(record.getWeight());
+            productService.productinsert(product);
+            response.setRetCode(Long.valueOf(0));
+        } else if(record.getId()!=null){
+            Product product=new Product();
+            product.setId(record.getId());
+            product.setShelvesStatus(record.getShelvesStatus());
+            product.setName(record.getName());
+            product.setBrandId(record.getBrandId());
+            product.setShelvesStatus(record.getShelvesStatus());
+            product.setReviewStatus(record.getReviewStatus());
+            product.setCategoryoneId(record.getCategoryoneId());
+            product.setCategorytwoId(record.getCategorytwoId());
+            product.setCode(record.getCode());
+           product.setDateManufacture(timestamp);
+            product.setDetailImagePath(record.getDetailImagePath());
+            product.setExpirationDate(timestamp1);
+            product.setGuaranteeDate(record.getGuaranteeDate());
+            product.setMainImagePath(record.getMainImagePath());
+            product.setMaterialPrice(record.getMaterialPrice());
+            product.setMeasurementUnit(record.getMeasurementUnit());
+            product.setMerchantId(record.getMerchantId());
+            product.setPacking(record.getPacking());
+            product.setMerchantType(record.getMerchantType());
+            product.setPlaceOfOrigin(record.getPlaceOfOrigin());
+            product.setTransportPrice(record.getTransportPrice());
+            product.setPrice(record.getPrice());
+            product.setPackingPrice(record.getPackingPrice());
+            product.setRemarks(record.getRemarks());
+            product.setPurchasePrice(record.getPurchasePrice());
+            product.setShelvesDate(record.getShelvesDate());
+            product.setStockLocation(record.getStockLocation());
+            product.setTradePrice(record.getTradePrice());
+            product.setSpecifications(record.getSpecifications());
+            product.setWeight(record.getWeight());
+            productService.productupdateByPrimaryKey(product);
+            response.setRetCode(Long.valueOf(0));
+        }
+
+        return response;
+    }
+//删除商品
+    @RequestMapping(value = "/ProductDelete", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse ProductDelete(Integer id) {
+        logger.debug("ProductDelete start");
+        BaseResponse response=new BaseResponse();
+        productService.productdeleteByPrimaryKey(id);
+        response.setRetCode(Long.valueOf(0));
+        return response;
+    }
+
+    /**
+     * 根据二级分类id查询品牌信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/getBrandByCTId", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getBrandByCTId(Integer id) {
+        logger.debug("getBrandByCTId start");
+        BaseResponse response;
+        if (id == null) {
+            logger.warn(" param error id can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.getBrandByCTId(id);
+        }
+        return response;
+    }
+//查询所有品牌
+    @RequestMapping(value = "/getBrandList", method = {RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getBrandList(CategoryRequest categoryRequest, HttpServletRequest request){
+        logger.debug("getAllBrand start");
+        BaseResponse baseResponse=new BaseResponse();
+        List<Brand> list=categoryOneService.getBrandList();
+        baseResponse.setData(list);
+        baseResponse.setRetCode(Long.valueOf(0));
+        return baseResponse;
+    }
+
+    /**
+     * 根据商品编码查看商品信息
+     * @param productRequest
+     * @return
+     */
+    @RequestMapping(value = "/getProductByCode", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse getProductByCode(ProductRequest productRequest) {
+        logger.debug("getProductByCode start");
+        BaseResponse response;
+        if (productRequest.getCode() == null) {
+            logger.warn("[ProductRequest] param error code can not be null");
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        } else {
+            response = productService.getProductByCode(productRequest.getCode());
+        }
+        return response;
+    }
+
+    /**
+     * 第三方商品
+     */
+    @RequestMapping(value = "/getThirdPartyProduct", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse getThirdPartyProduct(ProductRequest productRequest) {
+        logger.debug("getThirdPartyProduct start");
+        return productService.getThirdPartyProduct(productRequest);
+    }
+
+    /*
+      商品审核申请（审核通过更改审核、上架状态，不通过只更改审核状态）
+     */
+    @RequestMapping(value = "/selfServiceReview", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BaseResponse selfServiceReview(Product product) {
+        logger.debug("selfServiceReview start");
+        BaseResponse response=new BaseResponse();
+
+        Product produc=new Product();
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        produc.setReviewTime(timestamp);
+        produc.setId(product.getId());
+        produc.setShelvesStatus(product.getShelvesStatus());
+        produc.setReviewStatus(product.getReviewStatus());
+        productService.selfServiceReview(produc);
+        response.setRetCode(Long.valueOf(0));
+        return response;
+    }
+
+
+
+    /*
+       商品上架审核列表
+     */
+    @RequestMapping(value = "/getselfServiceReviewProduct", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public BasePageResponse getselfServiceReviewProduct(ProductRequest productRequest) {
+        logger.debug("getselfServiceReviewProduct start");
+        return productService.getselfServiceReviewProduct(productRequest);
+    }
+
+
+}

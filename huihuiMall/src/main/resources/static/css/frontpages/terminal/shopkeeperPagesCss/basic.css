@@ -1,0 +1,172 @@
+.gap,.gap_big{
+    background-color: #f5f5f5;
+}
+.gap{
+    height: 10px;
+}
+.gap_big{
+    height: 21px;
+}
+
+.shopname,.name,.address{
+    border-bottom: 1px solid #dddddd;
+}
+.shopname,.name,.address,.equipment{
+    padding: 12px 0 13px 0;
+}
+.equipment img{
+    width: 20px;
+}
+.basic{
+    padding: 0 15px 0 17px;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    background-color: #FFFFFF;
+}
+.black,.gray{
+    margin-left: 12px;
+    font-size: 14px;
+    font-family: PingFang-SC-Medium;
+}
+.black{
+    color: #333333;
+}
+.black img{
+    width: 20px;
+    margin: -3px 10px 0 0;
+
+}
+.gray{
+    color: #666666;
+}
+.setup{
+    display: inline-block;
+    padding-bottom: 2px;
+    margin-left: 16px;
+    border-bottom: 1px solid #b75816;
+    color: #b75816;
+    font-size: 14px;
+    font-family: PingFang-SC-Medium;
+}
+.equipment a:hover {
+    text-decoration: none;
+    color: #b75816
+}
+.equipment a:active {
+    text-decoration: none;
+    color: #b75816;
+}
+.gap_big{
+    height: 21px;
+}
+.profit{
+    border: 1px solid #b75816;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+}
+.gray_bg{
+    background-color: #F5F5F5;
+    padding: 0 9px 0 9px;
+}
+.left{
+    float: left;
+    display: inline-block
+}
+.right{
+    float: right;
+    display: inline-block;
+}
+.time{
+    padding: 11px 14px 13px 17px;
+    font-family: PingFang-SC-Medium;
+    color: #b75816;
+    font-size: 16px;
+    border-bottom: 1px solid #b75816;
+}
+.time .time_YM{
+    font-size: 15px;
+}
+.detailed{
+    padding: 14px 17px 21px 18px;
+}
+.detailed p{
+    color: #333333;
+    font-family: PingFang-SC-Medium;
+    font-size: 15px;
+    padding-bottom: 15px;
+
+}
+.detailed .border{
+    border-bottom: 1px solid #dddddd;
+}
+.sales_revenue,.recommend_income,.total_income{
+    font-size: 18px;
+}
+.total{
+    padding: 0 17px 16px 18px;
+    color: #333333;
+    font-family: PingFang-SC-Medium;
+    font-size: 14px;
+}
+.total_income{
+    color: #f33838;
+    font-family: PingFang-SC-Medium;
+    font-size: 18px;
+}
+.company_gray,.company{
+    font-weight: normal;
+    font-family: PingFang-SC-Medium;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.company{
+    color: #f33838;
+}
+.company_gray{
+    color: #333333;
+}
+.footer{
+    background-color: #f5f5f5;
+    padding: 20px 90px;
+    margin-bottom: 10px;
+}
+.footer_content{
+    padding: 10px 22px;
+    background-color: #c57030;
+    font-family: PingFang-SC-Medium;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 4px;
+}
+.footer_content img{
+    width: 6px;
+    margin-left: 9px;
+    margin-top: -3px;
+}
+.modal-header{
+    background-color: #FFFFFF;
+    font-size: 20px;
+    color: #000;
+    border-bottom: 0;
+}
+.modal-body{
+    padding: 30px 0 30px 0;
+    border-bottom: 1px solid #dddddd;
+}
+.modal-body input{
+    width: 261px;
+    height: 37px;
+    background-color: #f5f5f5;
+    border: 1px solid #cbcbcb;
+    border-radius: 4px;
+    padding-left: 9px;
+}
+.equipment_Number{
+    width: 223px;
+    height: 39px;
+    background-color: #c57030;
+    color : #efded6;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 2px;
+}

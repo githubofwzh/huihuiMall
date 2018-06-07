@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kshl.huihuimall.portal.dal.manualmapper.AllOrderMapper">
+  <resultMap id="BaseResultMap" type="com.kshl.huihuimall.portal.controller.request.ReturnRequest">
+    <result column="store_id" jdbcType="VARCHAR" property="storeid" />
+  </resultMap>
+  <!--    -->
+  <select id="getAllOrder" parameterType="map" resultType="map">
+    select * from
+    store_order
+    WHERE user_id=#{userId}
+    ORDER BY start_time DESC
+    <if test="startPage != null and pageSize != null">
+      LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--    -->
+  <select id="getAllOrderCount" parameterType="map" resultType="int">
+    select  COUNT(sto.user_id) from
+    store_order sto join order_detail orde on sto.order_number=orde.order_number
+    WHERE sto.user_id=#{userId}
+  </select>
+
+  <!--    -->
+  <select id="getDetail" parameterType="map" resultType="map">
+    select od.number,od.total,pr.`name`,pr.id,pr.main_image_path from order_detail od join product pr on od.`code`=pr.`code`
+    where od.order_number=#{orderNumber}
+  </select>
+  <!--  getDetailReturnStatus 根据订单号反查商品退换货状态  -->
+  <select id="getDetailReturnStatus" parameterType="map" resultType="com.kshl.huihuimall.portal.controller.request.ReturnRecordquest">
+    select IFNULL(return_status,888) as returnStatus,product_id as productId,type,
+    product_name as productName, IFNULL(exchange_status,888) as  exchangeStatus,audit_status as auditStatus
+    from return_exchange_order
+    where order_id=#{orderNumber}
+  </select>
+
+  <!--    -->
+  <select id="getReturnP" parameterType="map" resultType="map">
+    select od.number,od.total,pr.`name`,pr.main_image_path ,pr.`code`,
+    pr.id,od.order_number,sto.storehouse_id,sto.storename,sto.store_id,sto.type
+    from order_detail od join product pr on od.`code`=pr.`code`
+    join store_order sto on sto.order_number=od.order_number
+    where od.order_number=#{orderNumber} and pr.id=#{prId}
+  </select>
+
+  <!--    -->
+  <select id="getReturnAdd" parameterType="map" resultType="com.kshl.huihuimall.portal.controller.request.ReturnRequest">
+    select od.number,od.total,pr.`name`,pr.main_image_path ,pr.`code`,
+    pr.id as prId,od.order_number,sto.storehouse_id,sto.storename,sto.store_id,sto.type
+    from order_detail od join product pr on od.`code`=pr.`code`
+    join store_order sto on sto.order_number=od.order_number
+    where od.order_number=#{orderNumber} and pr.id=#{prId}
+  </select>
+
+  <!--   用户端退换货列表  -->
+  <select id="getReturnStatus" parameterType="map" resultType="map">
+    select ret.order_number, IFNULL(ret.exchange_status,888)as exchange_status,ret.order_time,pr.merchant_type,
+    ret.audit_status,   IFNULL(ret.return_status,888) as return_status,
+    ret.product_name,ret.product_id,pr.main_image_path,pr.price
+    FROM store_order sto join return_exchange_order ret
+    on sto.order_number=ret.order_id join product pr ON
+    pr.id=ret.product_id where sto.user_id=#{userId}
+    ORDER BY ret.order_time DESC
+  </select>
+  <!--    -->
+  <select id="selfServiceReturnStatus" parameterType="map" resultType="map">
+      select ret.order_number,ret.exchange_status,ret.order_time,pr.merchant_type,
+      ret.audit_status,ret.return_status,c.phone_number,
+      ret.product_name,ret.product_id,pr.main_image_path,pr.price
+      FROM store_order sto join return_exchange_order ret
+      on sto.order_number=ret.order_id join product pr ON
+      pr.id=ret.product_id join customer c on c.id=sto.user_id and ret.audit_status=1
+      where sto.store_id=#{storeId} and ret.type=#{type}
+    <if test="type == 1" >
+      and ret.exchange_status !=0
+    </if>
+    <if test="orderNumber != null" >
+      and ret.order_number like CONCAT('%','${orderNumber}','%')
+    </if>
+  </select>
+  <!--    -->
+  <update id="selfServiceStatus" parameterType="com.kshl.huihuimall.base.dal.entity.ReturnExchangeOrder">
+    update return_exchange_order
+      set
+        audit_status=#{auditStatus}
+      where order_number=#{orderNumber}
+  </update>
+  <!--    -->
+  <update id="UserReStatus" parameterType="com.kshl.huihuimall.base.dal.entity.ReturnExchangeOrder">
+    update return_exchange_order
+    <set>
+      <if test="returnStatus!= null">
+        return_status = #{returnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeStatus != null">
+        exchange_status = #{exchangeStatus,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_number=#{orderNumber}
+  </update>
+
+  <!--    -->
+    <update id="ReorderStatus" parameterType="com.kshl.huihuimall.portal.controller.request.AllDetailRequest">
+      update order_detail set pending=#{pending}  where code in(select code from product where id= #{prId})
+      and order_number=#{order_number}
+    </update>
+
+
+  <!--    -->
+  <select id="getReturnDetail" parameterType="map" resultType="map">
+      select ret.order_number,ret.order_time,ret.type,ret.reason,
+      ret.count,pr.price,pr.main_image_path,ret.product_name,sto.storename
+      from return_exchange_order ret join product pr
+      on ret.product_id =pr.id join store_order sto on sto.order_number=ret.order_id
+      where ret.product_id=  #{prId}
+      and ret.order_number= #{orderNumber}
+  </select>
+
+  <!--    -->
+  <select id="userIdIfExist" parameterType="map" resultType="map">
+    select * from store_order where user_id=#{userId}
+  </select>
+  <!--    -->
+  <update id="updateStoreOrderIf" parameterType="com.kshl.huihuimall.base.dal.entity.StoreOrder">
+    update store_order
+    set ifdelete = 0
+    where parent_id = #{parentid}
+  </update>
+  <!--    -->
+  <delete id="deleteDetail" parameterType="java.lang.String">
+    DELETE from order_detail   where order_number = #{orderNumber}
+  </delete>
+  <!--    -->
+  <delete id="deleteOrder" parameterType="java.lang.String">
+    delete from store_order
+    where order_number = #{orderNumber}
+  </delete>
+  <!--    -->
+  <delete id="deleteInventoryOut" parameterType="java.lang.String">
+    delete from inventory_out
+    where order_number = #{orderNumber}
+  </delete>
+
+  <!--    -->
+  <select id="selectOrdertotal" parameterType="map" resultType="com.kshl.huihuimall.base.dal.entity.OrderDetail">
+    select SUM(total) as total from order_detail where  order_number=#{orderNumber}  GROUP BY order_number
+  </select>
+  <!--    -->
+  <update id="Ordertotal" parameterType="com.kshl.huihuimall.base.dal.entity.StoreOrder">
+    update store_order
+    set ordertotal = #{ordertotal}
+    where order_number = #{orderNumber}
+  </update>
+  <!--    -->
+  <select id="selectorderNumber" parameterType="map" resultType="String">
+  SELECT order_number FROM store_order where type=1
+</select>
+  <!--    -->
+  <select id="selectEntcode" parameterType="map" resultType="String">
+    SELECT ent_code FROM merchant where name=#{name}
+  </select>
+  <!--  ReturnRecord后台退换货记录  -->
+  <select id="ReturnRecord" parameterType="map" resultType="map">
+    SELECT ret.order_number,ret.store_id,ret.order_time,ret.type,ret.product_id,ret.count,ret.store_name,
+    ret.order_type,IFNULL(ret.return_status,888) as return_status,ret.audit_status,ret.reason,IFNULL(ret.exchange_status,888) as exchange_status
+    ,ret.product_name,ret.order_id,sto.start_time from return_exchange_order ret
+    join store_order sto on ret.order_id=sto.order_number
+    where 1=1
+      <if test="type != null">
+        AND ret.type = #{type}
+      </if>
+      <if test="storeName != null">
+       AND ret.store_name like CONCAT('%','${storeName}','%')
+      </if>
+      <if test="orderNumber != null">
+       AND ret.order_number like CONCAT('%','${orderNumber}','%')
+      </if>
+
+      <if test="startTime != null and startTime!=''" >
+        　　AND DATE_FORMAT(ret.order_time, '%Y-%m-%d')&gt;=#{startTime}
+      </if>
+      <if test="endTime != null and endTime!=''" >
+        　　AND DATE_FORMAT(ret.order_time, '%Y-%m-%d')&lt;=#{endTime}
+      </if>
+
+    ORDER BY ret.order_time desc
+    <if test="startPage != null and pageSize != null">
+      LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--    -->
+  <select id="ReturnRecordCount" parameterType="map" resultType="int">
+    SELECT count(ret.order_number) from return_exchange_order ret
+    join store_order sto on ret.order_id=sto.order_number
+    where 1=1
+      <if test="type != null">
+        AND ret.type = #{type}
+      </if>
+      <if test="storeName != null">
+        AND ret.store_name like CONCAT('%','${storeName}','%')
+      </if>
+      <if test="orderNumber != null">
+        AND ret.order_number like CONCAT('%','${orderNumber}','%')
+      </if>
+      <if test="startTime != null and startTime!=''" >
+        　　AND DATE_FORMAT(ret.order_time, '%Y-%m-%d')&gt;=#{startTime}
+      </if>
+      <if test="endTime != null and endTime!=''" >
+        　　AND DATE_FORMAT(ret.order_time, '%Y-%m-%d')&lt;=#{endTime}
+      </if>
+
+  </select>
+  <!--  ReturnRecordDetail  退货记录详情-->
+  <select id="ReturnRecordDetail" parameterType="map" resultType="map">
+    SELECT ret.*,sto.start_time,sto.storeaddress,p.main_image_path,p.code from return_exchange_order ret
+    join store_order  sto on ret.order_id=sto.order_number  join  product p on p.id=ret.product_id
+    where ret.order_number=#{orderNumber}
+  </select>
+
+  <update id="updateOrderStutas" parameterType="com.kshl.huihuimall.base.dal.entity.StoreOrder">
+    update store_order
+    set orderstatus = #{orderstatus}
+    where parent_id = #{parentId}
+  </update>
+
+  <select id="selectOrderNumberByParentId" parameterType="String" resultType="com.kshl.huihuimall.base.dal.entity.StoreOrder">
+    SELECT order_number as orderNumber FROM store_order WHERE parent_id=#{parentId}
+    and (orderstatus=1 or orderstatus=2)
+  </select>
+
+  <select id="selectPayOrderByParentId" parameterType="String" resultType="com.kshl.huihuimall.base.dal.entity.StoreOrder">
+    SELECT order_number as orderNumber FROM store_order WHERE parent_id=#{parentId}
+    and (orderstatus=3)
+  </select>
+
+</mapper>

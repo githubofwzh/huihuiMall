@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9796/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance
+END
+standardConfigMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/kshl/!svn/ver/8016/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/standardConfigMgmt.ftl
+END
+bankCheckingBillsReportMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/kshl/!svn/ver/9791/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/bankCheckingBillsReportMgmt.ftl
+END
+financialMonthlyReportMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/kshl/!svn/ver/9791/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/financialMonthlyReportMgmt.ftl
+END
+livingTransactionRecordMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/kshl/!svn/ver/9749/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/livingTransactionRecordMgmt.ftl
+END
+currentMonthSalesDailyReportMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/kshl/!svn/ver/9791/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/currentMonthSalesDailyReportMgmt.ftl
+END
+profitReportMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/kshl/!svn/ver/9791/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/profitReportMgmt.ftl
+END
+bestSellingRankingReportMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/kshl/!svn/ver/9796/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/bestSellingRankingReportMgmt.ftl
+END
+financialDailyReportMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/kshl/!svn/ver/9791/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/financialDailyReportMgmt.ftl
+END
+transactionRecordMgmt.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/kshl/!svn/ver/9749/out_project/HuihuiMall/src/main/resources/templates/backstagePages/finance/transactionRecordMgmt.ftl
+END

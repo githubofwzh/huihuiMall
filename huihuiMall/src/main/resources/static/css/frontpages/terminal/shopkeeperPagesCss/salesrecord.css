@@ -1,0 +1,157 @@
+body,html{
+    overflow: hidden;
+}
+.left {
+    float: left;
+    display: inline-block;
+}
+
+.right {
+    float: right;
+    display: inline-block;
+}
+
+.record-detail{
+    overflow: auto;
+}
+
+.year {
+    float:right;
+}
+
+.year, .month {
+    padding:0px 20px;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url(../../../../images/frontpages/common/select.png) no-repeat right center;
+    font-size: 16px;
+    font-family: PingFang-SC-Regular;
+    color: #333333;
+    outline: none;
+}
+
+.year option, .month option {
+    font-size: 18px;
+    font-family: PingFang-SC-Regular;
+    color: #333333;
+}
+
+.YM-time-panel{
+    padding: 0px;
+}
+
+.YM_time {
+    position: fixed;
+    top:0px;
+    padding: 13px 126px 13px 126px;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+    background-color: #FFFFFF;
+    z-index: 99999;
+    overflow: hidden;
+}
+
+.gap {
+    height: 10px;
+    background-color: #f5f5f5;
+}
+
+.Oder_Number {
+    padding: 15px 0 13px 15px;
+    background-color: #fffbed;
+}
+
+.Oder_Number span {
+    font-size: 16px;
+    color: #131313;
+    font-family: PingFang-SC-Medium;
+}
+
+.Oder_Number img {
+    margin-top: -2px;
+    margin-right: 6px;
+    width: 18px;
+    height: 18px;
+}
+
+.Oder_Time {
+    padding: 15px 15px 11px 15px;
+    border-bottom: 1px solid #f5f5f5;
+    background-color: #FFFFFF;
+}
+
+.Oder_Time p:first-of-type {
+    float: left;
+}
+
+.Oder_Time p:last-of-type {
+    float: right;
+}
+
+.Oder_Time span {
+    font-size: 15px;
+    color: #131313;
+    font-family: PingFang-SC-Regular;
+}
+
+.money {
+    padding: 11px 15px 15px 15px;
+    line-height: 25px;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.money span, b {
+    font-size: 16px;
+    font-family: PingFang-SC-Medium;
+}
+
+.money span {
+    color: #666666;
+}
+
+.money b {
+    color: #b75816;
+    font-weight: normal;
+}
+
+.money .b_333 {
+    color: #333333;
+}
+
+.money_center {
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+
+.footer {
+    height:50px;
+    background-color: #FFFFFF;
+    position: fixed;
+    bottom: 0;
+    padding: 15px 110px;
+    z-index: 99999;
+    overflow: hidden;
+    border-top:1px solid #e0e0e0;
+}
+
+.footer span {
+    font-size: 15px;
+    color: #333333;
+    font-family: PingFang-SC-Regular;
+}
+
+.footer a {
+    font-size: 17px;
+    color: #ff1a1a;
+    font-family: PingFang-SC-Regular;
+}
+
+.record-detail {
+    padding: 0px;
+}
+
+.record-detail-info{
+    padding:0px;
+}

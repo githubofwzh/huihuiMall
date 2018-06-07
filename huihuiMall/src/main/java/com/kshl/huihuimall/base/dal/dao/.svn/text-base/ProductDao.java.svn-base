@@ -1,0 +1,119 @@
+package com.kshl.huihuimall.base.dal.dao;
+
+import com.kshl.huihuimall.base.dal.entity.*;
+import com.kshl.huihuimall.console.base.dto.Stock;
+import com.kshl.huihuimall.console.base.pojo.CategoryToBrandPojo;
+import com.kshl.huihuimall.console.base.pojo.ProductDetailPojo;
+import org.apache.ibatis.annotations.Param;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
+public interface ProductDao {
+
+    List<CategoryOne> getAllCategoryOne(Integer pageSize, Integer pageNum, String name);
+
+    //List<CategoryTwo> getAllCategoryTwo(Integer pageSize, Integer pageNum, String name, Integer parentId);
+
+    List<Map<String, Object>> getAllBrand(Integer pageSize, Integer pageNum, String name, Integer parentId);
+
+    List<Map<String, Object>> getAllProduct(Integer pageSize, Integer pageNum, String name, Integer brandId, Integer categoryOneId, Integer categoryTwoId, Integer shelvesStatus, Integer merchantType, Integer merchantId);
+
+    List<Map<String, Object>> getAllProductReview(Integer pageSize, Integer pageNum, String name);
+
+    List<Map<String, Object>> getAllCategoryTwoToBrand(Integer brandId);
+
+    int getAllBrandCount(String name, Integer parentId);
+
+    int getAllProductCount(String name, Integer brandId, Integer categoryOneId, Integer categoryTwoId, Integer shelvesStatus, Integer merchantType, Integer merchantId);
+
+    int getAllProductReviewCount(String name);
+
+    int addCategoryOne(CategoryOne record);
+
+    int addCategoryTwo(CategoryTwo record);
+    //添加品牌
+    int addBrand(Brand brand);
+
+    int addProduct(Product record);
+
+    int addProductReview(ProductReview record);
+
+    int updateCategoryOne(CategoryOne record);
+
+    int updateCategoryTwo(CategoryTwo record);
+
+    int updateBrand(Brand brand);
+
+    int updateProduct(Product record);
+
+    int deleteCategoryOne(Integer id);
+
+    int deleteCategoryTwo(Integer id);
+
+    int deleteBrand(Integer id);
+
+    int deleteProduct(Integer id);
+
+    int deleteProductReview(Integer id);
+
+    Product getproductbyCode(String productCode);
+
+    List<Map<String,Object>> queryShelvesReviewMg(Integer pageSize, Integer pageNum, String name);
+
+    int queryShelvesReviewMgCount(String name);
+
+    int productMerchantReview(Product product);
+
+    ProductDetailPojo getProductReviewDetail(Integer productid);
+
+    CategoryOne getCategoryOneDetail(Integer id);
+
+    List<CategoryOne> getCategoryOneList();
+    //查询所有二级分类
+    List<Map<String,Object>> getAllCategoryTwo(Integer pageSize, Integer pageNum, String name, Integer parentId);
+   //二级分类数量
+    int getAllCategoryTwoCount(String name, Integer parentId);
+
+    CategoryTwo getCategoryTwoById(Integer id);
+    //二级分类不加分页
+    List<CategoryTwo> getCategoryTwoList();
+
+    List<CategoryTwo> getCategoryTwoListByPId(Integer parentId);
+    //根据品牌id查看详情
+    Brand getBrandById(Integer id);
+    //根据品牌id查询所有的二级分类
+    List<CategoryToBrand> getCTwoByBrandId(Integer id);
+    //根据品牌id删除CategoryToBrand表
+    int deleteCToBrandByBrandId(int brandId);
+    //保存
+    int addCategoryToBrand(CategoryToBrand categoryToBrand);
+
+//商品的上架和下架
+    int putOnTheShelfSelf(Product product);
+
+    int putOnTheShelfThird(Product product);
+
+    int putOffTheShelf(Product product);
+
+    int productdeleteByPrimaryKey(Integer id);
+
+    int productinsert(Product record);
+
+    List<Map<String, Object>> ProductDetailById(Integer id);
+
+    int productupdateByPrimaryKey(Product record);
+    //根据二级分类id查询品牌信息
+    List<CategoryToBrandPojo> getBrandByCTId(Integer id);
+    //根据商品编码查看商品信息
+    Product getProductByCode(String code);
+
+    List<Map<String, Object>> getThirdPartyProduct(Integer pageSize, Integer pageNum,Integer accountId, String name, Integer shelvesStatus,Integer reviewStatus);
+    int getThirdPartyProductCount(String name, Integer accountId, Integer shelvesStatus, Integer reviewStatus);
+    int selfServiceReview(Product product);
+
+    List<Map<String, Object>> getselfServiceReviewProduct(Integer pageSize, Integer pageNum,String mername);
+    int getselfServiceReviewProductCount(String name);
+    Product getPrductPrices(String code);
+}

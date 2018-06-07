@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kshl.huihuimall.base.dal.manualmapper.KsAccountManualMapper">
+
+    <select id="queryAccounts" parameterType="map" resultType="map">
+        SELECT
+        k.*,
+        kr.id AS ksId,
+        kr.role_id,
+        kr.account_id,
+        kr.role_name,
+        kr.remark,
+        r.id AS rId,
+        r. NAME AS rolename,
+        r.description,
+        r. ENABLE AS renable,
+        r.entCode,
+        r.type AS rtype
+        FROM
+        ks_account k
+        LEFT JOIN ks_account_to_role kr ON k.id = kr.account_id
+        LEFT JOIN ks_role r ON kr.role_id = r.id
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="phone != null">
+                AND k.phone= #{phone}
+            </if>
+            <if test="enable != null">
+                AND k.enable = #{enable}
+            </if>
+            <if test="name != null">
+                AND k.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="isDeleted != null">
+                AND k.is_deleted = #{isDeleted}
+            </if>
+            <if test="type != null">
+                AND k.type = #{type}
+            </if>
+        </trim>
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="queryAccountsCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(k.id)
+        FROM ks_account  k
+        LEFT JOIN ks_account_to_role kr ON k.id = kr.account_id
+        LEFT JOIN ks_role r ON kr.role_id = r.id
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="phone != null">
+                AND k.phone= #{phone}
+            </if>
+            <if test="enable != null">
+                AND k.enable = #{enable}
+            </if>
+            <if test="name != null">
+                AND k.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="isDeleted != null">
+                AND k.is_deleted = #{isDeleted}
+            </if>
+            <if test="type != null">
+                AND k.type = #{type}
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryThiradAccount" parameterType="map" resultType="map">
+        SELECT
+        k.*, m.id AS mId,
+        m. NAME AS mname,
+        m.regist_address AS raddress,
+        m.regist_amount AS ramount,
+        m.business_licence AS blicence,
+        m.legal_person_name AS lpname,
+        m.legal_person_contact AS lpcontact,
+        m.linkman_name AS lname,
+        m.linkman_mobile AS lmobile,
+        m.business_license_photo AS blphoto,
+        m.company_logo AS logo,
+        m.linkman_idcardfront_photo AS lifphoto,
+        m.linkman_idcardbase_photo AS libphoto ,
+        m.email AS memail,
+        m.ent_code AS entcode,
+        m.legal_person_idcard AS lpidcard,
+        m.zip_code AS zcode,
+        m.audit_status AS astatus,
+        m.enable_status AS estatus
+        FROM
+        ks_account k
+        LEFT JOIN merchant m ON k.merchant_code = m.ent_code
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="enable != null">
+                AND k.enable = #{enable}
+            </if>
+            <if test="merchantname != null">
+                AND m.name LIKE CONCAT('%', #{merchantname}, '%')
+            </if>
+            <if test="isDeleted != null">
+                AND k.is_deleted = #{isDeleted}
+            </if>
+            <if test="type != null">
+                AND k.type = #{type}
+            </if>
+        </trim>
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="queryThiradAccountCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(k.id)
+        FROM ks_account  k
+        LEFT JOIN merchant m ON k.merchant_code = m.ent_code
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="enable != null">
+                AND k.enable = #{enable}
+            </if>
+            <if test="merchantname != null">
+                AND m.name LIKE CONCAT('%', #{merchantname}, '%')
+            </if>
+            <if test="isDeleted != null">
+                AND k.is_deleted = #{isDeleted}
+            </if>
+            <if test="type != null">
+                AND k.type = #{type}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateKsAccountToRole" parameterType="com.kshl.huihuimall.base.dal.entity.KsAccountToRole">
+        update ks_account_to_role
+        <set>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where account_id = #{accountId,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryAccountByRoleNameAndName" parameterType="map" resultType="map">
+        SELECT account.id, account.name, account.phone FROM ks_account account
+        LEFT JOIN ks_account_to_role atr ON atr.account_id = account.id
+        LEFT JOIN ks_role role ON role.id = atr.role_id
+        WHERE role.name LIKE CONCAT('%', #{roleName}, '%')
+        <if test="name != null">
+            AND account.name LIKE CONCAT('%', #{name}, '%')
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/kshl/!svn/ver/9824/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual
+END
+CategoryManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/8413/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/CategoryManualMapper.xml
+END
+KsAreaAddressMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/kshl/!svn/ver/8726/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/KsAreaAddressMapper.xml
+END
+KsAccountToRoleManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/kshl/!svn/ver/8157/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/KsAccountToRoleManualMapper.xml
+END
+StoreManuaMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/kshl/!svn/ver/9594/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/StoreManuaMapper.xml
+END
+ProductManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/kshl/!svn/ver/9433/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/ProductManualMapper.xml
+END
+FinancialReportManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/kshl/!svn/ver/9824/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/FinancialReportManualMapper.xml
+END
+InventoryManuaMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/9389/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/InventoryManuaMapper.xml
+END
+FrontOrderManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/kshl/!svn/ver/8707/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/FrontOrderManualMapper.xml
+END
+StoreHouseManuaMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/kshl/!svn/ver/8631/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/StoreHouseManuaMapper.xml
+END
+InventoryInManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/kshl/!svn/ver/9768/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/InventoryInManualMapper.xml
+END
+CustomerManuMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/kshl/!svn/ver/9397/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/CustomerManuMapper.xml
+END
+FinancialManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/kshl/!svn/ver/9768/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/FinancialManualMapper.xml
+END
+InventoryOutManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/kshl/!svn/ver/8678/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/InventoryOutManualMapper.xml
+END
+CategoryBrandMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/kshl/!svn/ver/8718/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/CategoryBrandMapper.xml
+END
+KsAccountManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/kshl/!svn/ver/8199/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/KsAccountManualMapper.xml
+END
+KsAreaManuaMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/kshl/!svn/ver/8148/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/KsAreaManuaMapper.xml
+END
+OrderDetailManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/kshl/!svn/ver/8125/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/OrderDetailManualMapper.xml
+END
+DeviceManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/kshl/!svn/ver/9725/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/DeviceManualMapper.xml
+END
+KsRoleManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/kshl/!svn/ver/9237/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/KsRoleManualMapper.xml
+END
+InventoryToProductManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/kshl/!svn/ver/8677/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/InventoryToProductManualMapper.xml
+END
+CustomerManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/9738/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/CustomerManualMapper.xml
+END
+MerchantManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/9742/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/MerchantManualMapper.xml
+END
+LivingPayManulMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/9791/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/LivingPayManulMapper.xml
+END
+InventoryTransferManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/kshl/!svn/ver/9768/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/InventoryTransferManualMapper.xml
+END
+FrontStoreManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/kshl/!svn/ver/9567/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/FrontStoreManualMapper.xml
+END
+ShopKeeperManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/kshl/!svn/ver/9608/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/ShopKeeperManualMapper.xml
+END
+AllOrderMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/kshl/!svn/ver/9770/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/AllOrderMapper.xml
+END
+OrderManualMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/kshl/!svn/ver/9800/out_project/HuihuiMall/src/main/resources/mappers/com/kshl/huihuimall/base/dal/mapper/manual/OrderManualMapper.xml
+END

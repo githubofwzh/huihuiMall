@@ -1,0 +1,165 @@
+html{
+	font-family: "microsoft yahei";
+}
+.container-fluid{
+	background-image: url("../../../images/frontpages/common/BackGroundImg_zz.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+input{
+	width: 380px;
+	outline:none;
+	font-size: 24px;
+}
+.main{
+	padding: 165px 18px 0 18px;
+}
+.title{
+	font-size: 50px;
+	font-family: "microsoft yahei";
+	font-weight: bold;
+	color: #b75816;
+}
+.phone_number{
+	padding: 0;
+	margin-top: 62px;
+	position: relative;
+}
+.phone_number input,.phone_code input{
+	padding: 30px 0 30px 100px;
+	border: 1px solid #b3b3b3;
+	border-radius: 12px;
+	font-size: 24px;
+	font-family: "microsoft yahei";
+	color: #999999;
+}
+.phone_number span,.phone_code span{
+	position: absolute;
+	left: 0px;
+	padding: 30px 26px 30px 26px;
+	background-color: #c57030;
+	z-index: 1;
+	border-radius: 12px 0 0 12px;
+	top: 1px;
+	left: 1px;
+}
+.phone_number span img,.phone_code span img{
+	width: 26px;
+	height: 35px;
+}
+.phone_code{
+	padding: 0;
+	margin-top: 22px;
+	position: relative;
+}
+.phone_code #sendVerifyCode,#WXsendVerifyCode{
+	width: auto;
+	padding: 15px 28px 14px 28px;
+	height: auto;
+	font-size: 20px;
+	color: #FFFFFF;
+	font-family: "microsoft yahei";
+	background-color: #c57030;
+	border: 0;
+	z-index: 0;
+	border-radius: 10px;
+	position: absolute;
+	top: 20px;
+	right: 10px;
+}
+.login{
+	margin-top: 22px;
+	padding: 24px 0px 24px 0px;
+	font-size: 24px;
+	color: #FFFFFF;
+	font-family: "microsoft yahei";
+	border: 0;
+	background-color: #c57030;
+	border-radius: 16px;
+}
+.input{
+	border: 1px solid #666666;
+	border-radius: 10px;
+	font-size: 19px;
+	margin: 10px auto;
+	height: 50px;
+	padding: 30px 0 30px 10px;
+	margin-top: 15px;
+
+}
+.localStorage{
+	width: 270px;
+	font-size: 24px;
+	text-align: center;
+}
+.modal-content{
+	width: 515px;
+}
+.modal-title{
+	padding: 10px 0;
+	font-size: 24px;
+}
+
+a{
+	outline: none;
+}
+
+button{
+	outline:none;
+}
+.wxLogin{
+	padding: 20px 0 0 0;
+	text-align: right;
+}
+.wxLogin a{
+	font-size: 22px;
+	text-decoration: none;
+	color: #2c2c2c;
+	cursor: pointer;
+}
+.wxLogin i{
+	margin-right: 10px;
+}
+
+
+.WXmain{
+	display: none;
+}
+.WXImg{
+	padding: 50px 0 40px 0;
+	height: 380px;
+	transition: 2s;
+}
+.WXBDlogin{
+	display : none;
+}
+.WXBDlogin>.phone_number{
+	margin-top: 0px;
+}
+.WXImg>img{
+	width: auto;
+	height: auto;
+	vertical-align: middle;
+}
+.WXtitle{
+	height: 38px;
+	font-size: 28px;
+	transition: 2s;
+}
+.WXBDtitle{
+	padding-top: 33px;
+	font-size: 24px;
+}
+
+/*虚拟键盘样式*/
+#deviceKeyboardPanel{
+	margin-top:-15%;
+}
+
+#phoneKeyboardPanel{
+	margin-top:-15%;
+}
+
+#verifyKeyboardPanel{
+	margin-top:-15%;
+}

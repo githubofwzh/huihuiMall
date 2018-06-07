@@ -1,0 +1,162 @@
+.payment {
+    padding: 100px 30px;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.payment_money {
+    padding: 21px 0 23px 0;
+    border-bottom: 1px solid #dddddd;
+
+}
+
+.payment_money span {
+    font-size: 34px;
+    font-family: "microsoft yahei";
+    color: #333333;
+}
+
+.payment_money a:hover {
+    color: #d21b2d;
+    text-decoration: none;
+}
+
+.payment_money a:active {
+    color: #d21b2d;
+    text-decoration: none;
+}
+
+.money_number {
+    font-size: 36px;
+    font-family: "microsoft yahei";
+    color: #d21b2d;
+    cursor: pointer;
+}
+
+.payment_mode {
+    padding: 37px 3% 77px 3%;
+}
+
+.payment_mode span {
+    font-size: 22px;
+    font-family: "microsoft yahei";
+    color: #666666;
+}
+
+.payment_mode button {
+    width: 285px;
+    height: 66px;
+    border: 1px solid #a7a5a3;
+    background-color: #f3f1f2;
+    border-radius: 4px;
+    font-size: 22px;
+    font-family: "microsoft yahei";
+    color: #333333;
+    display: block;
+    box-sizing: border-box;
+}
+
+.payment_mode button img {
+    margin-right: 18px;
+}
+
+.payment_Scancode {
+    padding: 10% 0;
+}
+
+.payment_Scancode img {
+    width: 80px;
+    margin-right: 20px;
+}
+
+.payment_Scancode>span {
+    font-family: "microsoft yahei";
+    font-size: 38px !important;
+    color: #aaaaaa;
+}
+
+.weixin {
+    margin-top: 38px;
+    width: 360px !important;
+    height: 90px !important;
+    background-color: #FFFFFF;
+    font-size: 34px !important;
+}
+
+.weixin img, .zhifb img {
+    width: 50px;
+}
+
+.zhifb {
+    margin-top: 35px;
+    width: 360px !important;
+    height: 90px !important;
+    background-color: #FFFFFF;
+    font-size: 34px !important;
+}
+
+.left {
+    float: left;
+    display: inline-block;
+}
+.left span{
+    font-size: 40px;
+}
+.right {
+    float: right;
+    display: inline-block;
+}
+
+.Scan_code {
+    padding: 10% 0 0 0;
+    position: relative;
+}
+
+.Scan_code p {
+    display: inline-block;
+    font-size: 34px;
+    font-family: "microsoft yahei";
+    color: #B75816;
+}
+
+.Scan_code > img {
+    width: 50px;
+    margin-top: -50px;
+    margin-left: 18px;
+    margin-right: 20px;
+}
+
+.Scan_code .saoma {
+    width: 280px;
+    height: 280px;
+    border: 1px solid #b75816;
+    position: relative;
+    top: -195px;
+    left: 300px;
+    padding: 90px;
+}
+
+.saoma>#QRcode {
+    width: 247px;
+    height: 247px;
+    margin-left: -75px;
+    margin-top: -75px;
+}
+.none {
+    display: none;
+}
+
+.minute {
+    background-color: #FFFFFF;
+}
+
+.modal-body img {
+    width: 15%;
+}
+
+.modal-body p {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #2faf27;
+}

@@ -1,0 +1,104 @@
+package com.kshl.base.common.utils;
+
+import com.kshl.util.FileUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+import javax.servlet.http.HttpSession;
+import java.io.*;
+
+/**
+ * Created by Administrator on 2017/6/16.
+ */
+public class FileUploadUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(FileUploadUtil.class);
+
+    public static String getSaveFilePath(String data, HttpSession session, String model){
+        if(KSHLUtils.isEmpty(data)) {
+            logger.info("upload file failed, data is empty");
+            return null;
+        }
+        String realPath = session.getServletContext().getRealPath("");
+        String imgSuffix = data.substring(data.indexOf("/") + 1, data.indexOf(";"));
+        String saveFileName = FileUtils.getSaveFileName(imgSuffix);
+
+        String fullFileName = FileUtils.getFullSavePath(realPath, model) + saveFileName;
+        String imagaBase64Data = data.substring(data.indexOf(",") + 1);
+
+        Base64 base64 = new Base64();
+        byte[] imageBinaryDate = base64.decode(imagaBase64Data);
+
+        try {
+
+            FileOutputStream outer = new FileOutputStream(fullFileName);
+            outer.write(imageBinaryDate);
+            outer.close();
+
+        } catch (Exception e) {
+            logger.error("file upload failed: ", e.toString());
+            return null;
+        }
+
+        return "/" + FileUtils.getRelateSavePath(model) + saveFileName;
+    }
+
+    public static boolean GenerateImage(String imgStr, String imgFilePath) {// 对字节数组字符串进行Base64解码并生成图片
+        if (imgStr == null) // 图像数据为空
+            return false;
+        BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            // Base64解码
+            byte[] bytes = decoder.decodeBuffer(imgStr);
+            for (int i = 0; i < bytes.length; ++i) {
+                if (bytes[i] < 0) {// 调整异常数据
+                    bytes[i] += 256;
+                }
+            }
+            // 生成jpeg图片
+            OutputStream out = new FileOutputStream(imgFilePath);
+            out.write(bytes);
+            out.flush();
+            out.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static String GetImageStr(String imgFilePath) {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
+        byte[] data = null;
+
+        // 读取图片字节数组
+        try {
+            InputStream in = new FileInputStream(imgFilePath);
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(data);// 返回Base64编码过的字节数组字符串
+    }
+
+    public static void main(String[] args) {
+        // 测试从Base64编码转换为图片文件
+        String strImg = "iVBORw0KGgoAAAANSUhEUgAAAJYAAACWAQAAAAAUekxPAAABH0lEQVR42u2WsY7DMAxDvemXvUmb\n" +
+                "flnDASrppLgG3UyPNVLUfQEShaSUjv5af+PHVBZjWFlnl3Mrs8RB0GXc6iyMqDyv7RGW4Y3vUyxr\n" +
+                "QAA/w3BAU+r50GWXrR/Xevi2y9YK65r+zNUm48VRc43hKN5l1rCnJgSFonVrqjDYnbwRThHLjA+f\n" +
+                "MQ22l791ERjqDA+LyRSdYX3nEdE0mXE3J+pOntNZGURgC06H9S2z1YUcOcCkMkPJA5LiYx0648CZ\n" +
+                "xhtdVausKCjErNUyKTM0IDMEp7CmyexSlZZnv2eiwtY7igOibA0Lla3Bel8/PHXGZgm+RJnwM4xG\n" +
+                "saH/55DGroqRzs+adxkPPDy0daRSZvQIIcJQRCw/fNtlv/+Eh9kL/O3jUtGIMy4AAAAASUVORK5C\n" +
+                "YII=";
+        GenerateImage(strImg, "D:\\wangyc.jpg");
+        // 测试从图片文件转换为Base64编码
+        System.out.println(GetImageStr("d:\\wangyc.jpg"));
+    }
+
+}

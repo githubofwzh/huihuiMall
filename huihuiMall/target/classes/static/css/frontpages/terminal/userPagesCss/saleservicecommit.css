@@ -1,0 +1,156 @@
+label{
+    font-weight: normal;
+}
+.saleservice-panel {
+    padding: 0px;
+}
+
+.goods-info-panel {
+    padding: 0px;
+    background-color: #FFFFFF;
+}
+
+.goods-list {
+    padding: 10px 0px;
+}
+
+.goods-intro-img {
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 10px;
+    border: 1px solid #e7e7e7;
+}
+
+.goods-intro {
+    padding: 3px 0px;
+}
+
+.goods-name {
+    padding: 5px 0px 0px 0px;
+}
+
+.goods-name span {
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+.goods-count {
+    padding: 5px 0px 0px 0px;
+}
+
+.goods-count span {
+    padding-left: 5px;
+}
+
+.goods-price {
+    padding: 5px 0px 0px 0px;
+}
+
+.goods-price span {
+    font-size: 14px;
+}
+.input-saleservice-panel{
+    margin-top: 9px;
+    padding: 0 15px 0 15px;
+    background-color: #ffffff;
+}
+.input-saleservice-panel span{
+    font-size: 16px;
+    font-family: MicrosoftYaHei;
+    color: #303030;
+}
+.replace_type{
+    padding: 18px 0 16px 0;
+    border-bottom:1px solid  #dcdcdc;
+}
+.type_TH{
+    padding-top:19px;
+}
+.type_TH img{
+    width:15px;
+    margin-right: 7px;
+}
+.type_TH span:first-of-type{
+    margin: 0;
+}
+.type_TH span:last-of-type{
+    margin-left: 53px;
+}
+.reason{
+    padding: 20px 0 12px 0;
+}
+.reason_title{
+    font-size: 14px;
+    font-family: MicrosoftYaHei;
+    color: #303030;
+}
+.reason_shuom{
+    margin-top: 13px;
+    border:0;
+    width: 345px;
+    height: 110px;
+    font-size: 13px;
+    font-family: MicrosoftYaHei;
+    color: #303030;
+    text-indent: 11px;
+    background-color: #f8f8f8;
+    resize: none;
+    padding : 11px 0 12px 0;
+}
+
+
+.license_Photo{
+    margin: 12px 0 14px 0;
+}
+.license_Photo input {
+    border: 0;
+    width: 79px;
+    height: 79px;
+    opacity: 0;
+}
+.license_Photo a:hover,.license_Photo a:active{
+    text-decoration: none;
+}
+
+.license_Photo>a>span{
+    font-family: "microsoft yahei";
+    font-size: 16px;
+    color: #999999;
+    position: relative;
+    top: 51px;
+}
+.license_Photo .upload {
+    display: block;
+    width: 80px;
+    height: 80px;
+    border: 1px dashed #b7b7b7;
+    box-sizing: border-box;
+    background-image: url(../../../../images/frontpages/common/push.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: 50% 30% ;
+    color: #b7b7b7;
+}
+.on{
+    width: 79px;
+    height: 79px;
+    display: none;
+    overflow: hidden;
+    border: 1px dashed #000000;
+}
+.on img{
+    width: 79px;
+    height: 79px;
+}
+.th_submit{
+    margin: 21px auto;
+    padding: 14px 148px 14px 146px;
+    font-size: 17px;
+    font-family: "microsoft yahei";
+    color: #fff9ef;
+    border:0;
+    background-color: #c36f2f;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}

@@ -1,0 +1,533 @@
+package com.kshl.huihuimall.console.service.inventory.impl;
+
+import com.kshl.base.response.BasePageResponse;
+import com.kshl.base.response.BaseResponse;
+import com.kshl.base.response.ResponseBuilder;
+import com.kshl.huihuimall.base.constants.Constants;
+import com.kshl.huihuimall.base.dal.dao.ProductDao;
+import com.kshl.huihuimall.base.dal.entity.*;
+import com.kshl.huihuimall.console.base.dto.Stock;
+import com.kshl.huihuimall.console.base.pojo.InventoryDetailPojo;
+import com.kshl.huihuimall.console.base.vo.InInventoryExcel;
+import com.kshl.huihuimall.console.controller.inventory.request.*;
+import com.kshl.huihuimall.console.dal.dao.InventoryDao;
+import com.kshl.huihuimall.console.dal.dao.OrderDao;
+import com.kshl.huihuimall.console.dal.dao.StoreHouseDao;
+import com.kshl.huihuimall.console.service.order.OrderService;
+import com.kshl.util.PoiExcelExport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.kshl.huihuimall.console.service.inventory.InventoryService;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import static com.kshl.huihuimall.console.CSErrorCode.INVALID_PARAM;
+import static com.kshl.huihuimall.console.CSErrorCode.SUCCESS;
+
+@Service
+public class InventoryServiceImpl implements InventoryService{
+    @Autowired
+    private InventoryDao inventoryDao;
+    @Autowired
+    private ProductDao productDao;
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private StoreHouseDao storeHouseDao;
+
+    @Override
+    public BasePageResponse getInventory(InventoryMgRequest request,HttpServletRequest httpServletRequest) {
+        HttpSession session=httpServletRequest.getSession();//从session取用户
+        KsAccount account=(KsAccount)session.getAttribute("KSAccount");
+        Integer accountId=account.getId();
+        Storehouse storehouse=storeHouseDao.getStoreHousebyManageId(accountId);
+        Integer StorehouserId=null;
+        if(storehouse!=null){
+           StorehouserId=storehouse.getId();
+         }
+
+        if(storehouse==null&&request.getStorehouseId()!=null){
+            StorehouserId=request.getStorehouseId();
+        }
+
+        List<Map<String, Object>> result = inventoryDao.getInventory(request.getPageSize(),
+                request.getPageNum(), request.getProductName(),request.getProductCode(),StorehouserId);
+
+        int total = inventoryDao.getInventoryCount(request.getProductName(),request.getProductCode(),StorehouserId);
+        BasePageResponse<List<Map<String, Object>>> pageResponse = ResponseBuilder.buildBasePageResponse(SUCCESS);
+        pageResponse.setData(result);
+        pageResponse.setTotal(total);
+        if (request.getPageNum() > 1) {
+            pageResponse.setHasPreviousPage(true);
+        }
+        if (request.getPageSize() * request.getPageNum() >= total) {
+            pageResponse.setHasNextPage(false);
+        } else {
+            pageResponse.setHasNextPage(true);
+        }
+        int count = total / request.getPageSize();
+        pageResponse.setPages(total % request.getPageSize() == 0 ? count : count + 1);
+
+        return pageResponse;
+    }
+
+
+    //入库
+    @Override
+    public BaseResponse InInventory(StockRequest stockRequest,HttpServletRequest request) {
+        BaseResponse response;
+        HttpSession session=request.getSession();//从session取用户
+        KsAccount account=(KsAccount)session.getAttribute("KSAccount");
+        Integer accountId=account.getId();
+        Storehouse storehouse=storeHouseDao.getStoreHousebyManageId(accountId);
+        Integer StorehouserId=null;
+        if(storehouse!=null){
+            StorehouserId=storehouse.getId();
+            if(StorehouserId.equals(0)&&StorehouserId==null){
+                //管理员
+                StorehouserId=null;
+            }
+        }
+        InventoryIn inventoryin=new InventoryIn();
+        List<Stock> list=stockRequest.getProuducts();//添加的商品
+
+        String code=stockRequest.getCode();//入库单号
+
+        inventoryin.setCode(code);
+        inventoryin.setStatus(Constants.INVENTORY_IN_STATUS.PURCHASE);//默认采购
+        inventoryin.setStorehouseId(StorehouserId);//从用户对象获取
+        inventoryin.setCreateUser(account.getName());//从用户对象获取
+        inventoryin.setCreateTime(new Date());
+        inventoryDao.inInventory(inventoryin);//入库记录
+
+        if(list.size()>0&&list!=null){
+            for(int currsize=0;currsize<list.size();currsize++){
+                InventoryToProduct inventoryToProduct=new InventoryToProduct();
+                Stock stock=list.get(currsize);
+                Product product=productDao.getproductbyCode(stock.getProductCode());
+                Integer productId=0;
+                if(product!=null){
+                    productId=product.getId();
+                }
+                inventoryToProduct.setType(Constants.INVENTORY_TYPE.IN);
+                inventoryToProduct.setCode(code);
+                inventoryToProduct.setProductId(productId);
+                inventoryToProduct.setCount(stock.getStockNum());
+                inventoryDao.inlink(inventoryToProduct);//更新中间表
+
+                Inventory selectInventory=new Inventory();
+                selectInventory.setStorehouseId(StorehouserId);
+                selectInventory.setProductId(productId);
+                 Inventory inventory=inventoryDao.getInventorybyProductIdAndhouseId(selectInventory);
+                if(inventory!=null){
+                    inventory.setOnhand(inventory.getOnhand()+stock.getStockNum());
+                    inventoryDao.updateInventory(inventory);//更新库存商品数量
+                }else{
+                    Inventory inventoryinset=new Inventory();
+                    inventoryinset.setProductId(productId);
+                    inventoryinset.setStorehouseId(StorehouserId);
+                    inventoryinset.setOnhand(stock.getStockNum());
+                    inventoryDao.insertInventory(inventoryinset);//更新库存商品数量
+                }
+
+
+            }
+        }
+        return null;
+    }
+
+
+    @Override
+    public BasePageResponse queryOutInventory(OutInventoryRequest request,HttpServletRequest servletRequest) {
+        HttpSession session=servletRequest.getSession();//从session取用户
+        KsAccount account=(KsAccount)session.getAttribute("KSAccount");
+        Integer accountId=account.getId();
+        Storehouse storehouse=storeHouseDao.getStoreHousebyManageId(accountId);
+        Integer StorehouserId=null;
+        if(storehouse!=null){
+            StorehouserId=storehouse.getId();
+        }
+        List<Map<String, Object>> result = inventoryDao.queryOutInventory(request.getOrderStatus(),
+                request.getPageSize(), request.getPageNum(),
+                request.getCode(), request.getStatus(), request.getStoreHouse(),request.getStartTime(),request.getEndTime(),StorehouserId);
+
+        int total = inventoryDao.queryOutInventoryCount(request.getOrderStatus(),request.getCode(), request.getStatus(),request.getStoreHouse(),request.getStartTime(),request.getEndTime(),StorehouserId);
+        BasePageResponse<List<Map<String, Object>>> pageResponse = ResponseBuilder.buildBasePageResponse(SUCCESS);
+        pageResponse.setData(result);
+        pageResponse.setTotal(total);
+        if (request.getPageNum() > 1) {
+            pageResponse.setHasPreviousPage(true);
+        }
+        if (request.getPageSize() * request.getPageNum() >= total) {
+            pageResponse.setHasNextPage(false);
+        } else {
+            pageResponse.setHasNextPage(true);
+        }
+        int count = total / request.getPageSize();
+        pageResponse.setPages(total % request.getPageSize() == 0 ? count : count + 1);
+
+        return pageResponse;
+    }
+
+    //查询进出库及调拨历史
+    @Override
+    public BasePageResponse queryInventoryRecord(InventoryRecordRequest request,HttpServletRequest servletRequest) {
+        HttpSession session=servletRequest.getSession();//从session取用户
+        KsAccount account=(KsAccount)session.getAttribute("KSAccount");
+        Integer accountId=account.getId();
+        Storehouse storehouse=storeHouseDao.getStoreHousebyManageId(accountId);
+        Integer storehouserId=null;
+        if(storehouse!=null){
+            storehouserId=storehouse.getId();
+        }
+        List<Map<String, Object>> result=inventoryDao.queryInInventoryRecord(request.getPageNum(),request.getPageSize(),request.getCode(),
+                request.getStatus(),request.getStartTime(),request.getEndTime(),storehouserId);
+        int total=inventoryDao.queryInInventoryRecordCount(request.getCode(),request.getStatus(),
+                request.getStartTime(),request.getEndTime(),storehouserId);
+        BasePageResponse<List<Map<String, Object>>> pageResponse = ResponseBuilder.buildBasePageResponse(SUCCESS);
+        pageResponse.setData(result);
+        pageResponse.setTotal(total);
+        if (request.getPageNum() > 1) {
+            pageResponse.setHasPreviousPage(true);
+        }
+        if (request.getPageSize() * request.getPageNum() >= total) {
+            pageResponse.setHasNextPage(false);
+        } else {
+            pageResponse.setHasNextPage(true);
+        }
+        int count = total / request.getPageSize();
+        pageResponse.setPages(total % request.getPageSize() == 0 ? count : count + 1);
+
+        return pageResponse;
+    }
+    //出库
+    @Override
+    public BaseResponse OutInventory(String orderNumber, HttpServletRequest servletRequest) {
+        BaseResponse response;
+        InventoryOut inventoryOut = new InventoryOut();
+        inventoryOut.setOrderNumber(orderNumber);
+        int count = inventoryDao.updateOutInventory(inventoryOut);
+        StoreOrder storeOrder = new StoreOrder();
+        storeOrder.setOrderNumber(orderNumber);
+        storeOrder.setOrderstatus("4");
+        int total = orderDao.updateStoreOrder(storeOrder);
+        if(count>0 && total>0){
+            response = ResponseBuilder.buildBaseResponse(SUCCESS);
+            response.setRetMsg("出库成功");
+        } else {
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+            response.setRetMsg("出库失败");
+        }
+       return response;
+    }
+
+    @Override
+    public BasePageResponse InOutInventory(InventoryRecordRequest request) {
+        List<Map<String, Object>> result = inventoryDao.InOutInventory(request.getPageSize(),
+                request.getPageNum(), request.getCode(),request.getStatus(),request.getStartTime(),request.getEndTime());
+
+        int total = inventoryDao.InOutInventoryCount(request.getCode(),request.getStatus(),request.getStartTime(),request.getEndTime());
+        BasePageResponse<List<Map<String, Object>>> pageResponse = ResponseBuilder.buildBasePageResponse(SUCCESS);
+        pageResponse.setData(result);
+        pageResponse.setTotal(total);
+        if (request.getPageNum() > 1) {
+            pageResponse.setHasPreviousPage(true);
+        }
+        if (request.getPageSize() * request.getPageNum() >= total) {
+            pageResponse.setHasNextPage(false);
+        } else {
+            pageResponse.setHasNextPage(true);
+        }
+        int count = total / request.getPageSize();
+        pageResponse.setPages(total % request.getPageSize() == 0 ? count : count + 1);
+
+        return pageResponse;
+    }
+
+    @Override
+    public BaseResponse Transfer(TransferRequest request,HttpServletRequest servletRequest) {
+        HttpSession session=servletRequest.getSession();//从session取用户
+        KsAccount account=(KsAccount)session.getAttribute("KSAccount");
+        Integer accountId=account.getId();
+        Storehouse storehouse=storeHouseDao.getStoreHousebyManageId(accountId);
+        Integer StorehouserId=null;
+        if(storehouse!=null){
+            StorehouserId=storehouse.getId();
+            if(StorehouserId.equals(0)&&StorehouserId==null){
+                //管理员
+                StorehouserId=null;
+            }
+        }
+        List<Stock> stocks=request.getProducts();
+        InventoryTransfer inventoryTransfer=new InventoryTransfer();
+        inventoryTransfer.setCode(request.getCode());
+        if(StorehouserId.equals(request.getStorehousein())){//判断是否当前库存
+            inventoryTransfer.setStatus(Constants.INVENTORY_TYPE.IN);
+        }else{
+            inventoryTransfer.setStatus(Constants.INVENTORY_TYPE.OUT);
+        }
+
+        inventoryTransfer.setInhouseId(request.getStorehousein());
+        inventoryTransfer.setOuthouseId(request.getStorehouseout());
+        inventoryTransfer.setCreateTime(new Date());
+        inventoryTransfer.setCreateUser(account.getName());//获取用户
+        inventoryDao.transfer(inventoryTransfer);
+        if(stocks.size()>0&&stocks!=null){
+            for(int i=0;i<stocks.size();i++){
+                InventoryToProduct inventoryToProduct=new InventoryToProduct();
+                Stock stock=stocks.get(i);
+                Integer stockNum=stock.getStockNum();
+                Product product=productDao.getproductbyCode(stock.getProductCode());
+                Integer productId=0;
+                if(product!=null){
+                    productId=product.getId();
+                }
+                inventoryToProduct.setCode(request.getCode());
+                inventoryToProduct.setType(Constants.INVENTORY_TYPE.TRANSFER);
+                inventoryToProduct.setCount(stockNum);
+                inventoryToProduct.setProductId(productId);
+                inventoryDao.inlink(inventoryToProduct);
+            }
+        }
+
+     return  null;
+    }
+
+    @Override
+    @Transactional
+    public BaseResponse TransferAction(TransferActionRequest request,HttpServletRequest servletRequest) {
+       Integer inStorehouseid=0;//入库id
+       Integer outStorehouseid=0;//出库id
+       InventoryTransfer inventoryTransfer=inventoryDao.getInventoryTransferbycode(request.getCode());
+       String code="";
+       if(inventoryTransfer!=null){
+           code=request.getCode();//当前订单号
+           inStorehouseid=inventoryTransfer.getInhouseId();
+           outStorehouseid=inventoryTransfer.getOuthouseId();
+       }
+       List<InventoryToProduct> stocks=inventoryDao.getproductListBycode(code);
+        if(stocks.size()>0&&stocks!=null){
+            for(int i=0;i<stocks.size();i++){
+                Inventory inventoryout=new Inventory();
+                Inventory inventoryin=new Inventory();
+                Integer inNum=0;
+                Integer outNum=0;
+                InventoryToProduct stock=stocks.get(i);
+                Integer productId=stock.getProductId();
+                Integer stockNum=stock.getCount();//调库数量
+
+                inventoryin.setProductId(productId);
+                inventoryin.setStorehouseId(inStorehouseid);
+                Inventory in=inventoryDao.getInventorybyProductIdAndhouseId(inventoryin);//库存数量
+
+                inventoryout.setProductId(productId);
+                inventoryout.setStorehouseId(outStorehouseid);
+                Inventory out=inventoryDao.getInventorybyProductIdAndhouseId(inventoryout);//库存数量
+
+                if(in!=null&&out!=null){
+                    inNum=in.getOnhand();
+                    outNum=out.getOnhand();
+                    if(outNum>inNum&&outNum-stockNum>-1){
+                        Inventory updateIn=new Inventory();
+                        Inventory updateOut=new Inventory();
+
+                        updateIn.setOnhand(inNum+stockNum);
+                        updateIn.setStorehouseId(in.getStorehouseId());
+                        updateIn.setProductId(in.getProductId());
+                        inventoryDao.updateInventory(updateIn);
+
+                        updateOut.setProductId(out.getProductId());
+                        updateOut.setStorehouseId(out.getStorehouseId());
+                        updateOut.setOnhand(outNum-stockNum);
+                        inventoryDao.updateInventory(updateOut);
+
+                    }
+                }
+
+
+            }
+        }
+        return null;
+
+    }
+
+    @Override
+    public BaseResponse InInventoryRecordDetail(InventoryIn request) {
+
+        BaseResponse response;
+        List<InventoryToProduct> inventoryToProducts = inventoryDao.getproductListBycode(request.getCode());
+        List<Stock> stocks=new ArrayList<>();
+        for(int i=0;i<inventoryToProducts.size();i++){
+            Stock stock=new Stock();
+            InventoryToProduct inventoryToProduct=inventoryToProducts.get(i);
+            String productName=productDao.getproductbyCode(inventoryToProduct.getCode()).getName();
+            stock.setProductCode(inventoryToProduct.getCode());
+            stock.setProductName(productName);
+            stock.setStockNum(inventoryToProduct.getCount());
+            stocks.add(stock);
+        }
+        InventoryIn inventoryIn = inventoryDao.getInventoryIn(request.getCode());
+        if (inventoryToProducts != null && inventoryToProducts.size() > 0 && inventoryIn != null) {
+
+            InventoryDetailPojo inventoryDetailPojo=new InventoryDetailPojo();
+            inventoryDetailPojo.setList(stocks);
+            inventoryDetailPojo.setInventoryIn(inventoryIn);
+            response = ResponseBuilder.buildBaseResponse(SUCCESS);
+            response.setData(inventoryDetailPojo);
+        } else {
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        }
+        return response;
+
+    }
+
+   @Override
+    public BaseResponse outInventoryRecordDetail(InventoryOut request) {
+        BaseResponse response;
+        OutInventoryRecordDetail inventoryDetail = inventoryDao.getOutInventoryRecordDetail(request.getOrderNumber());
+        List<OrderDetail> orderDetailList = orderDao.getOrderDetail(request.getOrderNumber());
+        inventoryDetail.setOrderDetailList(orderDetailList);
+        response = ResponseBuilder.buildBaseResponse(SUCCESS);
+        response.setData(inventoryDetail);
+        return response;
+    }
+
+    @Override
+    public BaseResponse TransferRecordDetail(InventoryTransfer request) {
+        BaseResponse response;
+        List<InventoryToProduct> inventoryToProducts = inventoryDao.getproductListBycode(request.getCode());
+        InventoryTransfer inventoryTransfer = inventoryDao.getInventoryTransfer(request.getCode());
+        List<Stock> stocks=new ArrayList<>();
+        for(int i=0;i<inventoryToProducts.size();i++){
+            Stock stock=new Stock();
+            InventoryToProduct inventoryToProduct=inventoryToProducts.get(i);
+            String productName=productDao.getproductbyCode(inventoryToProduct.getCode()).getName();
+            stock.setProductCode(inventoryToProduct.getCode());
+            stock.setProductName(productName);
+            stock.setStockNum(inventoryToProduct.getCount());
+            stocks.add(stock);
+        }
+        if (stocks != null && stocks.size() > 0 && inventoryTransfer != null) {
+            InventoryDetailPojo inventoryDetailPojo=new InventoryDetailPojo();
+            inventoryDetailPojo.setList(stocks);
+            inventoryDetailPojo.setInventoryTransfer(inventoryTransfer);
+            response = ResponseBuilder.buildBaseResponse(SUCCESS);
+            response.setData(inventoryDetailPojo);
+        } else {
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        }
+        return response;
+    }
+
+    @Override
+    public BaseResponse inExportExcel(ExportExcelRequest request) {
+
+
+
+        PoiExcelExport pee = new PoiExcelExport("E:/InInventoryRecord.xls","sheet1");
+        List<InInventoryExcel> list=request.getList();
+
+        String titleColumn[] = {"code","time","inhouseName","status","user"};
+        String titleName[] = {"入库库单号","入库日期","仓库名称","出库类型","操作人"};
+        int titleSize[] = {13,13,13,13,13};
+        //其他设置 set方法可全不调用
+        String colFormula[] = new String[5];
+        colFormula[4] = "D@*12";   //设置第5列的公式
+        pee.setColFormula(colFormula);
+        pee.setAddress("A:D");  //自动筛选
+
+        pee.wirteExcel(titleColumn, titleName, titleSize, list);
+        return null;
+    }
+
+    @Override
+    public BaseResponse outExportExcel(ExportExcelRequest request) {
+
+        PoiExcelExport pee = new PoiExcelExport("E:/outInventoryRecord.xls","sheet1");
+        List<InInventoryExcel> list=request.getList();
+
+        String titleColumn[] = {"code","time","outhouseName","status","user"};
+        String titleName[] = {"出库单号","出库日期","仓库名称","出库类型","操作人"};
+        int titleSize[] = {13,13,13,13,13};
+        //其他设置 set方法可全不调用
+        String colFormula[] = new String[5];
+        colFormula[4] = "D@*12";   //设置第5列的公式
+        pee.setColFormula(colFormula);
+        pee.setAddress("A:D");  //自动筛选
+
+        pee.wirteExcel(titleColumn, titleName, titleSize, list);
+        return null;
+    }
+
+    @Override
+    public BaseResponse transferExportExcel(ExportExcelRequest request) {
+
+        PoiExcelExport pee = new PoiExcelExport("E:/transferInventoryRecord.xls","sheet1");
+        List<InInventoryExcel> list=request.getList();
+
+        String titleColumn[] = {"code","time","outhouseName","inhouseName","status","user"};
+        String titleName[] = {"出库单号","出库日期","出仓库名称","入库库名称","出库类型","操作人"};
+        int titleSize[] = {13,13,13,13,13};
+        //其他设置 set方法可全不调用
+        String colFormula[] = new String[5];
+        colFormula[4] = "D@*12";   //设置第5列的公式
+        pee.setColFormula(colFormula);
+        pee.setAddress("A:D");  //自动筛选
+
+        pee.wirteExcel(titleColumn, titleName, titleSize, list);
+        return null;
+    }
+
+    @Override
+    public BaseResponse getStorehouseList() {
+        BaseResponse response;
+        List<Storehouse> list=storeHouseDao.getStorehouseList();
+        if(list.size()>0&&list!=null){
+            response = ResponseBuilder.buildBaseResponse(SUCCESS);
+            response.setData(list);
+        }else {
+            response = ResponseBuilder.buildBaseResponse(INVALID_PARAM);
+        }
+        return response;
+    }
+
+    @Override
+    public BasePageResponse getInInventory(InventoryMgRequest request, HttpServletRequest servletRequest) {
+        HttpSession session=servletRequest.getSession();//从session取用户
+        KsAccount account=(KsAccount)session.getAttribute("KSAccount");
+        Integer accountId=account.getId();
+        Storehouse storehouse=storeHouseDao.getStoreHousebyManageId(accountId);
+        Integer StorehouserId=null;
+        if(storehouse!=null){
+            StorehouserId=storehouse.getId();
+        }
+        List<Map<String, Object>> result = inventoryDao.getInInventory(request.getPageSize(),
+                request.getPageNum(), request.getProductName(),request.getProductCode(),StorehouserId);
+
+        int total = inventoryDao.getInInventoryCount(request.getProductName(),request.getProductCode(),StorehouserId);
+        BasePageResponse<List<Map<String, Object>>> pageResponse = ResponseBuilder.buildBasePageResponse(SUCCESS);
+        pageResponse.setData(result);
+        pageResponse.setTotal(total);
+        if (request.getPageNum() > 1) {
+            pageResponse.setHasPreviousPage(true);
+        }
+        if (request.getPageSize() * request.getPageNum() >= total) {
+            pageResponse.setHasNextPage(false);
+        } else {
+            pageResponse.setHasNextPage(true);
+        }
+        int count = total / request.getPageSize();
+        pageResponse.setPages(total % request.getPageSize() == 0 ? count : count + 1);
+
+        return pageResponse;
+    }
+
+
+}

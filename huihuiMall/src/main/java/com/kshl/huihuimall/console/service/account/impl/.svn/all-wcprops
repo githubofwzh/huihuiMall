@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/kshl/!svn/ver/9149/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/service/account/impl
+END
+AccountServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/kshl/!svn/ver/8939/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/service/account/impl/AccountServiceImpl.java
+END
+AccountRoleServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/kshl/!svn/ver/7699/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/service/account/impl/AccountRoleServiceImpl.java
+END
+ColCustomerServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/kshl/!svn/ver/8117/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/service/account/impl/ColCustomerServiceImpl.java
+END
+AccountRoleServiceTypeImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/kshl/!svn/ver/7699/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/service/account/impl/AccountRoleServiceTypeImpl.java
+END
+ShopKeeperServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/kshl/!svn/ver/9149/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/service/account/impl/ShopKeeperServiceImpl.java
+END
+ThiradAccountServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/kshl/!svn/ver/8564/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/service/account/impl/ThiradAccountServiceImpl.java
+END

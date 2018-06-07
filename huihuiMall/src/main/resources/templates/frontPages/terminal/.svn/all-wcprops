@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/kshl/!svn/ver/10088/out_project/HuihuiMall/src/main/resources/templates/frontPages/terminal
+END
+wxAuthorization.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/kshl/!svn/ver/9567/out_project/HuihuiMall/src/main/resources/templates/frontPages/terminal/wxAuthorization.ftl
+END
+wxCustomerAuthorization.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/kshl/!svn/ver/9127/out_project/HuihuiMall/src/main/resources/templates/frontPages/terminal/wxCustomerAuthorization.ftl
+END
+wxApplyStore.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/kshl/!svn/ver/9578/out_project/HuihuiMall/src/main/resources/templates/frontPages/terminal/wxApplyStore.ftl
+END
+wxLogin.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/kshl/!svn/ver/9573/out_project/HuihuiMall/src/main/resources/templates/frontPages/terminal/wxLogin.ftl
+END
+wxScanCodeLogin.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/kshl/!svn/ver/9789/out_project/HuihuiMall/src/main/resources/templates/frontPages/terminal/wxScanCodeLogin.ftl
+END

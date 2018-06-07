@@ -1,0 +1,83 @@
+10
+
+dir
+10103
+http://123.56.109.92:81/svn/kshl/out_project/HuihuiMall/src/main/java/com/kshl
+http://123.56.109.92:81/svn/kshl
+
+
+
+2018-05-31T04:46:07.257741Z
+10089
+wangzhijie
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+efbe3470-93e7-4cb5-a3ce-ea396a73592e
+
+aspect
+dir
+
+sharding
+dir
+
+huihuimall
+dir
+
+HuihuiMallApplication.java
+file
+
+
+
+
+2018-02-27T09:56:21.071791Z
+c5961458c04636296724629328324ba7
+2018-02-06T00:42:52.134024Z
+7430
+zhangmeng
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+438
+
+config
+dir
+
+security
+dir
+
+base
+dir
+
+util
+dir
+

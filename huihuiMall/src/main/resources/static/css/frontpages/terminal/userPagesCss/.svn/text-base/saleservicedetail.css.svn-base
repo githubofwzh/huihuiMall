@@ -1,0 +1,111 @@
+label{
+    font-weight: normal;
+}
+.saleservice-panel {
+    padding: 0px;
+}
+
+.goods-info-panel {
+    padding: 0px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.goods-list {
+    padding: 10px 0px;
+}
+
+.goods-intro-img {
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 10px;
+    border: 1px solid #e7e7e7;
+}
+
+.goods-intro {
+    padding: 3px 0px;
+}
+
+.goods-name {
+    padding: 5px 0px 0px 0px;
+}
+
+.goods-name span {
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+.goods-count {
+    padding: 5px 0px 0px 0px;
+}
+
+.goods-count span {
+    padding-left: 5px;
+}
+
+.goods-price {
+    padding: 5px 0px 0px 0px;
+}
+
+.goods-price span {
+    font-size: 14px;
+}
+.Customer_service{
+    margin-top: 11px;
+    background-color: #ffffff;
+}
+.Customer_number{
+    padding: 15px 0 14px 24px;
+    border-bottom: 1px solid #dcdcdc;
+    border-top: 1px solid #dcdcdc;
+}
+.Customer_time{
+    padding: 15px 0 14px 24px;
+    border-bottom: 1px solid #dcdcdc;
+}
+.Customer_number span,.Customer_time span{
+    font-size: 15px;
+    font-family: MicrosoftYaHei;
+    color: #2c2c2c;
+}
+.reason_sm{
+    margin-top: 10px;
+    border-top:1px solid #dcdcdc;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+}
+.reason_smly{
+    padding: 15px 0 15px 16px;
+    border-bottom: 1px solid #dcdcdc;
+    font-size: 14px;
+    color: #383838;
+    font-family: MicrosoftYaHei;
+}
+.reason_smly img{
+    width:12px;
+    margin-right: 9px;
+    margin-top: -3px;
+}
+.reason_type{
+    padding: 15px 0 11px 0;
+    border-bottom: 1px solid #dcdcdc;
+}
+.reason_ly {
+    padding: 15px 0 11px 0;
+}
+.reason_type span,.reason_ly span{
+    font-size: 14px;
+    font-family: MicrosoftYaHei;
+    color: #303030;
+}
+.reason_type p,.reason_ly p{
+    font-size: 13px;
+    color: #676767;
+    margin-top: 13px;
+    padding-left: 10px;
+}
+.reason_ly p img{
+    margin-top: 15px;
+    width:53px;
+    display: block;
+}

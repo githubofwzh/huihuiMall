@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/kshl/!svn/ver/9237/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/manualmapper
+END
+CategoryManualMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/kshl/!svn/ver/8410/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/manualmapper/CategoryManualMapper.java
+END
+KsRoleManualMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/kshl/!svn/ver/9237/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/manualmapper/KsRoleManualMapper.java
+END
+ProductManualMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/kshl/!svn/ver/9004/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/manualmapper/ProductManualMapper.java
+END
+KsAccountMMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/kshl/!svn/ver/7575/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/manualmapper/KsAccountMMapper.java
+END
+KsAccountManualMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/kshl/!svn/ver/8193/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/manualmapper/KsAccountManualMapper.java
+END

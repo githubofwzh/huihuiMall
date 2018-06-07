@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/kshl/!svn/ver/9793/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/financial/request
+END
+BankReconciliationRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/kshl/!svn/ver/9793/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/financial/request/BankReconciliationRequest.java
+END
+TradeRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/kshl/!svn/ver/8024/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/financial/request/TradeRequest.java
+END
+StandardRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/svn/kshl/!svn/ver/7755/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/financial/request/StandardRequest.java
+END
+FinancialReportRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/kshl/!svn/ver/8773/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/financial/request/FinancialReportRequest.java
+END

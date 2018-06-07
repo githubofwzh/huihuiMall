@@ -1,0 +1,83 @@
+﻿body {
+	background-color: #ecf0f5;
+}
+
+.table-panel {
+	background-color: #FFFFFF;
+}
+
+
+/*表格样式*/
+
+table {
+	background-color: #FFFFFF;
+}
+
+thead {
+	background-color: #ecf0f5;
+}
+
+th {
+	text-align: center;
+}
+
+td {
+	text-align: center;
+}
+
+td>label {
+	font-weight: normal;
+}
+
+.table-hover>tbody>tr:hover {
+	background-color: #ecf0f5;
+}
+
+/*审核状态组*/
+.success {
+	color: #1fbba6;
+}
+
+.failure {
+	color: red;
+}
+
+.checking {
+	color: orange;
+}
+
+
+/*任务状态组*/
+.mission-finish{
+	color: #00ba35;
+	font-weight: bold;
+}
+
+.mission-unfinish{
+	color: #767676;
+	font-weight: bold;
+}
+
+.mission-noMission{
+	color: #444444;
+	font-weight: bold;
+}
+
+.mission-exception{
+	color: #ff3355;
+	font-weight: bold;
+}
+
+.mission-bypass{
+	color: #ff5500;
+	font-weight: bold;
+}
+
+/*启用禁用状态组*/
+.open-status{
+	color: #1fbba6;
+}
+
+.ban-status{
+	color: red;
+}

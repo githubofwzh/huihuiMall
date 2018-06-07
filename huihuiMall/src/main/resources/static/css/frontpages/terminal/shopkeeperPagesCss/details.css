@@ -1,0 +1,81 @@
+a:active {
+    text-decoration: none;
+}
+
+.gap {
+    height: 10px;
+    background-color: #f5f5f5;
+}
+
+.padding {
+    padding: 15px 0 15px 15px;
+
+}
+
+.black {
+    font-size: 14px;
+    color: #333333;
+    font-family: PingFang-SC-Medium;
+}
+
+.black img {
+    margin-top: -4px;
+    width:16px;
+}
+
+.gray {
+    font-size: 14px;
+    color: #666666;
+    font-family: PingFang-SC-Medium;
+}
+
+.number, .Detailedlist {
+    border-top: 1px solid #dddddd;
+}
+
+.number, .name, .firstTime, .centerTime, .lastTime, .Detailedlist {
+    border-bottom: 1px solid #dddddd;
+    background-color: #FFFFFF;
+}
+
+.Yahei_28 {
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #333333;
+    height:40px;
+}
+
+.Yahei_24 {
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #666666;
+    padding-top:10px;
+}
+
+.Detailedlist {
+    padding: 15px 0 15px 15px;
+    font-family: PingFeng-SC-Medium;
+    font-size: 14px;
+    color: #333333;
+}
+
+.footer {
+    padding: 15px 0 15px 15px;
+    background-color: #FFFFFF;
+}
+
+.footer img {
+    border: 1px solid #dddddd;
+    margin-right: 12px;
+    width:80px;
+    height:80px;
+}
+
+.footer p:first-of-type {
+    padding-top: 5px;
+}
+
+.goodsList{
+    padding:0px;
+    margin-bottom: 10px;
+}

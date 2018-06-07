@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kshl.huihuimall.console.dal.manualmapper.FinancialManualMapper">
+
+    <resultMap id="FinancialConfigureBaseResultMap" type="com.kshl.huihuimall.base.dal.entity.FinancialConfigure">
+
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="store_profit" jdbcType="DECIMAL" property="storeProfit" />
+        <result column="recommend_profit" jdbcType="DECIMAL" property="recommendProfit" />
+        <result column="consumption_profit" jdbcType="DECIMAL" property="consumptionProfit" />
+    </resultMap>
+
+    <select id="queryAllPayInfo" parameterType="map" resultType="map">
+        SELECT p.* FROM payinfo AS p
+        where 1=1
+            <if test="type != null">
+                AND p.type= #{type}
+            </if>
+            <if test="outTradeNo != null">
+                AND p.out_trade_no like CONCAT('%','${outTradeNo}','%')
+            </if>
+            <if test="paytype != null">
+                AND p.payType = #{paytype}
+            </if>
+            <if test="payStatus != null">
+                AND p.payStatus = #{payStatus}
+            </if>
+            <if test="startTime != null and startTime!=''" >
+                　　AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime != null and endTime!=''" >
+                　　AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&lt;=#{endTime}
+            </if>
+
+        order by p.payTime desc
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getPayInfoCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(p.id)
+        FROM payinfo AS p
+        where 1=1
+            <if test="type != null">
+                AND p.type= #{type}
+            </if>
+            <if test="outTradeNo != null">
+                AND p.out_trade_no like CONCAT('%','${outTradeNo}','%')
+            </if>
+            <if test="paytype != null">
+                AND p.payType = #{paytype}
+            </if>
+            <if test="payStatus != null">
+                AND p.payStatus = #{payStatus}
+            </if>
+            <if test="startTime != null and startTime!=''" >
+                　　AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&gt;=#{startTime}
+            </if>
+            <if test="endTime != null and endTime!=''" >
+                　　AND DATE_FORMAT(p.payTime, '%Y-%m-%d')&lt;=#{endTime}
+            </if>
+
+    </select>
+
+
+    <select id="getStandard"  resultMap="FinancialConfigureBaseResultMap">
+        SELECT o.*
+        FROM financial_configure AS o
+    </select>
+
+
+</mapper>

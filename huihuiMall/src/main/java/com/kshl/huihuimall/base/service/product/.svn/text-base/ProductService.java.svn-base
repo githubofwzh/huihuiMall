@@ -1,0 +1,112 @@
+package com.kshl.huihuimall.base.service.product;
+
+import com.kshl.base.reqeust.BasePageRequest;
+import com.kshl.base.response.BasePageResponse;
+import com.kshl.base.response.BaseResponse;
+import com.kshl.huihuimall.base.dal.entity.Product;
+import com.kshl.huihuimall.console.base.pojo.ProductDetailPojo;
+import com.kshl.huihuimall.console.controller.product.request.*;
+
+import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by ethan on 2018/2/6.
+ */
+public interface ProductService {
+
+    BasePageResponse getAllCategoryOne(CategoryOneRequest request);
+
+    BasePageResponse getAllCategoryTwo(CategoryTwoRequest request);
+
+    BasePageResponse getAllBrand(BrandRequest brandRequest);
+
+    BasePageResponse getAllProduct(ProductRequest productRequest);
+
+    BasePageResponse getAllProductReview(ProductReviewRequest productReviewRequest);
+
+    BasePageResponse getAllCategoryTwoToBrand(Integer brandId, HttpSession session);
+
+    BaseResponse addCategoryOne(CategoryOneRequest request);
+
+    BaseResponse addCategoryTwo(CategoryTwoRequest request);
+    //添加商品品牌
+    BaseResponse addBrand(BrandRequest request);
+
+    BaseResponse addProduct(ProductRequest request);
+
+    BaseResponse addCategoryTwoToBrand(String categorytwoname, Integer categorytwoid, HttpSession session);
+
+    BaseResponse updateCategoryOne(CategoryOneRequest request);
+
+    BaseResponse updateCategoryTwo(CategoryTwoRequest request);
+    //更新商品品牌
+    BaseResponse updateBrand(BrandRequest request);
+
+    BaseResponse updateProduct(ProductRequest request);
+
+    BaseResponse deleteCategoryOne(CategoryOneRequest request);
+
+    BaseResponse deleteCategoryTwo(CategoryTwoRequest request);
+
+    BaseResponse deleteBrand(BrandRequest request);
+
+    BaseResponse deleteProduct(ProductRequest request);
+
+    BaseResponse deleteCategoryTwoToBrand(String categorytwoname, Integer categorytwoid, HttpSession session);
+
+    BaseResponse passProductReview(ProductReviewRequest request);
+
+    BaseResponse unPassProductReview(ProductReviewRequest request);
+
+    BaseResponse putOnTheShelfSelf(ProductRequest request);
+
+    BaseResponse putOnTheShelfThird(ProductRequest request);
+
+    BaseResponse putOffTheShelf(ProductRequest request);
+
+
+    BaseResponse getCategoryOneDetail(Integer id);
+
+    BaseResponse getCategoryOneList();
+
+    BaseResponse getCategoryDetailById(Integer id);
+
+    BaseResponse getCategoryTwoList();
+    //根据parentId查询所有二级分类
+    BaseResponse getCategoryTwoListByPId(Integer parentId);
+    //根据品牌id查看详情
+    BaseResponse getBrandById(Integer id);
+    //根据品牌id查询所有的二级分类
+    BaseResponse getCTwoByBrandId(Integer id);
+    //保存
+    BaseResponse addCategoryToBrand(String id, Object[] objs);
+//
+    int putOnTheShelfSelf(Product product);
+
+    int putOnTheShelfThird(Product product);
+
+    int putOffTheShelf(Product product);
+
+    int productdeleteByPrimaryKey(Integer id);
+
+    int productinsert(Product record);
+
+    int productupdateByPrimaryKey(Product record);
+    //根据二级分类id查询品牌信息
+    BaseResponse getBrandByCTId(Integer id);
+
+    List<Map<String, Object>> ProductDetailById(Integer id);
+    //根据商品编码查看商品信息
+    BaseResponse getProductByCode(String code);
+
+    BasePageResponse getThirdPartyProduct(ProductRequest productRequest);
+
+    int selfServiceReview(Product product);
+
+    BasePageResponse getselfServiceReviewProduct(ProductRequest productRequest);
+
+    Product getPrductPrices(String code);
+}

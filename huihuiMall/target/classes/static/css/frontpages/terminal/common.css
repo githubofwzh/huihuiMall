@@ -1,0 +1,197 @@
+body,html{
+    margin:0px;
+    padding:0px;
+    background-color: #f5f5f5;
+}
+
+.container-fluid{
+    background-color: #f5f5f5;
+}
+
+/*按钮样式css*/
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+.btn-primary.active, .btn-primary:active {
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover,
+.btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover
+{
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+.btn-default.focus, .btn-default:focus {
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+.btn-default:hover {
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+.btn-default.active, .btn-default:active {
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover,
+.btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover
+{
+    color: #fff;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+}
+
+/*modal样式*/
+.modal-content {
+    width: 85%;
+    margin: 0 auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.modal-header {
+    padding: 8px;
+    background-color: #c57030;
+    border-bottom: 1px solid #c57030;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.modal-title {
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.modal-title h4{
+    font-size:16px;
+}
+
+.modal-footer {
+    border-top: none;
+    text-align: center;
+}
+
+.confirm-btn {
+    width: 80%;
+    padding: 5px 28px;
+    margin: 0px 10px 0px 0px;
+    background-color:#c57030;
+    border:1px solid #c57030;
+    color:#FFFFFF;
+    outline:none;
+    font-size:16px;
+}
+
+.form-group{
+    margin-bottom:0px;
+}
+
+/*登录样式*/
+.login-panel{
+    padding:0px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,-30%);
+}
+
+.login-title{
+    padding:10px 0px;
+    text-align: center;
+}
+
+.login-title span{
+    color:#c57030;
+    font-size:24px;
+}
+
+.login-input-group{
+    padding:10px 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.input-group-addon img{
+    width:18px;
+    height:18px;
+}
+
+.login-input{
+    padding:10px 40px;
+}
+
+.phone-code-input{
+    height:50px;
+}
+
+.a-verifycode{
+    position: absolute;
+    z-index: 999999;
+    top:12px;
+    right: 10px;
+    height:46px;
+    color:#c57030;
+    background-color: #FFFFFF;
+    border: none;
+    outline: none;
+}
+
+.login-btn{
+    padding:10px 0px;
+    text-align: center;
+}
+
+.login-confirm-btn{
+    width:83%;
+    height:50px;
+    color: #FFFFFF;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+    font-size:18px;
+}
+
+/*搜索按钮*/
+.search-confirm-btn{
+    width:100%;
+    height:30px;
+    color: #FFFFFF;
+    background-color: #c57030;
+    border-color: #c57030;
+    outline: none;
+    font-size:14px;
+    padding: 0px;
+}
+
+.search-confirm-btn span{
+    text-align: center;
+    vertical-align: middle;
+}

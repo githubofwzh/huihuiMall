@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kshl.huihuimall.console.dal.manualmapper.DeviceManualMapper">
+    <resultMap id="DeviceBaseResultMap" type="com.kshl.huihuimall.base.dal.entity.Device">
+
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="device_code" jdbcType="VARCHAR" property="deviceCode" />
+        <result column="store_id" jdbcType="INTEGER" property="storeId" />
+        <result column="binding_status" jdbcType="INTEGER" property="bindingStatus" />
+    </resultMap>
+
+    <select id="getAllDevice" parameterType="map" resultType="map">
+        SELECT d.*,s.*,shop.name AS shopkeepername,shop.phone_number,s.store_name as name,s.store_address as address FROM device AS d
+        LEFT JOIN store AS s ON d.store_id = s.id
+        LEFT JOIN shopkeeper AS shop ON  s.id=shop.store_id
+
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="deviceCode != null">
+                AND d.device_code LIKE CONCAT('%', #{deviceCode}, '%')
+            </if>
+            <if test="bindingStatus != null">
+                AND d.binding_status = #{bindingStatus}
+            </if>
+            <if test="name != null">
+                AND s.store_name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </trim>
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getAllDeviceCount" parameterType="map" resultType="Integer">
+        SELECT COUNT(d.id)
+        FROM device AS d
+        LEFT JOIN store AS s ON d.store_id = s.id
+        LEFT JOIN shopkeeper AS shop ON  s.id=shop.store_id
+
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="deviceCode != null">
+                AND d.device_code LIKE CONCAT('%', #{deviceCode}, '%')
+            </if>
+            <if test="bindingStatus != null">
+                AND d.binding_status = #{bindingStatus}
+            </if>
+            <if test="name != null">
+                AND s.store_name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </trim>
+    </select>
+
+    <select id="getDeviceByCode" parameterType="java.lang.String" resultMap="DeviceBaseResultMap">
+        SELECT d.*
+        FROM device AS d
+        WHERE  d.device_code= #{deviceCode}
+    </select>
+
+</mapper>

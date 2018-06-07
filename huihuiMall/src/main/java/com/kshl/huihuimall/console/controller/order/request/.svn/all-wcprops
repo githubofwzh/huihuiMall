@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/kshl/!svn/ver/9032/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/order/request
+END
+OrderRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/kshl/!svn/ver/9032/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/order/request/OrderRequest.java
+END
+ReturnExchangeRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/kshl/!svn/ver/7756/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/order/request/ReturnExchangeRequest.java
+END
+SendOrderRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/kshl/!svn/ver/7689/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/console/controller/order/request/SendOrderRequest.java
+END

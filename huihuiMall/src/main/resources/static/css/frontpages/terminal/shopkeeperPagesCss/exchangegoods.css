@@ -1,0 +1,44 @@
+a:active{
+    text-decoration: none;
+}
+.gap{
+    height: 20px;
+    background-color: #f5f5f5;
+}
+
+.padding{
+    padding: 30px 0 29px 29px;
+}
+.black{
+    font-size: 32px;
+    color: #333333;
+    font-family: PingFang-SC-Medium;
+}
+.gray{
+    font-size: 32px;
+    color: #666666;
+    font-family: PingFang-SC-Medium;
+}
+.number{
+    border-top: 1px solid #dddddd;
+}
+.number,.name,.firstTime{
+    border-bottom: 1px solid #dddddd;
+}
+.Yahei_28{
+    font-family: MicrosoftYaHei;
+    font-size: 28px;
+    color: #333333;
+}
+.Yahei_24{
+    font-family: MicrosoftYaHei;
+    font-size: 24px;
+    color: #666666;
+}
+.footer{
+    padding: 27px 0 24px 36px;
+}
+.footer img{
+    border: 1px solid #dddddd;
+    margin-right: 25px;
+}

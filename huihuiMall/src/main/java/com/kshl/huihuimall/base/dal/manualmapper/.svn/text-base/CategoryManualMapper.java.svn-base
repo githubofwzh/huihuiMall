@@ -1,0 +1,30 @@
+package com.kshl.huihuimall.base.dal.manualmapper;
+
+import com.kshl.huihuimall.base.dal.entity.KsAccount;
+import com.kshl.huihuimall.console.base.pojo.CategoryToBrandPojo;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Ethan on 2018/2/7.
+ */
+public interface CategoryManualMapper {
+
+    List<Map<String, Object>> getAllBrand(Map<String, Object> map);
+
+    List<Map<String, Object>> getAllCategoryTwoToBrand(Map<String, Object> map);
+
+    int getAllBrandCount(Map<String, Object> map);
+    //二级分类
+    List<Map<String,Object>> getAllCategoryTwo(Map<String, Object> map);
+   //二级分类数量
+    int getAllCategoryTwoCount(Map<String, Object> map);
+    //根据品牌id删除CategoryToBrand表
+    int deleteCToBrandByBrandId(int brandId);
+    //根据二级分类id查询品牌信息
+    List<CategoryToBrandPojo> getBrandByCTId(Integer id);
+}

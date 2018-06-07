@@ -1,0 +1,83 @@
+.header{
+    background-image: url(../../../../images/frontpages/common/BackGroundImg.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 40px;
+}
+.header .shopname{
+    font-size: 28px;
+    color: #ffffff;
+    padding-bottom: 15px;
+    font-family: HYe4gj;
+}
+.header .name{
+    font-size: 14px;
+    padding-bottom: 16px;
+    color: #FFFFFF;
+    font-family: HYe3gj;
+}
+.header .name img{
+    width:12px;
+    margin-right: 7px;
+    margin-bottom: 3px;
+}
+.header .address{
+    font-size: 14px;
+    color: #FFFFFF;
+    font-family: HYe3gj;
+}
+.header .address img{
+    width : 12px;
+    margin-right: 7px;
+    margin-bottom: 3px;
+}
+.footer{
+    padding: 20px 0px;
+    background-color: #f5f5f5;
+    font-family: PingFang-SC-Medium;
+    font-size: 14px;
+    color: #333333;
+}
+.footer .padding{
+    padding: 0px;
+}
+.footer .goodsreceipt,.pickup{
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+.footer .goodsreceipt img,.pickup img{
+    width : 26px;
+    padding-bottom: 15px;
+}
+.footer .Shopinformation{
+    margin: 7px 0px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+.footer .padding_plus{
+    padding: 0px 24px 0 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+.footer .Shopinformation img{
+    width: 26px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+.footer .Shopinformation span{
+    line-height: 72px;
+}
+.six_padding{
+    padding: 0px;
+}
+
+.six_padding:nth-child(even){
+    padding-right: 24px;
+    padding-left: 3px;
+}
+.six_padding:nth-child(odd){
+    padding-left: 24px;
+    padding-right: 3px;
+}

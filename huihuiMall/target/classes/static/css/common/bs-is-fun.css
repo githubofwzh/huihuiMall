@@ -1,0 +1,86 @@
+/*www.salesuite.cn UIGroup copyright @ 2014 lopo1983 only for *
+ * conect me lopo1983@foxmail.com QQ:64832897\
+ * website:www.h5power.com 
+ * */
+/*loginmodal*/
+/*step*/
+a {
+	cursor: default;
+}
+.step {
+	counter-reset: flag;
+}
+.step li {
+	position: relative;
+}
+.step li a:before {
+	content: counter(flag);
+	counter-increment: flag;
+}
+.step li a:after {
+	content: "";
+}
+/*step-round*/
+.step-round {
+	margin-top: 60px;
+}
+.step-round>li>a {
+	color: #FFF;
+}
+.step-round li a:before {
+	position: absolute;
+	z-index: 2;
+	top: -2rem;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background-color: #CCCCCC;
+	line-height: 36px;
+	border-color:#00b38b;
+}
+.step-round li a:after {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -25%;
+	background-color: #CCCCCC;
+	z-index: 1;
+	height: 8px;
+}
+.step-round li.active a:before {
+	background-color: #00b38b;
+	color: #FFFFFF;
+	border-color: #00b38b;
+}
+.step-round li.active a:after {
+	background-color: #00b38b;
+}
+.step-round li:first-child a:after {
+	left: 30%;
+	border-radius: 5px 0 0 5px;
+}
+.step-round li:last-child a:after {
+	right: 30%;
+	border-radius: 0 5px 5px 0;
+}
+@media only screen and (min-width: 768px) {
+	/*loginmodal*/
+	
+	#myModal .modal-content {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+	#myModal .modal-dialog {
+		margin-top: 6rem;
+	}
+}
+@media only screen and (max-width: 768px) {
+	/*loginmodal*/
+	
+	#myModal .container-fluid {
+		padding: 0 5%;
+	}
+}

@@ -1,0 +1,550 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+ul{
+	list-style: none;
+}
+
+.container{
+	width: 100%;
+	height: 1078px;
+	padding: 0;
+}
+
+.mainheader{
+	padding: 0;
+	background-color: #3c67c0;
+}
+
+.header{
+	height: 80px;
+}
+
+.logo{
+	display: table;
+    float: left;
+    margin-left: 50px;
+}
+
+.logo_img{
+	display: table-cell;
+	margin-left: 50px;
+	vertical-align: middle;
+}
+
+.logo p{
+	display: table-cell;
+    font-size: 22px;
+    padding-left: 20px;
+    color: #FFFFFF;
+    line-height: 80px;
+}
+
+.header span{
+	display: table-cell;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #FFFFFF;
+    float: right;
+    line-height: 80px;
+    cursor: pointer;
+}
+
+
+.title{
+	height: 90px;
+    font-size: 22px;
+    color: #3c67c0;
+    margin-left: 60px;
+    line-height: 90px;
+    border-bottom: 4px solid #dfdee3;
+    box-sizing: border-box;
+}
+
+.title_content{
+	padding: 0 20px;
+    height: 90px;
+    display: inline-block;
+    width: auto;
+    border-bottom: 4px solid #3c67c0;
+}
+
+._body{
+	margin-left: 60px;
+	padding-top: 20px;
+}
+
+._margintop{
+	margin-top: 20px;
+}
+
+._margintop label{
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #666666;
+	font-weight: 500;
+	display: inline-block;
+    width: 70px;
+    text-align: justify;
+    text-align-last: justify;
+    white-space: normal;
+}
+
+._margintop b{
+	color: #ff0000;
+	position: absolute;
+	top: 5px;
+	font-size: 18px;
+	left: auto;
+}
+
+._margintop input{
+	margin-left: 20px;
+	width: 260px;
+	height: 35px;
+	background-color: #f4f4f4;
+	border: 1px solid #CCCCCC;
+	border-radius: 2px;
+	outline: none;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #999999;
+    padding: 5px 10px;
+}
+
+.notsee{
+	color: #3c67c0!important;
+	cursor: pointer;
+}
+
+._margintop img{
+	margin-left: 5px;
+}
+
+.hasread{
+	display: inline-block;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #666666;
+}
+
+.hasread label{
+	font-weight: 500;
+}
+
+.col-lg-offset-1 input{
+	width: 16px;
+	height: 16px;
+	vertical-align: top;
+}
+
+.hasread span{
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #3c67c0;
+	cursor: pointer;
+	font-weight: 500;
+}
+
+.nextstep{
+	width: 260px;
+	height: 50px;
+	background-color: #3c67c0;
+	color: #FFFFFF;
+}
+
+.btn:hover, .btn:focus, .btn.focus{
+	background-color: #3c67c0;
+	color: #FFFFFF;
+}
+/**/
+
+.title {
+	height: 90px;
+	font-size: 22px;
+	color: #3c67c0;
+	margin-left: 60px;
+	line-height: 90px;
+	border-bottom: 4px solid #dfdee3;
+	box-sizing: border-box;
+}
+
+.title_content {
+	padding: 0 20px;
+	height: 90px;
+	display: inline-block;
+	width: auto;
+	border-bottom: 4px solid #3c67c0;
+}
+
+.moreBody {
+	margin-left: 60px;
+	padding-top: 10px;
+	float: left;
+}
+
+._margintop {
+	margin-top: 23px;
+}
+
+._margintop label {
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #666666;
+	font-weight: 500;
+	display: inline-block;
+	width: 106px;
+	text-align: right;
+	white-space: normal;
+}
+
+._margintop input {
+	margin-left: 20px;
+	width: 240px;
+	height: 35px;
+	background-color: #f4f4f4;
+	border: 1px solid #CCCCCC;
+	border-radius: 2px;
+	outline: none;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	padding: 5px 10px;
+	color: #999999;
+}
+
+._margintop span {
+	margin-left: 10px;
+	height: 35px;
+	color: #999999;
+}
+
+._moreMargintop span {
+	height: 16px;
+	line-height: 24px;
+	margin-left: 130px;
+}
+
+.notsee {
+	color: #3c67c0!important;
+	cursor: pointer;
+}
+
+._margintop img {
+	margin-left: 5px;
+}
+
+.hasread {
+	display: inline-block;
+}
+
+.hasread span {
+	color: #3c67c0;
+	cursor: pointer;
+}
+
+.nextstep {
+	width: 260px;
+	height: 50px;
+	background-color: #3c67c0;
+	color: #FFFFFF;
+}
+
+.black_overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+	background-color: rgba(9, 9, 9, 0.63);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+	width: 100%;
+	height: 100%;
+	z-index: 10000;
+	margin: 0 auto;
+}
+
+._success {
+	position: fixed;
+	top: 25%;
+	left: 35%;
+	width: 500px;
+	height: 380px;
+	padding: 30px 85px 20px 85px;
+	background-color: #FFFFFF;
+	z-index: 1002;
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+._success p {
+	font-size: 28px;
+	text-align: center;
+}
+
+.success_title{
+	font-size: 18px;
+	display: block;
+	text-align: center;
+}
+
+.content{
+	box-sizing: border-box;
+	list-style-image:url('../images/circle.png');
+	padding-left: 47px;
+}
+
+.content li{
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	color: #666666;
+	margin-top: 10px;
+}
+
+.gologin{
+	width: 82%;
+	height: 40px;
+	background-color: #3c67c0;
+	color: #FFFFFF;
+	/* float: right; */
+	margin-top: 20px;
+	line-height: 40px;
+	font-size: 17px;
+	padding: 0;
+}
+
+.hide{
+	display: none;
+}
+
+.init-img{
+	margin-top: 10px;
+}
+
+.init-img img{
+	max-width: 162px;
+	max-height: 111px;
+}
+
+.id_front_imgs{
+	display: block;
+	width: 170px;
+	border: 1px solid #cdcdcd;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 5px 5px;
+	position: relative;
+	background-color: #f4f4f4;
+	margin-top: 15px;
+}
+
+.id_tails_imgs{
+	display: block;
+	width: 170px;
+	border: 1px solid #cdcdcd;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 5px 5px;
+	position: relative;
+	background-color: #f4f4f4;
+	margin-top: 15px;
+}
+.license_imgs{
+	display: block;
+	width: 170px;
+	border: 1px solid #cdcdcd;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 5px 5px;
+	position: relative;
+	background-color: #f4f4f4;
+	margin-top: 15px;
+}
+.id_front_imgs img{
+	max-width: 162px;
+	max-height: 111px;
+}
+
+.id_tails_imgs img{
+	max-width: 162px;
+	max-height: 111px;
+}
+.license_imgs img{
+	max-width: 162px;
+	max-height: 111px;
+}
+
+.delete{
+	position: absolute;
+	right: 0;
+	top: 0px;
+	color: #fff;
+	height: 18px;
+	width: 18px;
+	line-height: 18px;
+	background-color: #EC635C;
+	cursor: pointer;
+	text-align: center;
+
+}
+
+.nextbtn{
+	width: 260px;
+	height: 40px;
+	background-color: #3c67c0;
+	color: #FFFFFF;
+	margin-top: 50px;
+}
+
+.confirmBtn{
+	width: 260px;
+	height: 40px;
+	background-color: #3c67c0;
+	color: #FFFFFF;
+	margin-top: 50px;
+}
+
+.btn:hover, .btn:focus, .btn.focus{
+	background-color: #3c67c0;
+	color: #FFFFFF;
+}
+
+.picture_title{
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #666666;
+}
+
+.picturesee{
+	margin-top: 30px;
+}
+
+.sample{
+	display: inline-block;
+	padding: 0;
+	background-color: #f4f4f4;
+	margin-left: 33px;
+	min-width: 500px;
+	margin-top: 10px;
+}
+
+._marginbase{
+	margin-top: 12px;
+	display: block;
+}
+
+._padding{
+	padding: 0;
+}
+
+.idShow{
+	padding-left: 25px;
+	display: inline-block;
+}
+
+.licenseShow{
+	padding-left: 25px;
+	display: inline-block;
+}
+
+.trueinfo{
+	display: inline-block;
+	width: 80px;
+	text-align: justify;
+	text-align-last: justify;
+	margin-left: 5px;
+}
+
+.trueinfoContent{
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.float_left{
+	float: left;
+}
+
+._padding span img{
+	vertical-align: top;
+}
+
+._inline{
+	display: inline-block;
+	max-width: 360px;
+}
+
+.perfectInfo{
+	display: none;
+}
+
+.trueinfoUsetName{
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.trueinfoPassWord{
+	display: inline-block;
+	margin-left: 10px;
+}
+
+
+
+.active input{
+	border: 1px #3c67c0 solid;
+}
+
+._margintop.error input{
+	border: 1px #f00 solid;
+	background-color: #FBF9BB;
+}
+
+._margintop.error input[type="text"],._margintop.error input[type="password"] {
+	background-color: #FBF9BB;
+	color: #f00;
+}
+
+._margintop .valid_message {
+	color: #3c67c0;
+}
+
+._margintop.error .valid_message {
+	color: #f00;
+}
+
+._margintop.success .valid_message {
+	background: url('../images/sucess.png') no-repeat;
+	position: absolute;
+	left: auto;
+	top: 10px;
+	width: 16px;
+	height: 16px;
+}
+.none {
+	display: none;
+}
+
+._moreMargintop.success .valid_message {
+	background: none;
+	position: absolute;
+	width: 0;
+	height: 0;
+}
+
+.defeat{
+	font-family: "microsoft yahei";
+	font-size: 18px;
+	color: #ff0000;
+}
+
+.tipSuccess{
+	font-family: "microsoft yahei";
+	font-size: 20px;
+	color: #43CD80;
+}
+
+.init-img label{
+	display: block;
+}
+.init-img .valid_message{
+	color: #f00;
+}

@@ -1,0 +1,53 @@
+package com.kshl.huihuimall.console.controller.order.request;
+
+import com.kshl.base.reqeust.BasePageRequest;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * 派单请求
+ */
+public class SendOrderRequest extends BasePageRequest {
+
+    //订单号
+    @NotNull(message = "orderNumber should not be null")
+    private String orderNumber;
+<<<<<<< .mine
+    //仓库id
+=======
+    //仓库id
+    @NotNull(message = "warehouseId should not be null")
+>>>>>>> .r7683
+    private Integer warehouseId;
+<<<<<<< .mine
+    //仓库名字
+=======
+    //仓库名字
+    @NotNull(message = "warehouseName should not be null")
+>>>>>>> .r7683
+    private String warehouseName;
+    //派单时间
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Integer getWarehouseId() {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(Integer warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
+    }
+}

@@ -1,0 +1,106 @@
+html,body{
+	height: 100%;
+}
+.left{
+	float: left;
+	display: inline-block;
+}
+.right{
+	float: right;
+	display: inline-block;
+}
+.shopping_two
+{
+	padding-right: 0px;
+}
+
+.shopping_two dl{
+	border: 1px solid #f4f0ec;
+	width: 250px;
+	padding: 0;
+	margin: 0 3% 2% 0;
+}
+.shopping_two dl dt{
+	height: 250px;
+}
+.dt_img img{
+	width: 250px;
+	height: 250px;
+	margin: 0 auto;
+}
+.shopping_two dl dd{
+	height: 42px;
+	text-align: center;
+	line-height: 42px;
+	font-size: 25px;
+	font-family: "microsoft yahei";
+	color: #333333;
+	background-color: #fff2e2;
+}
+.theme{
+	padding: 110px 0px;
+	background-color: #FFFFFF;
+	overflow:hidden;
+}
+.main_left{
+	padding:0;
+	background-color: #fffcfa;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.main_left div{
+	cursor: pointer;
+	padding: 21px 10px 23px 20px;
+	border-bottom: 1px solid #bbbbbb;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.main_left div i{
+	font-weight: bold;
+}
+.main_left div span{
+	margin-left: 10px;
+	font-size: 30px;
+	color: #333333;
+	font-family: "microsoft yahei";
+}
+.main_right{
+	padding: 31px 0 0 31px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.main_right div dl:nth-child(5n){
+	margin-right: 0;
+}
+.main_right div dl dt image{
+	text-align: center;
+	vertical-align:  middle;
+}
+.active{
+	background-color: #FFFFFF;
+}
+
+
+.input{
+	border: 1px solid #666666;
+	border-radius: 10px;
+	font-size: 19px;
+	margin: 10px auto;
+	height: 50px;
+	padding: 30px 0 30px 10px;
+	margin-top: 15px;
+
+}
+.localStorage{
+	width: 270px;
+	font-size: 24px;
+	text-align: center;
+}
+.modal-content{
+	width: 515px;
+}
+.modal-title{
+	padding: 10px 0;
+	font-size: 24px;
+}

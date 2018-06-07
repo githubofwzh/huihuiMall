@@ -1,0 +1,203 @@
+/*商品清单*/
+.mine-shoppingcart-panel{
+    padding:0px;
+    overflow: auto;
+}
+
+.goods-panel{
+    padding:0px;
+    background-color: #FFFFFF;
+    margin: 5px 0px;
+}
+
+.goods-panel:first-child{
+    margin-top: 10px;
+}
+
+.goods-panel:last-child{
+    margin-bottom: 10px;
+}
+
+
+.goods-img{
+    padding: 0px;
+    border:1px solid #e7e7e7;
+    margin: 10px;
+}
+
+.goods-info-panel{
+    padding:10px 0px;
+}
+
+.goods-name-del{
+    padding: 0px;
+}
+
+.goods-name{
+    padding:0px;
+}
+
+.goods-name span{
+    font-size:16px;
+    line-height: 24px;
+}
+
+.del{
+    padding:0px;
+}
+
+.del img{
+    width:18px;
+    height:18px;
+    vertical-align: middle;
+}
+
+.goods-type{
+    padding:0px;
+}
+
+.goods-type span{
+    border:1px solid #c57030;
+    padding: 2px 4px;
+    color:#c57030;
+    border-radius: 4px;
+    font-size:xx-small;
+}
+
+.goods-price-count{
+    padding:0px;
+}
+
+.goods-price{
+
+    width: auto;
+    padding:0px;
+}
+
+.goods-price span{
+    width: auto;
+    color:red;
+    font-size:14px;
+}
+
+.goods-price label{
+    color:red;
+    font-size:22px;
+    font-weight: normal;
+}
+
+.number-input-panel{
+    padding:0px;
+    text-align: center;
+    vertical-align: middle;
+    float: right;
+}
+
+.count{
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*选择门店*/
+.choose-store-panel{
+    position: fixed;
+    bottom:100px;
+    padding:0px;
+    background-color: #fffbed;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.choose-store{
+    padding:10px;
+    text-align: left;
+}
+
+.choose-btn{
+    padding: 10px;
+    text-align: right;
+}
+
+.choose-btn a,.choose-btn a:hover,.choose-btn a:active{
+    color:#c57030;
+    text-decoration: none;
+}
+
+/*结算*/
+.settlement-panel{
+    position: fixed;
+    bottom:50px;
+    padding:0px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sum{
+    padding:13px 0px;
+    text-align: right;
+}
+
+.sum span{
+    font-size: 16px;
+    color:#444444;
+}
+
+.sum-price{
+    padding:12px 0px;
+}
+
+.sum-price span{
+    color:red;
+    font-size: 18px;
+}
+
+.settlement-btn{
+    background-color:#c57030;
+    padding: 10px;
+    text-align: center;
+}
+
+.settlement-btn span{
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 28px;
+}
+.modal-body section{
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 0 0 15px;
+}
+.modal-body img{
+    width: 63px;
+}
+.modal-body p{
+    color: #39b229;
+    font-size: 16px;
+
+}
+.sheng ,.shi ,.qu{
+    border: 1px solid #c8c8c8;
+    width: 78px;
+    height: 38px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    background-color: #ffffff;
+    font-size: 14px;
+    font-family: MicrosoftYaHei;
+    padding-left: 11px;
+}
+.sheng ,.shi{
+    margin-right: 4px;
+}
+.jiedao ,.mendian{
+    border: 1px solid #c8c8c8;
+    width: 250px;
+    height: 38px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    background-color: #ffffff;
+    font-size: 14px;
+    font-family: MicrosoftYaHei;
+    padding-left: 11px;
+}

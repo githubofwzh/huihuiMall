@@ -1,0 +1,250 @@
+﻿body {
+    background-color: #ecf0f5;
+}
+
+.modal-title {
+    text-align: center;
+}
+
+.close {
+    outline: none;
+}
+
+.title {
+    padding: 0px;
+    text-align: right;
+    line-height: 34px;
+    margin-bottom: 0px;
+}
+
+.title label {
+    font-weight: normal;
+}
+
+.input-box {
+    padding-right: 0px;
+}
+
+.input-form {
+    padding-left: 0px;
+    margin-bottom: 10px;
+    /* margin-top:10px;*/
+}
+
+/*带滚动条的弹窗*/
+/*品牌管理页面modal*/
+#classifyModal .modal-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#classifyModal .modal-content {
+    /*overflow-y: scroll;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#classifyModal .modal-body {
+    overflow-y: scroll;
+    position: absolute;
+    top: 55px;
+    bottom: 103px;
+    width: 100%;
+}
+
+#classifyModal .modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*商品管理页面modal*/
+#editGoodsModal .modal-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#editGoodsModal .modal-content {
+    /*overflow-y: scroll;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#editGoodsModal .modal-body {
+    overflow-y: scroll;
+    position: absolute;
+    top: 55px;
+    bottom: 103px;
+    width: 100%;
+}
+
+#editGoodsModal .modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*页面查看详情modal*/
+#detailModal .modal-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#detailModal .modal-content {
+    /*overflow-y: scroll;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#detailModal .modal-body {
+    overflow-y: scroll;
+    position: absolute;
+    top: 55px;
+    bottom: 103px;
+    width: 100%;
+}
+
+#detailModal .modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*推荐客户名单页面查看modal*/
+#customerListModal .modal-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#customerListModal .modal-content {
+    /*overflow-y: scroll;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#customerListModal .modal-body {
+    overflow-y: scroll;
+    position: absolute;
+    top: 55px;
+    bottom: 103px;
+    width: 100%;
+}
+
+#customerListModal .modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*门店、商家信息修改*/
+#modifySotreBusinessModal .modal-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#modifySotreBusinessModal .modal-content {
+    /*overflow-y: scroll;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#modifySotreBusinessModal .modal-body {
+    overflow-y: scroll;
+    position: absolute;
+    top: 55px;
+    bottom: 103px;
+    width: 100%;
+}
+
+#modifySotreBusinessModal .modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*库房管理设置管理员modal*/
+#setAdminModal .modal-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#setAdminModal .modal-content {
+    /*overflow-y: scroll;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#setAdminModal .modal-body {
+    overflow-y: scroll;
+    position: absolute;
+    top: 55px;
+    bottom: 103px;
+    width: 100%;
+}
+
+#setAdminModal .modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/*入库、调库添加商品modal*/
+#inputGoodsModal .modal-dialog {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#inputGoodsModal .modal-content {
+    /*overflow-y: scroll;*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#inputGoodsModal .modal-body {
+    overflow-y: scroll;
+    position: absolute;
+    top: 55px;
+    bottom: 103px;
+    width: 100%;
+}
+
+#inputGoodsModal .modal-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}

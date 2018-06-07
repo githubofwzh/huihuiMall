@@ -1,0 +1,44 @@
+package com.kshl.huihuimall.base.request;
+
+import com.kshl.base.reqeust.BaseRequest;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by 40513 on 2018/1/17.
+ */
+public class WeChatRefundRequest extends BaseRequest {
+
+    @NotNull(message = "outTradeNo should not be null")
+    private String outTradeNo;//商户订单号
+
+    @NotNull(message = "totalFee should not be null")
+    private String totalFee;//订单金额
+
+    @NotNull(message = "refundFee should not be null")
+    private String refundFee;//退款金额
+
+    public String getOutTradeNo() {
+        return outTradeNo;
+    }
+
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
+
+    public String getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(String totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    public String getRefundFee() {
+        return refundFee;
+    }
+
+    public void setRefundFee(String refundFee) {
+        this.refundFee = refundFee;
+    }
+}

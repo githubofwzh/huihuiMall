@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/kshl/!svn/ver/9237/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/dao/impl
+END
+ProductDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/kshl/!svn/ver/9032/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/dao/impl/ProductDaoImpl.java
+END
+RoleDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/kshl/!svn/ver/9237/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/dao/impl/RoleDaoImpl.java
+END
+AccountToRoleDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/kshl/!svn/ver/7703/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/dao/impl/AccountToRoleDaoImpl.java
+END
+RoleToResorceDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/kshl/!svn/ver/7430/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/base/dal/dao/impl/RoleToResorceDaoImpl.java
+END

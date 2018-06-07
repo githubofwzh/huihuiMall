@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kshl.huihuimall.console.dal.manualmapper.ShopKeeperManualMapper">
+
+    <select id="getAllShopKeeper" parameterType="map" resultType="map">
+        SELECT
+        shop.*, s.id AS storeId,
+        s.store_name AS storeName,
+        s.shopkeeper_id,
+        s.address_shengshi,
+        s.address_qu,
+        s.address_street,
+        s.address_door,
+        s.device_id,
+        s. STATUS AS storestatus,
+        s.storehouse_id,
+        s.remark,
+        s.store_address as address
+        FROM
+        shopkeeper shop
+        LEFT JOIN store s ON shop.store_id = s.id
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="status != null">
+                AND shop.status = #{status}
+            </if>
+            <if test="storeName != null">
+                AND s.store_name LIKE CONCAT('%', #{storeName}, '%')
+            </if>
+        </trim>
+        <if test="startPage != null and pageSize != null">
+            LIMIT #{startPage,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getAllShopKeeperCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(shop.id)
+        FROM shopkeeper shop
+        LEFT JOIN store s ON shop.store_id = s.id
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="status != null">
+                AND shop.status = #{status}
+            </if>
+            <if test="storeName != null">
+                AND s.store_name LIKE CONCAT('%', #{storeName}, '%')
+            </if>
+        </trim>
+    </select>
+
+    <select id="getOpenId" parameterType="String" resultType="com.kshl.huihuimall.base.dal.entity.Shopkeeper">
+        SELECT id, phone_number as phoneNumber, open_id as openId, store_id as storeId,education,name,
+        birthday,ismarrige,gender,bank_number as bankNumber,idcard
+        FROM shopkeeper
+       where open_id =#{openId}
+    </select>
+
+    <select id="getAuditstatusBystore" parameterType="int" resultType="com.kshl.huihuimall.base.dal.entity.Store">
+        SELECT audit_status as auditStatus,id
+        FROM  store
+        where id =#{storeId}
+    </select>
+
+    <select id="getphnoe" parameterType="String" resultType="com.kshl.huihuimall.base.dal.entity.Shopkeeper">
+        SELECT phone_number as phoneNumber,id,store_id as storeId,open_id as openId,
+        identify_code as identifyCode ,expiretime
+        FROM  shopkeeper
+        where phone_number =#{phoneNumber}
+    </select>
+
+    <update id="updateOpenId" parameterType="com.kshl.huihuimall.base.dal.entity.StoreOrder">
+        update shopkeeper
+        set open_id = #{openId}
+        where store_id = #{id}
+    </update>
+
+    <delete id="deletePhone" parameterType="java.lang.String">
+        delete from shopkeeper
+        where phone_number = #{phoneNumber}
+    </delete>
+
+</mapper>

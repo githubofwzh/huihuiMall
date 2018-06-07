@@ -1,0 +1,190 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+ul{
+	list-style: none;
+}
+
+.container{
+	width: 100%;
+	background-image: url(../images/common/login_base.jpg);
+	background-size: 100% 100%;
+}
+
+._padding{
+	padding: 0;
+}
+
+.main{
+	margin: 0 auto;
+}
+
+.mainbody{
+	background-color: #f4fdfa;
+	padding: 0;
+	border-radius: 10px;
+	box-sizing: border-box;
+	width:600px;
+	height:450px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,50%);
+}
+
+.header{
+	height: 83px;
+	border-bottom: 1px solid #3c67c0;
+	display: table;
+}
+
+.logo{
+	display: table-cell;
+    vertical-align: middle;
+}
+
+/*.logo img{
+	margin-left: 50px;
+	width:54px;
+	height:54px;
+}*/
+
+.header p{
+	display: table-cell;
+    vertical-align: middle;
+    font-size: 24px;
+    color: #3c67c0;
+}
+
+.login_body{
+	box-sizing: border-box;
+	padding: 60px 80px 30px 80px;
+}
+
+.enter_prise{
+	height: 45px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	position: relative;
+	outline: none;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #999999;
+	border: 1px solid;
+	min-width: 380px;
+	padding: 10px;
+}
+
+._padding img{
+	position: absolute;
+	top: 10px;
+	right: 15px;
+}
+
+.username{
+	height: 45px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	position: relative;
+	outline: none;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #999999;
+	border: 1px solid;
+	min-width: 380px;
+	padding: 10px;
+}
+
+.password{
+	height: 45px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	position: relative;
+	outline: none;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #999999;
+	border: 1px solid;
+	min-width: 380px;
+	padding: 10px;
+}
+
+.forgetpassword{
+	float: right;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #3c67c0;
+	cursor: pointer;
+}
+
+.loginbtn{
+	width: 100%;
+	height: 50px;
+	background-color: #3c67c0;
+	font-family: "microsoft yahei";
+	font-size: 20px;
+	color: #FFFFFF;
+}
+
+._bottom{
+	margin-bottom: 20px;
+}
+
+._bottom input{
+	width: 16px;
+	height: 16px;
+	vertical-align: top;
+}
+
+._bottom label{
+	font-weight: 500;
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #666666;
+	margin-left: 5px;
+}
+
+.register a{
+	color: #3c67c0;
+}
+
+._margin{
+	margin-top: 15px;
+}
+
+.btn:hover, .btn:focus, .btn.focus{
+	background-color: #3c67c0;
+	color: #FFFFFF;
+}
+
+.goregister{
+	font-family: "microsoft yahei";
+	font-size: 16px;
+	color: #666666;
+}
+
+.clear::-ms-clear { display: none;}
+
+.btn-default
+{
+	background-color: #3c67c0;
+	border: none;
+	color: #FFF;
+	outline: none;
+}
+.btn:focus, .btn-default:active:focus
+{
+	background-color: #3c67c0;
+	color: #FFF;
+	border: none;
+	outline: none;
+}
+.btn:hover
+{
+	background-color: #3c67c0;
+	color: #FFF;
+	/* border: none;*/
+	outline: none;
+}

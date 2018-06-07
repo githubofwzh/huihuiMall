@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/kshl/!svn/ver/8991/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface
+END
+ResultModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/ResultModel.java
+END
+EmayHttpRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/EmayHttpRequest.java
+END
+SmsBaseRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/SmsBaseRequest.java
+END
+AES.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/AES.java
+END
+JsonHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/JsonHelper.java
+END
+EmayHttpRequestBytes.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/EmayHttpRequestBytes.java
+END
+SmsSingleRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/SmsSingleRequest.java
+END
+SmsResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/kshl/!svn/ver/8991/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/SmsResponse.java
+END
+EmayHttpResponseBytes.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/EmayHttpResponseBytes.java
+END
+smsinterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/kshl/!svn/ver/8991/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/smsinterface.java
+END
+EmayHttpResultCode.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/EmayHttpResultCode.java
+END
+EmayHttpResponsePraser.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/EmayHttpResponsePraser.java
+END
+GZIPUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/GZIPUtils.java
+END
+EmayHttpClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/EmayHttpClient.java
+END
+EmayHttpResponseBytesPraser.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/kshl/!svn/ver/8967/out_project/HuihuiMall/src/main/java/com/kshl/huihuimall/portal/smsinterface/EmayHttpResponseBytesPraser.java
+END
